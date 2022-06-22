@@ -1,9 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
+import React from "react";
+import Navigation from "./components/Navigation"
+import RegisterPage from "./pages/Register"
+import LoginPage from "./pages/Login"
+import HomePage from "./pages/Home"
+import {Route, Switch} from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
+    /*<div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -18,7 +24,24 @@ function App() {
           Learn React
         </a>
       </header>
+    </div>*/
+    <div>
+      <Navigation/>
+      <Switch>
+        <Route path="/register">
+          <RegisterPage />
+        </Route>
+        <Route path={["/", "/login"]} exact>
+          <LoginPage />
+
+        </Route>
+        <Route path="/home">
+          <HomePage />
+
+        </Route>
+      </Switch>
     </div>
+    
   );
 }
 
