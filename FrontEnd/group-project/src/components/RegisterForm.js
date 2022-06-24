@@ -1,6 +1,9 @@
 import React, {useRef} from 'react';
+import * as yup from 'yup'
+import YupPassword from 'yup-password'
+YupPassword(yup)
 
-function RegisterForm(){
+function RegisterForm(props){
     const firstNameRef = useRef();
     const lastNameRef = useRef();
     const emailRef = useRef();
@@ -17,8 +20,39 @@ function RegisterForm(){
         const securityQuestion = securityQuestionRef.current.value;
         //password validation
         const user = {firstName, lastName, email, password, securityQuestion}
-        //console.log(user);
+        //change to have return type, call props only if successfull
+        validation(email, password);
         //Send values to server
+        props.registerUser(user);
+    }
+    async function validation(email, password){
+        //start of formik code
+        const schema = yup.object().shape({
+            username: yup.string().email().required(),
+            password: yup.string().password().required(),
+        })
+
+        const input = {
+            username: email,
+            password: password,
+        }
+        
+        try {
+            // validate
+            const res = await schema.validate(input, { abortEarly: false })
+            //  ...
+        } catch (e) {
+            alert(e.errors);
+            console.log(e.errors) // => [
+            //   'password must be at least 8 characters',
+            //   'password must contain at least 1 uppercase letter',
+            //   'password must contain at least 1 number',
+            //   'password must contain at least 1 symbol',
+            // ]
+        }
+        //end of formik code
+        
+
     }
     
     return (
@@ -32,7 +66,7 @@ function RegisterForm(){
             <input type="password" required placeholder="Password" ref={passwordRef}/>
             <br/>
             <label>Security Question: What is your favorite color? </label>
-            <input type="text" required placeholder="Favorite Color?" ref={lastNameRef}/>
+            <input type="text" required placeholder="Favorite Color?" ref={securityQuestionRef}/>
             <br/>
             <button>Submit</button>
         </form>
