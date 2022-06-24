@@ -6,15 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
-import Group_15.Trello_Project.EmptyPasswordException;
+import Group_15.Trello_Project.*;
 import Group_15.Trello_Project.EmailAlreadyRegisteredException;
-import Group_15.Trello_Project.SecurityQAnswerEmptyException;
-import Group_15.Trello_Project.PasswordNotMatchCriteriaException;
 import Group_15.Trello_Project.EmailNotRegisteredException;
 import Group_15.Trello_Project.IncorrectPasswordException;
+import Group_15.Trello_Project.IncorrectSecurityAnswerException;
 import Group_15.Trello_Project.NewPasswordSameAsOldPasswordException;
-import Group_15.Trello_Project.IncorrectSecurityQuestionException;
 
 
 
@@ -46,10 +43,10 @@ class TrelloProjectApplicationTests {
 		String answer = "ans";
 		userService.signUp(email, password, answer);
 
-		assertThrows
+		assertThrows(EmailAlreadyRegisteredException, );
 	}
 
-	//check pw matches criteria
+	/*check pw matches criteria
 	@Test()
 	public void testSignUp_pwDoesNotMatchCriteria() throws PasswordNotMatchCriteriaException {
 		String email = "email1";
@@ -57,6 +54,7 @@ class TrelloProjectApplicationTests {
 		String answer = "ans";
 		userService.signUp( email, invalidPassword, "ans");
 	}
+	*/
 
 	//check security question not empty string
 	@Test
