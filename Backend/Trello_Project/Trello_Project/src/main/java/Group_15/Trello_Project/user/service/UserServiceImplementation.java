@@ -103,18 +103,34 @@ public class UserServiceImplementation implements UserServiceInterface {
 
     /*
     public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel) {
-
+        //check if user exists, assume workspace has already been error checked
+        //if they do then add it to user list
     }
 
-    public List<WorkspaceModel> getAllWorkspaces(Integer id);
+    public List<WorkspaceModel> getAllWorkspaces(Integer id) {
+        //check if user exists..
+        //then send List<WorkspaceModel>
+    }
 
-    public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel);
+    public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel) {
+        //check if user exists
+        // then remove workspace from List<WorkspaceModel>
+    }
 
-    public boolean addBoardToUser(Integer id, BoardModel boardModel);
+    public boolean addBoardToUser(Integer id, BoardModel boardModel){
+        //check if user exists, assume boardModel has already been error checked
+        // then add board to List<BoardModel>
+    }
 
-    public boolean List<BoardModel> getAllBoards(Integer id);
+    public boolean List<BoardModel> getAllBoards(Integer id){
+        //check if user exists
+        // then return board list
+    }
 
-    public boolean deleteUserBoard(Integer id, BoardModel boardModel);
+    public boolean deleteUserBoard(Integer id, BoardModel boardModel) {
+        //check if user exists
+        // then remove board from list
+    }
      */
 
 }
