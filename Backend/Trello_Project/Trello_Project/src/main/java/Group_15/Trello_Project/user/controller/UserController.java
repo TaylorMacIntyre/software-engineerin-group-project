@@ -19,13 +19,13 @@ public class UserController {
     }
 
     //login?
-    @GetMapping("/login/{email, password}")
+    @GetMapping("/login/{email}/{password}")
     public Integer loginUser(@PathVariable String email, @PathVariable String password) throws IncorrectPasswordException, EmailNotRegisteredException {
         return userServiceInterface.logInUser(email, password);
     }
 
     //forgot pw?
-    @PutMapping("/updatePW/{email, securityQAnswer, newPassword}")
+    @PutMapping("/updatePW/{email}/{securityQAnswer}/{newPassword}")
     public boolean updatePassword(@PathVariable String email, @PathVariable String securityQAnswer, String newPassword) throws IncorrectSecurityAnswerException, EmailNotRegisteredException, NewPasswordSameAsOldPasswordException {
         return userServiceInterface.updatePassword(email, securityQAnswer, newPassword);
     }
