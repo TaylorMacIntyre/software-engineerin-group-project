@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e0b065fa-8aef-4010-a811-e70ee3cc0fd2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/test/java/Group_15/Trello_Project/TrelloProjectApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/test/java/Group_15/Trello_Project/TrelloProjectApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataBase/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase/db.sql" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2B2lutKsfGmF6ICh6ImGfFqin2a" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/fizat/Downloads/group15/Backend/Trello_Project/Trello_Project",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e0b065fa-8aef-4010-a811-e70ee3cc0fd2" name="Changes" comment="" />
+      <created>1656112289513</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1656112289513</updated>
+      <workItem from="1656112293974" duration="11000" />
+    </task>
+    <servers />
+  </component>
+</project>
