@@ -26,14 +26,6 @@ public class UserServiceImplementation implements UserServiceInterface {
         return userModel.getId();
     }
 
-    /*
-    @Override
-    public void updatePassword(String email, String securityAnswer, String newPw) {
-        //idk why this is here
-        userRepository.findByEmail(email);
-    }
-    */
-
     public Integer logInUser(String email, String password) throws IncorrectPasswordException, EmailNotRegisteredException {
         Optional<UserModel> user;
         try{
@@ -101,36 +93,111 @@ public class UserServiceImplementation implements UserServiceInterface {
         return userModel;
     }
 
-    /*
+
+
+
+
+    //UNCOMMENT WHEN BACKENDS ARE CONNECTED
+/*
     public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel) {
         //check if user exists, assume workspace has already been error checked
-        //if they do then add it to user list
+        UserModel userModel;
+        Optional<UserModel> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userModel = user.get();
+            List<WorkspaceModel> workspaces = userModel.getWorkspaces();
+            if(workspaces == null){
+                workspaces = new List<WorkspaceModel>();
+            }
+            workspaces.add(workspaceModel);
+            userModel.setWorkspaces(workspaces);
+            userRepository.save(userModel);
+            return true;
+        }else{
+            return false;
+        }
+        //if they do then add workspace to user list
     }
 
     public List<WorkspaceModel> getAllWorkspaces(Integer id) {
         //check if user exists..
+        UserModel userModel = null;
+        Optional<UserModel> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userModel = user.get();
+            return userModel.getWorkspaces();
+        }else{
+            return null;
+        }
         //then send List<WorkspaceModel>
     }
 
     public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel) {
         //check if user exists
+        UserModel userModel = null;
+        Optional<UserModel> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userModel = user.get();
+            List<WorkspaceModel> workspaces = userModel.getWorkspaces();
+            if(workspaces == null){
+                //can't delete a workspace from an empty list
+                return false;
+            }
+            return workspaces.remove(workspaceModel);
+        }
         // then remove workspace from List<WorkspaceModel>
+        //user doesn't exist
+        return false;
     }
 
     public boolean addBoardToUser(Integer id, BoardModel boardModel){
         //check if user exists, assume boardModel has already been error checked
+        UserModel userModel = null;
+        Optional<UserModel> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userModel = user.get();
+            List<BoardModel> boards = userModel.getBoards();
+            if(boards == null){
+                boards = new List<BoardModel>();
+            }
+            boards.add(boardModel);
+            userModel.setBoards(boards);
+            userRepository.save(userModel);
+            return true;
+        }else{
+            return false;
+        }
         // then add board to List<BoardModel>
     }
 
-    public boolean List<BoardModel> getAllBoards(Integer id){
+    public List<BoardModel> getAllBoards(Integer id){
         //check if user exists
+        UserModel userModel = null;
+        Optional<UserModel> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userModel = user.get();
+            return userModel.getBoards();
+        }else{
+            return null;
+        }
         // then return board list
     }
 
     public boolean deleteUserBoard(Integer id, BoardModel boardModel) {
         //check if user exists
-        // then remove board from list
+        UserModel userModel = null;
+        Optional<UserModel> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userModel = user.get();
+            List<BoardModel> boards = userModel.getBoards();
+            if(boards == null){
+                //can't delete a board from an empty list of boards
+                return false;
+            }
+            return boards.remove(boardModel);
+        }
+        //user isn't present, return false
+        return false;
     }
-     */
-
+*/
 }

@@ -14,13 +14,13 @@ public class UserModel {
     private String securityAnswer;
     //UPDATE ME W TASKS INFO
 
-    /*
+    /* UNCOMMENT WHEN BACKENDS CONNECTED
     @ManyToMany(targetEntity = BoardModel.class)
-    @JoinColumn(name="Board_Users")
+    @JoinColumn(name = "Board_Users")
     private List<BoardModel> boards;
 
     @ManyToMany(targetEntity = WorkspaceModel.class)
-    @JoinColumn(name="Workspace_users")
+    @JoinColumn(name = "Workspace_Users")
     private List<WorkspaceModel> workspaces;
     */
 
@@ -32,7 +32,7 @@ public class UserModel {
         this.securityAnswer = securityAnswer;
     }
 
-    public UserModel(){
+    public UserModel() {
 
     }
 
@@ -52,11 +52,17 @@ public class UserModel {
         this.firstName = firstName;
     }
 
-    public String getLastName() { return lastName; }
+    public String getLastName() {
+        return lastName;
+    }
 
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-    public String getEmail() { return email; }
+    public String getEmail() {
+        return email;
+    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -70,7 +76,30 @@ public class UserModel {
         this.password = password;
     }
 
-    public String getSecurityAnswer() { return securityAnswer; }
+    public String getSecurityAnswer() {
+        return securityAnswer;
+    }
 
-    public void setSecurityAnswer(String securityQAnswer) { this.securityAnswer = securityQAnswer; }
+    public void setSecurityAnswer(String securityQAnswer) {
+        this.securityAnswer = securityQAnswer;
+    }
+
+    //commented out until we connect backends
+    /*
+    public List<BoardModel> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(List<BoardModel> boards) {
+        this.boards = boards;
+    }
+
+    public List<WorkspaceModel> getWorkspaces() {
+        return workspaces;
+    }
+
+    public void setWorkspaces(List<WorkspaceModel> workspaces) {
+        this.workspaces = workspaces;
+    }
+    */
 }

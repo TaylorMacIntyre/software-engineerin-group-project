@@ -14,7 +14,7 @@ public interface UserServiceInterface {
 
     public UserModel findUserByID(Integer userId);
 
-    /*
+    /* UNCOMMENT WHEN BACKENDS ARE CONNECTED
     public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel);
 
     public List<WorkspaceModel> getAllWorkspaces(Integer id);
@@ -23,7 +23,7 @@ public interface UserServiceInterface {
 
     public boolean addBoardToUser(Integer id, BoardModel boardModel);
 
-    public boolean List<BoardModel> getAllBoards(Integer id);
+    public List<BoardModel> getAllBoards(Integer id);
 
     public boolean deleteUserBoard(Integer id, BoardModel boardModel);
      */
