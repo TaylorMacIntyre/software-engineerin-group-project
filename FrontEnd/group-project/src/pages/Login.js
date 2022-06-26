@@ -4,18 +4,21 @@ import LoginForm from "../components/LoginForm";
 
 function LoginPage(){
 
-    const [loginData, setLoginData] = useState([]);
+    //stuff I may need
+    const [data, setLoginData] = useState([]);
 
     const history = useHistory();
 
     function loginUserHandler(user){
-        fetch("http://localhost:3001/login", {
+        fetch("http://localhost:3001/user/login", {
             method: "POST",
             body: JSON.stringify(user),
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(() => history.replace("/home"))
+        }).then(response => response.json())
+        .then(data => setLoginData(data))//.then(() => history.replace("/home"))
+        console.log(data);
     }
 
     useEffect(function(){

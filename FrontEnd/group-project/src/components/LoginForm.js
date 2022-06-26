@@ -17,7 +17,7 @@ function LoginForm(props){
         const user = {email, password}
 
         //Send values to server
-        props.LoginUser(user);
+        props.loginUser(user);
     }
 
     function forgotPassword(event){

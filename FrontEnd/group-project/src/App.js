@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation"
 import RegisterPage from "./pages/Register"
 import LoginPage from "./pages/Login"
 import HomePage from "./pages/Home"
+import PasswordPage from "./pages/ForgotPassword"
 import {Route, Switch} from "react-router-dom";
 
 function App() {
@@ -37,6 +38,10 @@ function App() {
         </Route>
         <Route path="/home">
           <HomePage />
+
+        </Route>
+        <Route path="/forgotpassword">
+          <PasswordPage />
 
         </Route>
       </Switch>

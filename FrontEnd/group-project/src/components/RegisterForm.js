@@ -21,9 +21,11 @@ function RegisterForm(props){
         //password validation
         const user = {firstName, lastName, email, password, securityQuestion}
         //change to have return type, call props only if successfull
-        validation(email, password);
-        //Send values to server
-        props.registerUser(user);
+        if(validation(email, password)){
+            //Send values to server
+            console.log("In function");
+            props.registerUser(user);
+        }
     }
     async function validation(email, password){
         //start of formik code
@@ -40,15 +42,13 @@ function RegisterForm(props){
         try {
             // validate
             const res = await schema.validate(input, { abortEarly: false })
+            console.log("SUCCESS");
+            return true;
             //  ...
         } catch (e) {
             alert(e.errors);
-            console.log(e.errors) // => [
-            //   'password must be at least 8 characters',
-            //   'password must contain at least 1 uppercase letter',
-            //   'password must contain at least 1 number',
-            //   'password must contain at least 1 symbol',
-            // ]
+            console.log(e.errors);
+            return false;
         }
         //end of formik code
         
