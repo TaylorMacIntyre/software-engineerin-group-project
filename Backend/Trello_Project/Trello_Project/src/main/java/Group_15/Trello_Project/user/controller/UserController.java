@@ -26,7 +26,7 @@ public class UserController {
 
     //forgot pw?
     @PutMapping("/updatePW/{email}/{securityQAnswer}/{newPassword}")
-    public boolean updatePassword(@PathVariable String email, @PathVariable String securityQAnswer, String newPassword) throws IncorrectSecurityAnswerException, EmailNotRegisteredException, NewPasswordSameAsOldPasswordException {
+    public boolean updatePassword(@PathVariable String email, @PathVariable String securityQAnswer, @PathVariable String newPassword) throws IncorrectSecurityAnswerException, EmailNotRegisteredException, NewPasswordSameAsOldPasswordException {
         return userServiceInterface.updatePassword(email, securityQAnswer, newPassword);
     }
 }
