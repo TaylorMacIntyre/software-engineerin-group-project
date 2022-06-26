@@ -12,6 +12,6 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<UserModel, Integer> {
-    @Query(value = "From UserModel where email = email")
+    @Query(value = "from UserModel where email = :email")
     public Optional<UserModel> findByEmail(@Param(value = "email") String email);
 }
