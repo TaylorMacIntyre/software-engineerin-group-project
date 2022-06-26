@@ -17,9 +17,15 @@ public class BoardService {
     @Autowired
     BoardRepository boardRepository;
 
-    public BoardModel createBoard(BoardModel boardModel) {
-        return boardRepository.save(boardModel);
-    }
+//    //CONNECTION TO TAYLOR'S BACKEND
+//    @Autowired
+//    UserService userService;
+//
+//    public BoardModel createBoard(Long user_id, BoardModel boardModel) {
+//
+//        userService.addWorkspaceToUser(user_id, boardModel);
+//        return boardRepository.save(boardModel);
+//    }
 
     public BoardModel findBoardById(Long board_id)
     {
@@ -50,19 +56,14 @@ public class BoardService {
     {
         BoardModel boardModel = null;
         Optional<BoardModel> board = null;
-        try
-        {
-            board = boardRepository.findById(board_id);
 
-            if(board.isPresent()) {
+        Optional<BoardModel> optionalBoardModel = boardRepository.findById(board_id);
 
-                boardModel = board.get();
-            }
+        if(optionalBoardModel.isPresent()) {
+
+            boardModel = optionalBoardModel.get();
         }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
+
 
         return boardModel;
 

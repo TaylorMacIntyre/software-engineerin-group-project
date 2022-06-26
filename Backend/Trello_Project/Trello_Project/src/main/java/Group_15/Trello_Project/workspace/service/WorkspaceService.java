@@ -7,6 +7,7 @@ import Group_15.Trello_Project.workspace.repository.WorkspaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,16 @@ public class WorkspaceService {
     @Autowired
     BoardService boardService;
 
-    public WorkspaceModel createWorkspace(WorkspaceModel workspaceModel)
-    {
-        return workspaceRepository.save(workspaceModel);
-
-    }
+    //CONNECTION TO TAYLOR'S BACKEND
+//    @Autowired
+//    UserService userService;
+//
+//    public WorkspaceModel createWorkspace(Long user_id, WorkspaceModel workspaceModel)
+//    {
+//        userService.addWorkspaceToUser(user_id, workspaceModel);
+//        return workspaceRepository.save(workspaceModel);
+//
+//    }
 
     public WorkspaceModel updateBoard(Long workspace_id, Long board_id)
     {
@@ -73,19 +79,12 @@ public class WorkspaceService {
     public WorkspaceModel getWorkspace(@PathVariable Long workspace_id)
     {
         WorkspaceModel workspaceModel = null;
-        Optional<WorkspaceModel> workspace = null;
-        try
-        {
-            workspace = workspaceRepository.findById(workspace_id);
 
-            if(workspace.isPresent()) {
+        Optional<WorkspaceModel> optionalWorkspaceModel = workspaceRepository.findById(workspace_id);
 
-                workspaceModel = workspace.get();
-            }
-        }
-        catch(Exception ex)
+        if(optionalWorkspaceModel.isPresent())
         {
-            ex.printStackTrace();
+            workspaceModel = optionalWorkspaceModel.get();
         }
 
         return workspaceModel;
