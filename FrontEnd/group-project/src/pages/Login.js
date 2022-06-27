@@ -9,16 +9,17 @@ function LoginPage(){
 
     const history = useHistory();
 
-    function loginUserHandler(user){
-        fetch("http://localhost:3001/user/login", {
-            method: "POST",
+    function loginUserHandler(email, password){
+        fetch("http://localhost:9001/user/login/:" + email + "/:" + password, {
+            /*method: "POST",
             body: JSON.stringify(user),
             headers: {
                 "Content-Type": "application/json"
-            }
-        }).then(response => response.json())
-        .then(data => setLoginData(data))//.then(() => history.replace("/home"))
-        console.log(data);
+            }*/
+        }).then(response => console.log(response.text()))
+        .then(data => console.log(data))//.then(() => history.replace("/home"))
+        //console.log(response);
+        console.log("data" + data);
     }
 
     useEffect(function(){

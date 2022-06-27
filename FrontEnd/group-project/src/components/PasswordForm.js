@@ -56,7 +56,7 @@ function PasswordForm(){
         <form onSubmit={submitHandler}>
             <input type="email" required placeholder="Email" ref={emailRef}/>
             <br/>
-            <label>Security Question: What is your favorite color? </label>
+            <label>Security Question: </label>
             <input type="text" required placeholder="Favorite Color?" ref={securityQuestionRef}/>
             <br/>
             <input type="password" required placeholder="New Password" ref={passwordRef}/>

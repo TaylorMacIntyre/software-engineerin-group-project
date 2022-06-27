@@ -6,7 +6,7 @@ function RegisterPage(){
     const history = useHistory();
     
     function registerUserHandler(user){
-        fetch("http://localhost:3001/registration", {
+        fetch("http://localhost:9001/user/save", {
             method: "POST",
             body: JSON.stringify(user),
             headers: {
