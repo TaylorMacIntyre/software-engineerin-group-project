@@ -19,10 +19,11 @@ function RegisterForm(props){
         const password = passwordRef.current.value;
         const securityAnswer = securityQuestionRef.current.value;
         console.log(securityAnswer);
+        console.log(email);
         //password validation
         const user = {firstName, lastName, email, password, securityAnswer}
         //change to have return type, call props only if successfull
-        validation(email, password)
+        validation(email, password, user)
     }
     async function validation(email, password, user){
         //start of formik code
