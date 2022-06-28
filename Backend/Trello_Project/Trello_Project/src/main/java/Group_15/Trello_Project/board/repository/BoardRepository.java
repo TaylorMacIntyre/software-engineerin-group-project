@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BoardRepository extends JpaRepository<BoardModel, Long>
+public interface BoardRepository extends JpaRepository<BoardModel, Integer>
 {
 
 }
