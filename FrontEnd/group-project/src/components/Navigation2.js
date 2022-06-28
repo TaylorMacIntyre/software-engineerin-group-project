@@ -2,19 +2,19 @@ import React from 'react';
 import { Box, AppBar, Toolbar, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-function Navigation() {
+function Navigation2() {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Link to='/boards' style={{ textDecoration: 'none', color: 'white' }}>
+                    <Link to='/WorkSpace' style={{ textDecoration: 'none', color: 'white' }}>
                         <Typography variant="h6" component="div" sx={{ padding: '0 8px' }}>
-                            Boards
+                            WorkSpace
                         </Typography>
                     </Link>
-                    <Link to='/create-board' style={{ textDecoration: 'none', color: 'white' }}>
+                    <Link to='/create-WorkSpace' style={{ textDecoration: 'none', color: 'white' }}>
                         <Typography variant="h6" component="div" sx={{ padding: '0 8px' }}>
-                            Create Board
+                            Create WorkSpace
                         </Typography>
                     </Link>
                 </Toolbar>
@@ -23,4 +23,4 @@ function Navigation() {
     );
 }
 
-export default Navigation;
+export default Navigation2;
