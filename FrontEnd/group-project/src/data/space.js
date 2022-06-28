@@ -1,28 +1,28 @@
 const space = [
     {
         id: '1',
-        name: 'CSCI 3130',
-        desp: 'Everything related to CSCI 3130',
+        name: 'space1',
+        desp: 'Everything related to space1',
     },
     {
         id: '2',
-        name: 'CSCI 3120',
-        desp: 'Everything related to CSCI 3130',
+        name: 'space2',
+        desp: 'Everything related to space2',
     },
     {
         id: '3',
-        name: 'CSCI 3110',
-        desp: 'Everything related to CSCI 3130',
+        name: 'Space3',
+        desp: 'Everything related to space3',
     },
     {
         id: '4',
-        name: 'CSCI 3170',
-        desp: 'Everything related to CSCI 3130',
+        name: 'Space4',
+        desp: 'Everything related to space4',
     },
     {
         id: '5',
-        name: 'CSCI 3180',
-        desp: 'Everything related to CSCI 3130',
+        name: 'Space5',
+        desp: 'Everything related to space5',
     },
 ];
 
