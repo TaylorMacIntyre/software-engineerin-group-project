@@ -15,11 +15,11 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
-//    //CONNECTION TO TAYLOR'S BACKEND
-//    @PostMapping(path = "/saveBoard", consumes = "application/json", produces = "application/json")
-//    public BoardModel createBoard(@PathVariable Long user_id, @RequestBody BoardModel boardModel) {
-//        return boardService.createBoard(user_id, boardModel);
-//    }
+    //CONNECTION TO TAYLOR'S BACKEND
+    @PostMapping(path = "/saveBoard", consumes = "application/json", produces = "application/json")
+    public BoardModel createBoard(@PathVariable Long user_id, @RequestBody BoardModel boardModel) {
+        return boardService.createBoard(user_id, boardModel);
+    }
 
     @DeleteMapping("/deleteBoard/{board_id}")
     public void deleteBoard(@PathVariable Long board_id)

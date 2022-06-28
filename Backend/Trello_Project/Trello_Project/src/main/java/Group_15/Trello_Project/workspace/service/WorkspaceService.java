@@ -23,15 +23,25 @@ public class WorkspaceService {
     BoardService boardService;
 
     //CONNECTION TO TAYLOR'S BACKEND
-//    @Autowired
-//    UserService userService;
-//
-//    public WorkspaceModel createWorkspace(Long user_id, WorkspaceModel workspaceModel)
-//    {
-//        userService.addWorkspaceToUser(user_id, workspaceModel);
-//        return workspaceRepository.save(workspaceModel);
-//
-//    }
+    @Autowired
+    UserService userService;
+
+    public WorkspaceModel createWorkspace(Long user_id, WorkspaceModel workspaceModel)
+    {
+        boolean success = userService.addWorkspaceToUser(user_id, workspaceModel);
+        WorkspaceModel workspace = null;
+        try
+        {
+            if(success) {
+                workspace = workspaceRepository.save(workspaceModel);
+            }
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return workspace;
+
+    }
 
     public WorkspaceModel updateBoard(Long workspace_id, Long board_id)
     {
