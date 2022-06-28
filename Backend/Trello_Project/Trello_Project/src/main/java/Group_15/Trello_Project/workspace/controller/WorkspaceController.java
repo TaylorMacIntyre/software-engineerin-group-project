@@ -16,13 +16,20 @@ public class WorkspaceController
     @Autowired
     WorkspaceService workspaceService;
 
-    //CONNECTION TO TAYLOR'S BACKEND
     @PostMapping(path="/saveWorkspace", consumes = "application/json", produces = "application/json")
-    public WorkspaceModel createWorkspace(@PathVariable Integer user_id, @RequestBody WorkspaceModel workspaceModel)
+    public WorkspaceModel createWorkspace(@RequestBody WorkspaceModel workspaceModel)
     {
-
-        return workspaceService.createWorkspace(user_id, workspaceModel);
+        return workspaceService.createWorkspace(workspaceModel);
     }
+
+
+//    //CONNECTION TO TAYLOR'S BACKEND
+//    @PostMapping(path="/saveWorkspace", consumes = "application/json", produces = "application/json")
+//    public WorkspaceModel createWorkspace(@PathVariable Integer user_id, @RequestBody WorkspaceModel workspaceModel)
+//    {
+//
+//        return workspaceService.createWorkspace(user_id, workspaceModel);
+//    }
 
     @PutMapping("/assignBoard/{workspace_id}")
     public WorkspaceModel updateBoard(@PathVariable Integer workspace_id, @RequestParam Integer board_id)
