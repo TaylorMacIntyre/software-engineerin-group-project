@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/workspace")
 public class WorkspaceController
 {
@@ -16,6 +17,7 @@ public class WorkspaceController
     @Autowired
     WorkspaceService workspaceService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path="/saveWorkspace", consumes = "application/json", produces = "application/json")
     public WorkspaceModel createWorkspace(@RequestBody WorkspaceModel workspaceModel)
     {
@@ -31,6 +33,7 @@ public class WorkspaceController
 //        return workspaceService.createWorkspace(user_id, workspaceModel);
 //    }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/assignBoard/{workspace_id}")
     public WorkspaceModel updateBoard(@PathVariable Integer workspace_id, @RequestParam Integer board_id)
     {
@@ -38,6 +41,7 @@ public class WorkspaceController
 
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getAllWorkspaces")
     public List<WorkspaceModel> getAllWorkspaces()
     {
@@ -45,12 +49,14 @@ public class WorkspaceController
     }
 
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getWorkspace/{workspace_id}")
     public WorkspaceModel getWorkspace(@PathVariable Integer workspace_id)
     {
         return workspaceService.getWorkspace(workspace_id);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteWorkspace/{workspace_id}")
     public void deleteWorkspace(@PathVariable Integer workspace_id)
     {

@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/board")
 public class BoardController {
 
     @Autowired
     BoardService boardService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/saveBoard", consumes = "application/json", produces = "application/json")
     public BoardModel createBoard(@RequestBody BoardModel boardModel) {
         return boardService.createBoard(boardModel);
@@ -27,18 +29,21 @@ public class BoardController {
 //        return boardService.createBoard(user_id, boardModel);
 //    }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteBoard/{board_id}")
     public void deleteBoard(@PathVariable Integer board_id)
     {
         boardService.deleteBoard(board_id);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getAllBoards")
     public List<BoardModel> getAllBoards()
     {
         return boardService.getAllBoards();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getBoard/{board_id}")
     public BoardModel getBoard(@PathVariable Integer board_id)
     {
