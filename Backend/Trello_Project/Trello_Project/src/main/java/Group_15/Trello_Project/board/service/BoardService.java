@@ -21,7 +21,7 @@ public class BoardService {
     @Autowired
     UserService userService;
 
-    public BoardModel createBoard(Long user_id, BoardModel boardModel) {
+    public BoardModel createBoard(Integer user_id, BoardModel boardModel) {
 
         boolean success = userService.addWorkspaceToUser(user_id, boardModel);
         BoardModel board = null;
@@ -37,7 +37,7 @@ public class BoardService {
         return board;
     }
 
-    public BoardModel findBoardById(Long board_id)
+    public BoardModel findBoardById(Integer board_id)
     {
         BoardModel boardModel = null;
 
@@ -51,7 +51,7 @@ public class BoardService {
         return boardModel;
     }
 
-    public void deleteBoard(@PathVariable Long board_id)
+    public void deleteBoard(@PathVariable Integer board_id)
     {
         boardRepository.deleteById(board_id);
     }
@@ -62,7 +62,7 @@ public class BoardService {
     }
 
 
-    public BoardModel getBoard(@PathVariable Long board_id)
+    public BoardModel getBoard(@PathVariable Integer board_id)
     {
         BoardModel boardModel = null;
         Optional<BoardModel> board = null;

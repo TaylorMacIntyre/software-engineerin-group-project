@@ -18,14 +18,14 @@ public class WorkspaceController
 
     //CONNECTION TO TAYLOR'S BACKEND
     @PostMapping(path="/saveWorkspace", consumes = "application/json", produces = "application/json")
-    public WorkspaceModel createWorkspace(@PathVariable Long user_id, @RequestBody WorkspaceModel workspaceModel)
+    public WorkspaceModel createWorkspace(@PathVariable Integer user_id, @RequestBody WorkspaceModel workspaceModel)
     {
 
         return workspaceService.createWorkspace(user_id, workspaceModel);
     }
 
     @PutMapping("/assignBoard/{workspace_id}")
-    public WorkspaceModel updateBoard(@PathVariable Long workspace_id, @RequestParam Long board_id)
+    public WorkspaceModel updateBoard(@PathVariable Integer workspace_id, @RequestParam Integer board_id)
     {
         return workspaceService.updateBoard(workspace_id, board_id);
 
@@ -39,13 +39,13 @@ public class WorkspaceController
 
 
     @GetMapping("/getWorkspace/{workspace_id}")
-    public WorkspaceModel getWorkspace(@PathVariable Long workspace_id)
+    public WorkspaceModel getWorkspace(@PathVariable Integer workspace_id)
     {
         return workspaceService.getWorkspace(workspace_id);
     }
 
     @DeleteMapping("/deleteWorkspace/{workspace_id}")
-    public void deleteWorkspace(@PathVariable Long workspace_id)
+    public void deleteWorkspace(@PathVariable Integer workspace_id)
     {
         workspaceService.deleteWorkspace(workspace_id);
     }

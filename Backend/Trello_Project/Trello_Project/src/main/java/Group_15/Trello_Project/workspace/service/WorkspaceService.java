@@ -26,7 +26,7 @@ public class WorkspaceService {
     @Autowired
     UserService userService;
 
-    public WorkspaceModel createWorkspace(Long user_id, WorkspaceModel workspaceModel)
+    public WorkspaceModel createWorkspace(Integer user_id, WorkspaceModel workspaceModel)
     {
         boolean success = userService.addWorkspaceToUser(user_id, workspaceModel);
         WorkspaceModel workspace = null;
@@ -43,7 +43,7 @@ public class WorkspaceService {
 
     }
 
-    public WorkspaceModel updateBoard(Long workspace_id, Long board_id)
+    public WorkspaceModel updateBoard(Integer workspace_id, Integer board_id)
     {
         WorkspaceModel updatedWorkspace = null;
         Optional<WorkspaceModel> workspace = null;
@@ -81,12 +81,12 @@ public class WorkspaceService {
         return workspaceRepository.findAll();
     }
 
-    public void deleteWorkspace(@PathVariable Long workspace_id)
+    public void deleteWorkspace(@PathVariable Integer workspace_id)
     {
         workspaceRepository.deleteById(workspace_id);
     }
 
-    public WorkspaceModel getWorkspace(@PathVariable Long workspace_id)
+    public WorkspaceModel getWorkspace(@PathVariable Integer workspace_id)
     {
         WorkspaceModel workspaceModel = null;
 
