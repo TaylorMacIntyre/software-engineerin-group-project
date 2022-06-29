@@ -18,17 +18,23 @@ public class UserController {
     UserServiceInterface userServiceInterface;
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/save")
-    public Integer signupUser(@RequestBody UserModel userModel) throws EmailAlreadyRegisteredException {
-        return userServiceInterface.signUpUser(userModel);
+    public HashMap<String, Integer> signupUser(@RequestBody UserModel userModel) throws EmailAlreadyRegisteredException {
+        Integer result = userServiceInterface.signUpUser(userModel);
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        map.put("result", result);
+        return map;
     }
 
     //login?
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
-    public Integer loginUser(@RequestBody Map<String, String> json) throws IncorrectPasswordException, EmailNotRegisteredException {
+    public HashMap<String, Integer> loginUser(@RequestBody Map<String, String> json) throws IncorrectPasswordException, EmailNotRegisteredException {
         String email = json.get("email");
         String password = json.get("password");
-        return userServiceInterface.logInUser(email, password);
+        Integer result = userServiceInterface.logInUser(email, password);
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        map.put("result", result);
+        return map;
     }
 
     //forgot pw?
