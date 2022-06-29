@@ -6,6 +6,7 @@ import Group_15.Trello_Project.user.service.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -33,10 +34,14 @@ public class UserController {
     //forgot pw?
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/updatePW")
-    public boolean updatePassword(@RequestBody Map<String, String> json) throws IncorrectSecurityAnswerException, EmailNotRegisteredException, NewPasswordSameAsOldPasswordException {
+    public HashMap<String, Boolean> updatePassword(@RequestBody Map<String, String> json) throws IncorrectSecurityAnswerException, EmailNotRegisteredException, NewPasswordSameAsOldPasswordException {
         String email = json.get("email");
         String securityQAnswer = json.get("securityAnswer");
-        String newPassword = json.get("newPassword");
-        return userServiceInterface.updatePassword(email, securityQAnswer, newPassword);
+        String newPassword = json.get("newPw");
+        java.lang.Boolean result = userServiceInterface.updatePassword(email, securityQAnswer, newPassword);
+        HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+        map.put("result", result);
+        return map;
+        //return userServiceInterface.updatePassword(email, securityQAnswer, newPassword);
     }
 }
