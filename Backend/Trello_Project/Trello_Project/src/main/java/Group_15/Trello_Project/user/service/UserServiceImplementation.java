@@ -109,10 +109,16 @@ public class UserServiceImplementation implements UserServiceInterface {
             if(workspaces == null){
                 workspaces = new List<WorkspaceModel>();
             }
-            workspaces.add(workspaceModel);
-            userModel.setWorkspaces(workspaces);
-            userRepository.save(userModel);
-            return true;
+
+            //check to make sure user isn't already in database
+            if(!workspaces.contains(workspaceModel)){
+                workspaces.add(workspaceModel);
+                userModel.setWorkspaces(workspaces);
+                userRepository.save(userModel);
+                return true;
+            }else{
+                return false;
+            }
         }else{
             return false;
         }
