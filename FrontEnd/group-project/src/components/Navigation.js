@@ -17,6 +17,11 @@ function Navigation() {
                             Create Board
                         </Typography>
                     </Link>
+                    <Link to='/delete-board' style={{ textDecoration: 'none', color: 'white' }}>
+                        <Typography variant="h6" component="div" sx={{ padding: '0 8px' }}>
+                            Delete Board
+                        </Typography>
+                    </Link>
                 </Toolbar>
             </AppBar>
         </Box>

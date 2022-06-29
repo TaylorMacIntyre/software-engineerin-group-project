@@ -3,24 +3,24 @@ import ViewSpace from '../components/ViewWorkSpace';
 import space from '../data/space';
 
 function WorkSpace() {
-    const [boardsData, setBoardsData] = useState([]);
+    const [spacesData, setBoardsData] = useState([]);
 
     function getAllSpace() {
-        // fetch('http://localhost:9001/board')
-        //     .then(response => response.json())
-        //     .then(boards => {
-        //         setBoardsData(boards);
-        //     });
+        fetch('http://localhost:9000/workspace/getAllWorkspaces')
+            .then(response => response.json())
+            .then(spaces => {
+                setBoardsData(spaces);
+            });
     };
 
-    // useEffect(function () {
-    //     getAllSpace();
-    // }, []);
+    useEffect(function () {
+        getAllSpace();
+    }, []);
 
 
     return (
         <section>
-            <ViewSpace boards={space} />
+            <ViewSpace boards={spacesData} />
         </section>
     );
 };

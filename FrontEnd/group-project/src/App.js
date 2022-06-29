@@ -7,6 +7,7 @@ import Navigation from './components/Navigation';
 import WorkSpace from './pages/Workspace';
 import CreateWorkSpace from './pages/CreateWorkspace';
 import Navigation2 from './components/Navigation2';
+import DeleteBoard from './pages/DeleteBoard';
 function App() {
   return (
     <React.Fragment>
@@ -30,6 +31,10 @@ function App() {
           <Route path='/create-board' exact>
           <Navigation />
             <CreateBoard />
+          </Route>
+          <Route path='/delete-board' exact>
+          <Navigation />
+            <DeleteBoard/>
           </Route>
         </Switch>
       </Container>

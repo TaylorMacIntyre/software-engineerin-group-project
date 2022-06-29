@@ -9,13 +9,13 @@ function CreateBoard() {
 
     function createBoardHandler(board) {
         
-        // fetch('http://localhost:9001/board', {
-        //     method: 'POST',
-        //     body: JSON.stringify(board),
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }).then(() => history.replace('/boards'));
+        fetch('http://localhost:9000/board/saveBoard', {
+            method: 'POST',
+            body: JSON.stringify(board),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => history.replace('/boards'));
     }
 
     return (

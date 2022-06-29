@@ -7,19 +7,19 @@ function CreateWorkSpace() {
 
     const history = useHistory();
 
-    function createBoardHandler(board) {
+    function createSpaceHandler(workspace) {
         
-        // fetch('http://localhost:9001/board', {
-        //     method: 'POST',
-        //     body: JSON.stringify(board),
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }).then(() => history.replace('/boards'));
+        fetch('http://localhost:9000/workspace/saveWorkspace', {
+            method: 'POST',
+            body: JSON.stringify(workspace),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => history.replace('/'));
     }
 
     return (
-        <CreateSpaceForm createBoard={createBoardHandler} />
+        <CreateSpaceForm createSpace={createSpaceHandler} />
     );
 };
 

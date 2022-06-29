@@ -2,26 +2,26 @@ import { Button, TextField, Typography } from '@mui/material';
 import React, { useRef } from 'react';
 
 function CreateSpaceForm(props) {
-    const boardNameRef = useRef();
-    const boardDespRef = useRef();
+    const spaceNameRef = useRef();
+    const spaceDespRef = useRef();
 
-    function createBoard(e) {
+    function createSpace(e) {
         e.preventDefault();
-        const boardName = boardNameRef.current.value;
-        const boardDesp = boardDespRef.current.value;
+        const boardName = spaceNameRef.current.value;
+        const boardDesp = spaceDespRef.current.value;
 
-        const board = {
-            name: boardName,
-            description: boardDesp
+        const workspace = {
+            workspace_name: boardName,
+            workspace_description: boardDesp
         };
 
-        props.createBoard(board);
+        props.createSpace(workspace);
     };
 
     return (
         <section style={{ marginTop: '32px' }}>
             <Typography variant='h2' component='h2'>Create New Space</Typography>
-            <form onSubmit={createBoard}>
+            <form onSubmit={createSpace}>
                 <TextField
                     id='boardName'
                     placeholder='Board Name'
@@ -29,7 +29,7 @@ function CreateSpaceForm(props) {
                     required
                     fullWidth
                     margin='dense'
-                    inputRef={boardNameRef} />
+                    inputRef={spaceNameRef} />
                 <TextField
                     id='boardDesp'
                     placeholder='Board Description'
@@ -39,7 +39,7 @@ function CreateSpaceForm(props) {
                     required
                     fullWidth
                     margin='dense'
-                    inputRef={boardDespRef} />
+                    inputRef={spaceDespRef} />
                 <Button type='submit' variant='contained' color='primary' sx={{ marginTop: '16px' }}>
                     Create Board
                 </Button>

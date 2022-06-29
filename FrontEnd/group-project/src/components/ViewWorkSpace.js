@@ -7,16 +7,16 @@ function ViewSpace(props) {
         <section style={{ marginTop: '32px' }}>
             <Typography variant='h2' component='h2'>Workspace</Typography>
             <Grid container spacing={2}>
-                {props.boards.map((board) => {
+                {props.boards.map((workspace) => {
                     return (
-                        <Grid item xs={12} sm={12} md={4} lg={4} key={board.id}>
+                        <Grid item xs={12} sm={12} md={4} lg={4} key={workspace.id}>
                             <Card elevation={6}>
                                 <CardContent>
                                     <Typography component='h4' variant='h4'>
-                                        {board.name}
+                                        {workspace.workspace_name}
                                     </Typography>
                                     <Typography component='p' variant='p'>
-                                        {board.desp}
+                                        {workspace.workspace_description}
                                     </Typography>
                                     <Link to='/boards'>
                                     <Button variant='contained' sx={{ marginTop: '16px' }}>

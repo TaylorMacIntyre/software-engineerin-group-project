@@ -6,21 +6,21 @@ function Boards() {
     const [boardsData, setBoardsData] = useState([]);
 
     function getAllBoards() {
-        // fetch('http://localhost:9001/board')
-        //     .then(response => response.json())
-        //     .then(boards => {
-        //         setBoardsData(boards);
-        //     });
+        fetch('http://localhost:9000/board/getAllBoards',{method:'GET'})
+            .then(response => response.json())
+            .then(boards => {
+                setBoardsData(boards);
+            });
     };
 
-    // useEffect(function () {
-    //     getAllBoards();
-    // }, []);
+    useEffect(function () {
+        getAllBoards();
+    }, []);
 
 
     return (
         <section>
-            <ViewBoards boards={boards} />
+            <ViewBoards boards={boardsData} />
         </section>
     );
 };

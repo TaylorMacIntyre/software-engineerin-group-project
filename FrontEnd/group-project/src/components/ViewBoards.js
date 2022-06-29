@@ -11,11 +11,14 @@ function ViewBoards(props) {
                         <Grid item xs={12} sm={12} md={4} lg={4} key={board.id}>
                             <Card elevation={6}>
                                 <CardContent>
+                                <Typography component='h5' variant='h5'>
+                                    {board.id}
+                                    </Typography>
                                     <Typography component='h4' variant='h4'>
-                                        {board.name}
+                                    {board.board_name}
                                     </Typography>
                                     <Typography component='p' variant='p'>
-                                        {board.desp}
+                                    {board.board_description}
                                     </Typography>
                                     <Button variant='contained' sx={{ marginTop: '16px' }}>
                                         View All Tasks
