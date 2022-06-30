@@ -27,13 +27,13 @@ function LoginPage(){
         })
         .then(function(data) {
         var loginResponse = data;
-        console.log(loginResponse.result);
-        if(loginResponse.result != -1){
+        console.log(loginResponse.status);
+        if(loginResponse.status === "successful login"){
             localStorage.setItem('Id', JSON.stringify(loginResponse.result))
             history.replace("/home");
         }
         else{
-            alert("email or password was incorrect");
+            alert(loginResponse.status);
         }
         return loginResponse.result;
         })

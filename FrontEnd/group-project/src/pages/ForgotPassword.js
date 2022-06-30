@@ -22,12 +22,12 @@ function PasswordPage(){
         })
         .then(function(data) {
         var resetResponse = data;
-        console.log(resetResponse.result);
-        if(resetResponse.result){
+        console.log(resetResponse.status);
+        if(resetResponse.status === "successful update Password"){
             history.replace("/login");
         }
         else{
-            alert("email or security question was incorrect");
+            alert(resetResponse.status);
         }
         return resetResponse.result;
         })

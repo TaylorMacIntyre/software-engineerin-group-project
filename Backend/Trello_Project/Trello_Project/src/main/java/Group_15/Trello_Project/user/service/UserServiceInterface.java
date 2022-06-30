@@ -10,9 +10,9 @@ import java.util.HashMap;
 public interface UserServiceInterface {
     public HashMap<String, String> signUpUser(UserModel userModel) throws EmailAlreadyRegisteredException;
 
-    public boolean updatePassword(String email, String securityAnswer, String newPw) throws EmailNotRegisteredException, IncorrectSecurityAnswerException, NewPasswordSameAsOldPasswordException;
+    public HashMap<String, String> updatePassword(String email, String securityAnswer, String newPw) throws EmailNotRegisteredException, IncorrectSecurityAnswerException, NewPasswordSameAsOldPasswordException;
 
-    public Integer logInUser(String email, String password) throws IncorrectPasswordException, EmailNotRegisteredException;
+    public HashMap<String, String> logInUser(String email, String password) throws IncorrectPasswordException, EmailNotRegisteredException;
 
     public UserModel findUserByID(Integer userId);
 

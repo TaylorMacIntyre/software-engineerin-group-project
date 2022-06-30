@@ -10,9 +10,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,7 +26,7 @@ public class userServiceTests {
     private UserRepository userRepository;
     @InjectMocks
     private UserServiceImplementation userService;
-    private UserModel userModel;
+    //private UserModel userModel;  DEMO says we don't need it
     String fName1 = "jane";
     String fName2 = "john";
     String lName = "doe";
@@ -35,7 +39,7 @@ public class userServiceTests {
 
     @BeforeEach
     public void setUp() throws EmailAlreadyRegisteredException {
-        //unsure what to put here
+        //unsure what to put here, or if it's even needed
     }
     @AfterEach
     public void cleanUp(){
@@ -45,18 +49,28 @@ public class userServiceTests {
 
 
         //SIGNUP
-    //check correct ID is returned after successful signup
+    //check saved user is not null after successful signup
     @Test
-    public void testSignUp_successfulSignUpIDReturned() {
-        //should return ID
+    public void testSignUp_successfulSignUpUserNotNull() throws EmailAlreadyRegisteredException {
+        UserModel user = new UserModel();
+        user.setFirstName("jane");
+        user.setLastName("doe");
+        user.setEmail("email@provider");
+        user.setPassword("secret");
+        user.setSecurityAnswer("yellow");
+
+        Mockito.when(userRepository.save(user)).thenReturn(user);
+        HashMap<String,String> map = userService.signUpUser(user);
+
+        assertEquals(map.get("result"), "1");
     }
 
     //Check EmailAlreadyRegisteredException is thrown when user signs up with email already in db
     @Test
     public void testSignUp_throwsEmailAlreadyRegisteredException() throws EmailAlreadyRegisteredException{
-        userModel = new UserModel(fName1, lName, email1, password1, answer1);
+        UserModel userModel = new UserModel(fName1, lName, email1, password1, answer1);
         userService.signUpUser(userModel);
-        assertThrows(EmailAlreadyRegisteredException.class, ()->userModel = new UserModel(fName2, lName, email1, password1, answer1));
+        assertThrows(EmailAlreadyRegisteredException.class, ()->userService.signUpUser(userModel));
     }
 
     //check -1 is returned when signup uses email already in DB
@@ -88,7 +102,7 @@ public class userServiceTests {
     //check IncorrectPasswordException is thrown when logging in a user with an incorrect pw
     @Test
     public void testLogin_throwsIncorrectPasswordException() throws IncorrectPasswordException, EmailAlreadyRegisteredException {
-        userModel = new UserModel(fName1, lName, email1, password1, answer1);
+        UserModel userModel = new UserModel(fName1, lName, email1, password1, answer1);
         userService.signUpUser(userModel);
         assertThrows(IncorrectPasswordException.class, ()->userService.logInUser(email1, password2));
     }
@@ -124,7 +138,7 @@ public class userServiceTests {
     //check IncorrectSecurityAnswerException is thrown when user tries to reset pw with wrong security Q answer
     @Test
     public void testForgotPW_throwsIncorrectSecurityAnswerException() throws IncorrectSecurityAnswerException, EmailAlreadyRegisteredException {
-        userModel = new UserModel(fName1, lName, email1, password1, answer1);
+        UserModel userModel = new UserModel(fName1, lName, email1, password1, answer1);
         userService.signUpUser(userModel);
         assertThrows(IncorrectSecurityAnswerException.class, ()->userService.updatePassword(email1, answer2, password1));
     }
@@ -138,7 +152,7 @@ public class userServiceTests {
     //check NewPasswordSameAsOldPasswordException is thrown when suer resets pw and new PW is same as old
     @Test
     public void testForgotPW_throwsNewPasswordSameAsOldPasswordException() throws NewPasswordSameAsOldPasswordException, EmailAlreadyRegisteredException {
-        userModel = new UserModel(fName1, lName, email1, password1, answer1);
+        UserModel userModel = new UserModel(fName1, lName, email1, password1, answer1);
         userService.signUpUser(userModel);
         assertThrows(NewPasswordSameAsOldPasswordException.class, ()->userService.updatePassword(email1, answer1, password1));
     }
