@@ -22,6 +22,11 @@ function Navigation() {
                             Delete Board
                         </Typography>
                     </Link>
+                    <Link to='/WorkSpace' style={{ textDecoration: 'none', color: 'white' }}>
+                        <Typography variant="h6" component="div" sx={{ padding: '0 8px' }}>
+                            Go back to Workspace
+                        </Typography>
+                    </Link>
                 </Toolbar>
             </AppBar>
         </Box>

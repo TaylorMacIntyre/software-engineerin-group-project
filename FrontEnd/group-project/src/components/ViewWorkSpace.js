@@ -19,8 +19,8 @@ function ViewSpace(props) {
                                         {workspace.workspace_description}
                                     </Typography>
                                     <Link to='/boards'>
-                                    <Button variant='contained' sx={{ marginTop: '16px' }}>
-                                        View All Tasks
+                                    <Button variant='contained' sx={{ marginTop: '200px' }}>
+                                        Go to the board
                                     </Button>
                                     </Link>
                                 </CardContent>
