@@ -28,26 +28,19 @@ public class UserController {
     //login?
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
-    public HashMap<String, Integer> loginUser(@RequestBody Map<String, String> json) throws IncorrectPasswordException, EmailNotRegisteredException {
+    public HashMap<String, String> loginUser(@RequestBody Map<String, String> json) throws IncorrectPasswordException, EmailNotRegisteredException {
         String email = json.get("email");
         String password = json.get("password");
-        Integer result = userServiceInterface.logInUser(email, password);
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        map.put("result", result);
-        return map;
+        return userServiceInterface.logInUser(email, password);
     }
 
     //forgot pw?
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/updatePW")
-    public HashMap<String, Boolean> updatePassword(@RequestBody Map<String, String> json) throws IncorrectSecurityAnswerException, EmailNotRegisteredException, NewPasswordSameAsOldPasswordException {
+    public HashMap<String, String> updatePassword(@RequestBody Map<String, String> json) throws IncorrectSecurityAnswerException, EmailNotRegisteredException, NewPasswordSameAsOldPasswordException {
         String email = json.get("email");
         String securityQAnswer = json.get("securityAnswer");
         String newPassword = json.get("newPw");
-        java.lang.Boolean result = userServiceInterface.updatePassword(email, securityQAnswer, newPassword);
-        HashMap<String, Boolean> map = new HashMap<String, Boolean>();
-        map.put("result", result);
-        return map;
-        //return userServiceInterface.updatePassword(email, securityQAnswer, newPassword);
+        return userServiceInterface.updatePassword(email, securityQAnswer, newPassword);
     }
 }

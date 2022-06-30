@@ -34,14 +34,18 @@ public class UserServiceImplementation implements UserServiceInterface {
         return map;
     }
 
-    public Integer logInUser(String email, String password) throws IncorrectPasswordException, EmailNotRegisteredException {
+    public HashMap<String, String> logInUser(String email, String password) throws IncorrectPasswordException, EmailNotRegisteredException {
         Optional<UserModel> user;
         try{
             user = userRepository.findByEmail(email);
             if(user.isPresent()){
                UserModel userModel = user.get();
                if(password.equals(userModel.getPassword())){
-                   return userModel.getId();
+                   String result = userModel.getId().toString();
+                   HashMap<String, String> map = new HashMap<String, String>();
+                   map.put("result", result);
+                   map.put("status", "successful login");
+                   return map;
                } else {
                    throw new IncorrectPasswordException();
                }
@@ -50,14 +54,25 @@ public class UserServiceImplementation implements UserServiceInterface {
                 throw new EmailNotRegisteredException();
             }
         } catch (EmailNotRegisteredException badEmail) {
-            return -1;
+            HashMap<String, String> map = new HashMap<String, String>();
+            Integer error = -1;
+            String result = error.toString();
+            map.put("result", result);
+            map.put("status", "Email Not Registered");
+            return map;
         } catch (IncorrectPasswordException badPW) {
-            return -1;
+            HashMap<String, String> map = new HashMap<String, String>();
+            Integer error = -1;
+            String result = error.toString();
+            map.put("result", result);
+            map.put("status", "Incorrect Password");
+            return map;
         }
     }
 
-    public boolean updatePassword(String email, String securityAnswer, String newPw) throws EmailNotRegisteredException, IncorrectSecurityAnswerException, NewPasswordSameAsOldPasswordException {
+    public HashMap<String, String> updatePassword(String email, String securityAnswer, String newPw) throws EmailNotRegisteredException, IncorrectSecurityAnswerException, NewPasswordSameAsOldPasswordException {
         Optional<UserModel> user;
+        HashMap<String, String> map = new HashMap<String, String>();
         try {
             user = userRepository.findByEmail(email);
             if(user.isPresent()){
@@ -68,6 +83,9 @@ public class UserServiceImplementation implements UserServiceInterface {
                     if (!newPw.equals(userModel.getPassword())){
                         userModel.setPassword(newPw);
                         userRepository.save(userModel);
+                        map.put("result", userModel.getId().toString());
+                        map.put("status", "successful update Password");
+                        return map;
                     } else {
                         throw new NewPasswordSameAsOldPasswordException();
                     }
@@ -80,16 +98,20 @@ public class UserServiceImplementation implements UserServiceInterface {
                 throw new EmailNotRegisteredException();
             }
         } catch (EmailNotRegisteredException badEmail) {
-            return false;
+            map.put("result", "false");
+            map.put("status", "Email Not Registered");
+            return map;
             //Not sure what else to do here
         } catch (IncorrectSecurityAnswerException badAnswer) {
-            return false;
+            map.put("result", "false");
+            map.put("status", "Incorrect Security Answer");
+            return map;
             //rlly not sure what else to do
         } catch (NewPasswordSameAsOldPasswordException oldPwNewPwSame) {
-            return false;
+            map.put("result", "false");
+            map.put("status", "New Password Same As Old Password");
+            return map;
         }
-
-        return true;
     }
 
     public UserModel findUserByID(Integer userId) {
