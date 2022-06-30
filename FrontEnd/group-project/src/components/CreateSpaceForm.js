@@ -24,7 +24,7 @@ function CreateSpaceForm(props) {
             <form onSubmit={createSpace}>
                 <TextField
                     id='boardName'
-                    placeholder='Board Name'
+                    placeholder='Space Name'
                     variant='outlined'
                     required
                     fullWidth
@@ -32,7 +32,7 @@ function CreateSpaceForm(props) {
                     inputRef={spaceNameRef} />
                 <TextField
                     id='boardDesp'
-                    placeholder='Board Description'
+                    placeholder='Space Description'
                     variant='outlined'
                     multiline
                     rows={4}
