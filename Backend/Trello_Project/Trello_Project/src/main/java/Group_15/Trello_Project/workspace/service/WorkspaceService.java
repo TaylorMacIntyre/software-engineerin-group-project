@@ -150,4 +150,39 @@ public class WorkspaceService {
 
     }
 
+    public WorkspaceModel updateWorkspaceDetails(Integer workspace_id, String workspace_name, String workspace_description)
+    {
+        WorkspaceModel updatedWorkspace = null;
+        Optional<WorkspaceModel> workspace = workspaceRepository.findById(workspace_id);
+
+        try
+        {
+            workspace = workspaceRepository.findById(workspace_id);
+            if(workspace.isPresent())
+            {
+                WorkspaceModel workspaceModel = workspace.get();
+
+                if(workspace_name != null)
+                {
+                    workspaceModel.setWorkspace_name(workspace_name);
+                }
+
+                if(workspace_description != null)
+                {
+                    workspaceModel.setWorkspace_description(workspace_description);
+                }
+
+                updatedWorkspace = workspaceRepository.save(workspaceModel);
+            }
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return updatedWorkspace;
+    }
+
+
+
 }

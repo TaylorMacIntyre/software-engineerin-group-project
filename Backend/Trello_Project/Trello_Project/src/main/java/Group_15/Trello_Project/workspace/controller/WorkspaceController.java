@@ -52,6 +52,14 @@ public class WorkspaceController
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/updateWorkspaceDetails/{workspace_id}")
+    public WorkspaceModel updateWorkspaceDetails(@PathVariable Integer workspace_id, @RequestParam String workspace_name, @RequestParam String workspace_description)
+    {
+        return workspaceService.updateWorkspaceDetails(workspace_id, workspace_name, workspace_description);
+
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getAllWorkspaces")
     public List<WorkspaceModel> getAllWorkspaces()
     {
