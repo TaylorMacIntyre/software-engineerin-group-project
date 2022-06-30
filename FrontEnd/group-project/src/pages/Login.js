@@ -10,20 +10,34 @@ function LoginPage(){
     const history = useHistory();
 
     function loginUserHandler(user){
-        fetch("http://localhost:3001/user/login", {
+        return fetch("http://localhost:9001/user/login", {
             method: "POST",
             body: JSON.stringify(user),
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(response => response.json())
-        .then(data => setLoginData(data))//.then(() => history.replace("/home"))
-        console.log(data);
+        })//.then(response => console.log(response.json()))
+        /*.then(response => {
+            if(response == -1){
+                alert("errorrrrr");
+            }
+        })*/
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+        var loginResponse = data;
+        console.log(loginResponse.status);
+        if(loginResponse.status === "successful login"){
+            localStorage.setItem('Id', JSON.stringify(loginResponse.result))
+            history.replace("/home");
+        }
+        else{
+            alert(loginResponse.status);
+        }
+        return loginResponse.result;
+        })
     }
-
-    useEffect(function(){
-
-    }, [])
 
     return (
         <div>

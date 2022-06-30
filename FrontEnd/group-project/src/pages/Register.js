@@ -6,13 +6,26 @@ function RegisterPage(){
     const history = useHistory();
     
     function registerUserHandler(user){
-        fetch("http://localhost:3001/registration", {
+        fetch("http://localhost:9001/user/save", {
             method: "POST",
             body: JSON.stringify(user),
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(() => history.replace("/login"))
+        }).then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+        var registerResponse = data;
+        console.log(registerResponse.status);
+        if(registerResponse.status === "successful signup"){
+            history.replace("/login");
+        }
+        else{
+            alert(registerResponse.status);
+        }
+        return registerResponse.result;
+        })
     }
     return (
         <div>

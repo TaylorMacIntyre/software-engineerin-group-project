@@ -17,17 +17,15 @@ function RegisterForm(props){
         const lastName = lastNameRef.current.value;
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
-        const securityQuestion = securityQuestionRef.current.value;
+        const securityAnswer = securityQuestionRef.current.value;
+        console.log(securityAnswer);
+        console.log(email);
         //password validation
-        const user = {firstName, lastName, email, password, securityQuestion}
+        const user = {firstName, lastName, email, password, securityAnswer}
         //change to have return type, call props only if successfull
-        if(validation(email, password)){
-            //Send values to server
-            console.log("In function");
-            props.registerUser(user);
-        }
+        validation(email, password, user)
     }
-    async function validation(email, password){
+    async function validation(email, password, user){
         //start of formik code
         const schema = yup.object().shape({
             username: yup.string().email().required(),
@@ -42,13 +40,11 @@ function RegisterForm(props){
         try {
             // validate
             const res = await schema.validate(input, { abortEarly: false })
-            console.log("SUCCESS");
-            return true;
+            props.registerUser(user);
             //  ...
         } catch (e) {
             alert(e.errors);
             console.log(e.errors);
-            return false;
         }
         //end of formik code
         
@@ -65,7 +61,7 @@ function RegisterForm(props){
             <br/>
             <input type="password" required placeholder="Password" ref={passwordRef}/>
             <br/>
-            <label>Security Question: What is your favorite color? </label>
+            <label>Security Question: </label>
             <input type="text" required placeholder="Favorite Color?" ref={securityQuestionRef}/>
             <br/>
             <button>Submit</button>
