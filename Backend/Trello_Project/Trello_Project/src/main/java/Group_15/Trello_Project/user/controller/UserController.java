@@ -18,12 +18,11 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/save")
-    public HashMap<String, Integer> signupUser(@RequestBody UserModel userModel) throws EmailAlreadyRegisteredException {
-        Integer result = userServiceInterface.signUpUser(userModel);
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        map.put("result", result);
-        return map;
-
+    public HashMap<String, String> signupUser(@RequestBody UserModel userModel) throws EmailAlreadyRegisteredException {
+        //Integer result = userServiceInterface.signUpUser(userModel);
+        //HashMap<String, Integer> map = new HashMap<String, Integer>();
+        //map.put("result", result);
+        return userServiceInterface.signUpUser(userModel);
     }
 
     //login?

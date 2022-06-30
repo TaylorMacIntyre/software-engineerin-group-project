@@ -29,6 +29,7 @@ function LoginPage(){
         var loginResponse = data;
         console.log(loginResponse.result);
         if(loginResponse.result != -1){
+            localStorage.setItem('Id', JSON.stringify(loginResponse.result))
             history.replace("/home");
         }
         else{

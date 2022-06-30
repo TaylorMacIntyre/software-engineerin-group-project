@@ -17,12 +17,12 @@ function RegisterPage(){
         })
         .then(function(data) {
         var registerResponse = data;
-        console.log(registerResponse.result);
-        if(registerResponse.result != -1){
+        console.log(registerResponse.status);
+        if(registerResponse.status === "successful signup"){
             history.replace("/login");
         }
         else{
-            alert("There was an error registering, please try again");
+            alert(registerResponse.status);
         }
         return registerResponse.result;
         })
