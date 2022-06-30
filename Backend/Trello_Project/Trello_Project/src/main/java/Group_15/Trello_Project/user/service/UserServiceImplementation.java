@@ -6,6 +6,7 @@ import Group_15.Trello_Project.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 @Component
@@ -13,17 +14,24 @@ public class UserServiceImplementation implements UserServiceInterface {
 
     @Autowired
     UserRepository userRepository;
-    public Integer signUpUser(UserModel userModel) throws EmailAlreadyRegisteredException {
+    public HashMap<String, String> signUpUser(UserModel userModel) throws EmailAlreadyRegisteredException {
         try {
             Optional<UserModel> user = userRepository.findByEmail(userModel.getEmail());
             if(user.isPresent()){
                 throw new EmailAlreadyRegisteredException();
             }
         } catch (EmailAlreadyRegisteredException emailExists) {
-            return -1;
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("result", "-1");
+            map.put("status", "Email Already Registered");
+            return map;
         }
         userRepository.save(userModel);
-        return userModel.getId();
+        HashMap<String, String> map = new HashMap<String, String>();
+        String result = userModel.getId().toString();
+        map.put("result", result);
+        map.put("status", "successful signup");
+        return map;
     }
 
     public Integer logInUser(String email, String password) throws IncorrectPasswordException, EmailNotRegisteredException {

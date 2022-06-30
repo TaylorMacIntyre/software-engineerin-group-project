@@ -4,9 +4,11 @@ import Group_15.Trello_Project.*;
 import Group_15.Trello_Project.user.entity.UserModel;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 public interface UserServiceInterface {
-    public Integer signUpUser(UserModel userModel) throws EmailAlreadyRegisteredException;
+    public HashMap<String, String> signUpUser(UserModel userModel) throws EmailAlreadyRegisteredException;
 
     public boolean updatePassword(String email, String securityAnswer, String newPw) throws EmailNotRegisteredException, IncorrectSecurityAnswerException, NewPasswordSameAsOldPasswordException;
 
