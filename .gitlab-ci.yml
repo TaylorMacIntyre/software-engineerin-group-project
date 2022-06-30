@@ -21,7 +21,7 @@ build-job:       # This job runs in the build stage, which runs first.
   stage: build
   image: maven:3-openjdk-18
   tags:
-    - ugrad
+    - dalfcs_docker_autoscale
   script:
     - cd Backend/Trello_Project/Trello_Project
     - mvn clean package -DskipTests
@@ -30,7 +30,7 @@ build-job:       # This job runs in the build stage, which runs first.
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   tags:
-    - ugrad
+    - dalfcs_docker_autoscale
   script:
     - cd Backend/Trello_Project/Trello_Project
     - mvn clean verify
