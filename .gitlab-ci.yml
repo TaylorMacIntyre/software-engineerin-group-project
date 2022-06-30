@@ -23,7 +23,7 @@ build-job:       # This job runs in the build stage, which runs first.
   tags:
     - ugrad
   script:
-    - cd Backend/Trello_project/Trello_project
+    - cd Backend/Trello_Project/Trello_Project
     - mvn clean package -DskipTests
 
 #test
@@ -32,7 +32,7 @@ unit-test-job:   # This job runs in the test stage.
   tags:
     - ugrad
   script:
-    - cd Backend/Trello_project/Trello_project
+    - cd Backend/Trello_Project/Trello_Project
     - mvn clean verify
 
 
