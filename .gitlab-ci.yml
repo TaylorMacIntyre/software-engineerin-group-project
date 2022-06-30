@@ -25,6 +25,10 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - cd Backend/Trello_Project/Trello_Project
     - mvn clean package -DskipTests
+  artifacts:
+    paths:
+      - Backend/Trello_Project/Trello_Project/target/*.jar
+    expire_in: 1 week
 #test
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
@@ -35,5 +39,10 @@ unit-test-job:   # This job runs in the test stage.
   script:
     - cd Backend/Trello_Project/Trello_Project
     - mvn clean verify
-
+  artifacts:
+    reports:
+      junit:
+        - Backend/Trello_Project/Trello_Project/target/surefire-reports/TEST-*.xml
+        - Backend/Trello_Project/Trello_Project/target/failsafe-reports/TEST-*.xml
+    expire_in: 1 week
 
