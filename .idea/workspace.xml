@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0b065fa-8aef-4010-a811-e70ee3cc0fd2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/test/java/Group_15/Trello_Project/TrelloProjectApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/test/java/Group_15/Trello_Project/TrelloProjectApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataBase/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase/db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/java/Group_15/Trello_Project/workspace/controller/WorkspaceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/java/Group_15/Trello_Project/workspace/controller/WorkspaceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/java/Group_15/Trello_Project/workspace/service/WorkspaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/java/Group_15/Trello_Project/workspace/service/WorkspaceService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +13,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2B2lutKsfGmF6ICh6ImGfFqin2a" />
   <component name="ProjectViewState">
@@ -38,7 +40,22 @@
       <option name="presentableId" value="Default" />
       <updated>1656112289513</updated>
       <workItem from="1656112293974" duration="11000" />
+      <workItem from="1656601585622" duration="56000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

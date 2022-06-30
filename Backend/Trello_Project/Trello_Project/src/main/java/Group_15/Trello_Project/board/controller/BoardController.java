@@ -29,6 +29,15 @@ public class BoardController {
 //        return boardService.createBoard(user_id, boardModel);
 //    }
 
+    //CONNECTION TO TAYLOR'S BACKEND
+//    @PostMapping(path="/addUser", consumes = "application/json", produces = "application/json")
+//    public BoardModel addUser(@PathVariable Integer user_id, @RequestParam BoardModel boardModel)
+//    {
+//
+//        return boardService.addUser(user_id, workspace_id);
+//    }
+//
+
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteBoard/{board_id}")
     public void deleteBoard(@PathVariable Integer board_id)

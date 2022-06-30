@@ -24,7 +24,7 @@ public class WorkspaceController
         return workspaceService.createWorkspace(workspaceModel);
     }
 
-
+//
 //    //CONNECTION TO TAYLOR'S BACKEND
 //    @PostMapping(path="/saveWorkspace", consumes = "application/json", produces = "application/json")
 //    public WorkspaceModel createWorkspace(@PathVariable Integer user_id, @RequestBody WorkspaceModel workspaceModel)
@@ -32,6 +32,16 @@ public class WorkspaceController
 //
 //        return workspaceService.createWorkspace(user_id, workspaceModel);
 //    }
+
+    //CONNECTION TO TAYLOR'S BACKEND
+//    @PostMapping(path="/addUser", consumes = "application/json", produces = "application/json")
+//    public WorkspaceModel addUser(@PathVariable Integer user_id, @RequestParam WorkspaceModel workspaceModel)
+//    {
+//
+//        return workspaceService.addUser(user_id, workspace_id);
+//    }
+//
+
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/assignBoard/{workspace_id}")
@@ -46,6 +56,13 @@ public class WorkspaceController
     public List<WorkspaceModel> getAllWorkspaces()
     {
         return workspaceService.getAllWorkspaces();
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/getWorkspaceBoards/{workspace_id}")
+    public List<BoardModel> getWorkspaceBoards(@PathVariable Integer workspace_id)
+    {
+        return workspaceService.getWorkspaceBoards(workspace_id);
     }
 
 

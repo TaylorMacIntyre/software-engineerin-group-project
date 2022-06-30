@@ -28,7 +28,6 @@ public class WorkspaceService {
 
     }
 
-
 //    //CONNECTION TO TAYLOR'S BACKEND
 //    @Autowired
 //    UserService userService;
@@ -50,6 +49,27 @@ public class WorkspaceService {
 //
 //    }
 
+
+//    public WorkspaceModel addUser(Integer user_id, WorkspaceModel workspaceModel)
+//    {
+//        boolean success = userService.addWorkspaceToUser(user_id, workspaceModel);
+//
+//        Optional<WorkspaceModel> optionalWorkspaceModel = workspaceRepository.findById(workspaceModel.getId());
+//        try
+//        {
+//            if(success) {
+//                if(optionalWorkspaceModel.isPresent())
+//                {
+//                    workspaceModel = optionalWorkspaceModel.get();
+//                }
+//            }
+//        }
+//        catch(Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return workspaceModel;
+//
+//    }
     public WorkspaceModel updateBoard(Integer workspace_id, Integer board_id)
     {
         WorkspaceModel updatedWorkspace = null;
@@ -86,6 +106,28 @@ public class WorkspaceService {
     public List<WorkspaceModel> getAllWorkspaces()
     {
         return workspaceRepository.findAll();
+    }
+
+    public List<BoardModel> getWorkspaceBoards(Integer workspace_id) {
+
+        Optional<WorkspaceModel> workspace = null;
+        List<BoardModel> boards = null;
+
+        try
+        {
+            workspace = workspaceRepository.findById(workspace_id);
+            if(workspace.isPresent())
+            {
+                WorkspaceModel workspaceModel = workspace.get();
+                boards = workspaceModel.getBoards();
+            }
+
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return boards;
     }
 
     public void deleteWorkspace(@PathVariable Integer workspace_id)
