@@ -1,10 +1,13 @@
 import React, {useRef} from 'react';
+import { useHistory } from "react-router-dom";
 import * as yup from 'yup'
 import YupPassword from 'yup-password'
 YupPassword(yup)
 
 
-function PasswordForm(){
+function PasswordForm(props){
+    
+    const history = useHistory();
     
     const emailRef = useRef();
     const securityQuestionRef = useRef();
@@ -14,17 +17,17 @@ function PasswordForm(){
         event.preventDefault();
         //Read values
         const email = emailRef.current.value;
-        const securityQuestion = securityQuestionRef.current.value;
-        const password = passwordRef.current.value;
+        const securityAnswer = securityQuestionRef.current.value;
+        const newPw = passwordRef.current.value;
         //password validation
-        const user = {email, securityQuestion, password}
+        const user = {email, securityAnswer, newPw}
         //change to have return type, call props only if successfull
-        validation(email, password);
+        validation(email, newPw, user);
         //Send values to server
         //props.registerUser(user);
     }
 
-    async function validation(email, password){
+    async function validation(email, password, user){
         //start of formik code
         const schema = yup.object().shape({
             username: yup.string().email().required(),
@@ -39,13 +42,15 @@ function PasswordForm(){
         try {
             // validate
             const res = await schema.validate(input, { abortEarly: false })
-            console.log("SUCCESS");
-            return true;
+            var result = props.resetPassword(user);
+            //console.log(result);
+            
+            //return true;
             //  ...
         } catch (e) {
             alert(e.errors);
             console.log(e.errors);
-            return false;
+            //return false;
         }
         //end of formik code
         

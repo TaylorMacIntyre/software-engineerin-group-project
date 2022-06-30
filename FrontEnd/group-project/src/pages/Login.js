@@ -9,22 +9,34 @@ function LoginPage(){
 
     const history = useHistory();
 
-    function loginUserHandler(email, password){
-        fetch("http://localhost:9001/user/login/:" + email + "/:" + password, {
-            /*method: "POST",
+    function loginUserHandler(user){
+        return fetch("http://localhost:9001/user/login", {
+            method: "POST",
             body: JSON.stringify(user),
             headers: {
                 "Content-Type": "application/json"
-            }*/
-        }).then(response => console.log(response.text()))
-        .then(data => console.log(data))//.then(() => history.replace("/home"))
-        //console.log(response);
-        console.log("data" + data);
+            }
+        })//.then(response => console.log(response.json()))
+        /*.then(response => {
+            if(response == -1){
+                alert("errorrrrr");
+            }
+        })*/
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+        var loginResponse = data;
+        console.log(loginResponse.result);
+        if(loginResponse.result != -1){
+            history.replace("/home");
+        }
+        else{
+            alert("email or password was incorrect");
+        }
+        return loginResponse.result;
+        })
     }
-
-    useEffect(function(){
-
-    }, [])
 
     return (
         <div>

@@ -12,7 +12,20 @@ function RegisterPage(){
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(() => history.replace("/login"))
+        }).then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+        var registerResponse = data;
+        console.log(registerResponse.result);
+        if(registerResponse.result != -1){
+            history.replace("/login");
+        }
+        else{
+            alert("There was an error registering, please try again");
+        }
+        return registerResponse.result;
+        })
     }
     return (
         <div>

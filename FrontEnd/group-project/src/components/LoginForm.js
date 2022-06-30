@@ -40,7 +40,7 @@ function LoginForm(props){
         try {
             // validate
             const res = await schema.validate(input, { abortEarly: false })
-            props.loginUser(email, password);
+            console.log(props.loginUser(user));
             //  ...
         } catch (e) {
             alert(e.errors);
