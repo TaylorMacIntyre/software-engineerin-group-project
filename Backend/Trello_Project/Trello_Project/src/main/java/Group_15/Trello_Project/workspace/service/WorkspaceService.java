@@ -74,7 +74,7 @@ public class WorkspaceService {
 
                 List<BoardModel> boards = workspaceModel.getBoards();
 
-                if(boards!=null)
+                if(boards==null)
                 {
                     boards = new ArrayList<>();
                 }
@@ -99,18 +99,28 @@ public class WorkspaceService {
         return userWorkspaces;
     }
 
-    public List<BoardModel> getWorkspaceBoards(Integer workspace_id) {
+    public List<BoardModel> getWorkspaceBoards(Integer workspace_id, Integer user_id) {
 
         Optional<WorkspaceModel> workspace = null;
-        List<BoardModel> boards = null;
+        List<BoardModel> workspaceBoards = new ArrayList<BoardModel>();
+        List<BoardModel> userBoards = userService.getAllBoards(user_id);
+        ArrayList<BoardModel> commonBoards = new ArrayList<>();
 
         try
         {
             workspace = workspaceRepository.findById(workspace_id);
-            if(workspace.isPresent())
+            if(workspace.isPresent() && userBoards!=null)
             {
                 WorkspaceModel workspaceModel = workspace.get();
-                boards = workspaceModel.getBoards();
+                workspaceBoards = workspaceModel.getBoards();
+
+                for(int i = 0 ; i < userBoards.size() ; i++)
+                {
+                    if(workspaceBoards.contains(userBoards.get(i)))
+                    {
+                        commonBoards.add(userBoards.get(i));
+                    }
+                }
             }
 
         }
@@ -118,7 +128,7 @@ public class WorkspaceService {
         {
             ex.printStackTrace();
         }
-        return boards;
+        return commonBoards;
     }
 
     public void deleteWorkspace(@PathVariable Integer workspace_id)

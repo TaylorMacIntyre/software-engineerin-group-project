@@ -25,12 +25,11 @@ public interface UserServiceInterface {
 
     public List<WorkspaceModel> getAllWorkspaces(Integer id);
 
+    public List<BoardModel> getAllBoards(Integer id);
 
     /* UNCOMMENT WHEN BACKENDS ARE CONNECTED
 
     public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel);
-
-    public List<BoardModel> getAllBoards(Integer id);
 
     public boolean deleteUserBoard(Integer id, BoardModel boardModel);
      */

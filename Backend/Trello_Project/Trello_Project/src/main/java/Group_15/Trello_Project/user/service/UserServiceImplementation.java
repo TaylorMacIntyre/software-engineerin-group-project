@@ -192,6 +192,19 @@ public class UserServiceImplementation implements UserServiceInterface {
         //then send List<WorkspaceModel>
     }
 
+    public List<BoardModel> getAllBoards(Integer id){
+        //check if user exists
+        UserModel userModel = null;
+        Optional<UserModel> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userModel = user.get();
+            return userModel.getBoards();
+        }else{
+            return null;
+        }
+        // then return board list
+    }
+
 
     //UNCOMMENT WHEN BACKENDS ARE CONNECTED
     /*
@@ -212,20 +225,6 @@ public class UserServiceImplementation implements UserServiceInterface {
         // then remove workspace from List<WorkspaceModel>
         //user doesn't exist
         return false;
-    }
-
-
-    public List<BoardModel> getAllBoards(Integer id){
-        //check if user exists
-        UserModel userModel = null;
-        Optional<UserModel> user = userRepository.findById(id);
-        if(user.isPresent()){
-            userModel = user.get();
-            return userModel.getBoards();
-        }else{
-            return null;
-        }
-        // then return board list
     }
 
     public boolean deleteUserBoard(Integer id, BoardModel boardModel) {
