@@ -93,9 +93,10 @@ public class WorkspaceService {
         return updatedWorkspace;
     }
 
-    public List<WorkspaceModel> getAllWorkspaces()
+    public List<WorkspaceModel> getAllWorkspaces(Integer user_id)
     {
-        return workspaceRepository.findAll();
+        List<WorkspaceModel> userWorkspaces = userService.getAllWorkspaces(user_id);
+        return userWorkspaces;
     }
 
     public List<BoardModel> getWorkspaceBoards(Integer workspace_id) {

@@ -19,29 +19,18 @@ public class WorkspaceController
     @Autowired
     WorkspaceService workspaceService;
 
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @PostMapping(path="/saveWorkspace", consumes = "application/json", produces = "application/json")
-//    public WorkspaceModel createWorkspace(@RequestBody WorkspaceModel workspaceModel)
-//    {
-//        return workspaceService.createWorkspace(workspaceModel);
-//    }
-
-
-    //CONNECTION TO TAYLOR'S BACKEND
     @PostMapping(path="/saveWorkspace/{user_id}", consumes = "application/json", produces = "application/json")
     public WorkspaceModel createWorkspace(@RequestBody WorkspaceModel workspaceModel, @PathVariable Integer user_id)
     {
         return workspaceService.createWorkspace(workspaceModel, user_id);
     }
 
-    //CONNECTION TO TAYLOR'S BACKEND
     @PutMapping(path="/addUserToWorkspace/{workspace_id}")
     public WorkspaceModel addUserToWorkspace(@PathVariable Integer workspace_id, @RequestParam Integer user_id)
     {
 
         return workspaceService.addUserToWorkspace(workspace_id, user_id);
     }
-
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/assignBoard/{workspace_id}")
@@ -60,10 +49,10 @@ public class WorkspaceController
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/getAllWorkspaces")
-    public List<WorkspaceModel> getAllWorkspaces()
+    @GetMapping("/getAllWorkspaces/{user_id}")
+    public List<WorkspaceModel> getAllWorkspaces(@PathVariable Integer user_id)
     {
-        return workspaceService.getAllWorkspaces();
+        return workspaceService.getAllWorkspaces(user_id);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")

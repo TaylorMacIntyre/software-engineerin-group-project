@@ -67,7 +67,6 @@ public class UserModel {
         return email;
     }
 
-        //commented out until we connect backends
     public List<BoardModel> getBoards() {
         return boards;
     }

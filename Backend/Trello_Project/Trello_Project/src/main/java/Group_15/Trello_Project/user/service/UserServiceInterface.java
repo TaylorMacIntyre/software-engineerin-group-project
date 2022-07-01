@@ -7,6 +7,7 @@ import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public interface UserServiceInterface {
@@ -22,9 +23,10 @@ public interface UserServiceInterface {
 
     public boolean addBoardToUser(Integer id, BoardModel boardModel);
 
+    public List<WorkspaceModel> getAllWorkspaces(Integer id);
+
 
     /* UNCOMMENT WHEN BACKENDS ARE CONNECTED
-    public List<WorkspaceModel> getAllWorkspaces(Integer id);
 
     public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel);
 

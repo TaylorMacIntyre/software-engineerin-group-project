@@ -179,11 +179,6 @@ public class UserServiceImplementation implements UserServiceInterface {
         // then add board to List<BoardModel>
     }
 
-
-    //UNCOMMENT WHEN BACKENDS ARE CONNECTED
-    /*
-
-
     public List<WorkspaceModel> getAllWorkspaces(Integer id) {
         //check if user exists..
         UserModel userModel = null;
@@ -196,6 +191,10 @@ public class UserServiceImplementation implements UserServiceInterface {
         }
         //then send List<WorkspaceModel>
     }
+
+
+    //UNCOMMENT WHEN BACKENDS ARE CONNECTED
+    /*
 
     public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel) {
         //check if user exists
