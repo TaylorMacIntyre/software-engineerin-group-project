@@ -16,11 +16,11 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(path = "/saveBoard", consumes = "application/json", produces = "application/json")
-    public BoardModel createBoard(@RequestBody BoardModel boardModel) {
-        return boardService.createBoard(boardModel);
-    }
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @PostMapping(path = "/saveBoard", consumes = "application/json", produces = "application/json")
+//    public BoardModel createBoard(@RequestBody BoardModel boardModel) {
+//        return boardService.createBoard(boardModel);
+//    }
 
 
 //    //CONNECTION TO TAYLOR'S BACKEND
@@ -37,6 +37,21 @@ public class BoardController {
 //        return boardService.addUser(user_id, workspace_id);
 //    }
 //
+
+    //CONNECTION TO TAYLOR'S BACKEND
+    @PostMapping(path="/saveBoard/{user_id}", consumes = "application/json", produces = "application/json")
+    public BoardModel createBoard(@RequestBody BoardModel boardModel, @PathVariable Integer user_id)
+    {
+        return boardService.createBoard(boardModel, user_id);
+    }
+
+    //CONNECTION TO TAYLOR'S BACKEND
+    @PutMapping(path="/addUserToBoard/{board_id}")
+    public BoardModel addUserToBoard(@PathVariable Integer board_id, @RequestParam Integer user_id)
+    {
+
+        return boardService.addUserToBoard(board_id, user_id);
+    }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteBoard/{board_id}")

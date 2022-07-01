@@ -1,11 +1,15 @@
 package Group_15.Trello_Project.user.service;
 
 import Group_15.Trello_Project.*;
+import Group_15.Trello_Project.board.entity.BoardModel;
 import Group_15.Trello_Project.user.entity.UserModel;
 import Group_15.Trello_Project.user.repository.UserRepository;
+import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -125,10 +129,6 @@ public class UserServiceImplementation implements UserServiceInterface {
 
 
 
-
-
-    //UNCOMMENT WHEN BACKENDS ARE CONNECTED
-/*
     public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel) {
         //check if user exists, assume workspace has already been error checked
         UserModel userModel;
@@ -137,7 +137,7 @@ public class UserServiceImplementation implements UserServiceInterface {
             userModel = user.get();
             List<WorkspaceModel> workspaces = userModel.getWorkspaces();
             if(workspaces == null){
-                workspaces = new List<WorkspaceModel>();
+                workspaces = new ArrayList<WorkspaceModel>();
             }
 
             //check to make sure user isn't already in database
@@ -154,6 +154,35 @@ public class UserServiceImplementation implements UserServiceInterface {
         }
         //if they do then add workspace to user list
     }
+
+    public boolean addBoardToUser(Integer id, BoardModel boardModel){
+        //check if user exists, assume boardModel has already been error checked
+        UserModel userModel = null;
+        Optional<UserModel> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userModel = user.get();
+            List<BoardModel> boards = userModel.getBoards();
+            if(boards == null){
+                boards = new ArrayList<BoardModel>();
+            }
+            if(!boards.contains(boardModel)) {
+                boards.add(boardModel);
+                userModel.setBoards(boards);
+                userRepository.save(userModel);
+                return true;
+            } else {
+                return false;
+            }
+        }else{
+            return false;
+        }
+        // then add board to List<BoardModel>
+    }
+
+
+    //UNCOMMENT WHEN BACKENDS ARE CONNECTED
+/*
+
 
     public List<WorkspaceModel> getAllWorkspaces(Integer id) {
         //check if user exists..
@@ -186,25 +215,6 @@ public class UserServiceImplementation implements UserServiceInterface {
         return false;
     }
 
-    public boolean addBoardToUser(Integer id, BoardModel boardModel){
-        //check if user exists, assume boardModel has already been error checked
-        UserModel userModel = null;
-        Optional<UserModel> user = userRepository.findById(id);
-        if(user.isPresent()){
-            userModel = user.get();
-            List<BoardModel> boards = userModel.getBoards();
-            if(boards == null){
-                boards = new List<BoardModel>();
-            }
-            boards.add(boardModel);
-            userModel.setBoards(boards);
-            userRepository.save(userModel);
-            return true;
-        }else{
-            return false;
-        }
-        // then add board to List<BoardModel>
-    }
 
     public List<BoardModel> getAllBoards(Integer id){
         //check if user exists

@@ -2,6 +2,7 @@ package Group_15.Trello_Project.workspace.service;
 
 import Group_15.Trello_Project.board.entity.BoardModel;
 import Group_15.Trello_Project.board.service.BoardService;
+import Group_15.Trello_Project.user.service.UserServiceImplementation;
 import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
 import Group_15.Trello_Project.workspace.repository.WorkspaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,55 +22,51 @@ public class WorkspaceService {
 
     @Autowired
     BoardService boardService;
+//
+//    public WorkspaceModel createWorkspace(WorkspaceModel workspaceModel)
+//    {
+//        return workspaceRepository.save(workspaceModel);
+//
+//    }
 
-    public WorkspaceModel createWorkspace(WorkspaceModel workspaceModel)
+    //CONNECTION TO TAYLOR'S BACKEND
+    @Autowired
+    UserServiceImplementation userService;
+
+    public WorkspaceModel createWorkspace(WorkspaceModel workspaceModel, Integer user_id)
     {
-        return workspaceRepository.save(workspaceModel);
 
+        WorkspaceModel workspace = workspaceRepository.save(workspaceModel);
+
+        boolean success = userService.addWorkspaceToUser(user_id, workspace);
+
+        if(success) {
+            return workspace;
+        }
+
+        return null;
     }
 
-//    //CONNECTION TO TAYLOR'S BACKEND
-//    @Autowired
-//    UserService userService;
-//
-//    public WorkspaceModel createWorkspace(Integer user_id, WorkspaceModel workspaceModel)
-//    {
-//        boolean success = userService.addWorkspaceToUser(user_id, workspaceModel);
-//        WorkspaceModel workspace = null;
-//        try
-//        {
-//            if(success) {
-//                workspace = workspaceRepository.save(workspaceModel);
-//            }
-//        }
-//        catch(Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return workspace;
-//
-//    }
+    public WorkspaceModel addUserToWorkspace(Integer workspace_id, Integer user_id)
+    {
 
+        Optional<WorkspaceModel> optionalWorkspaceModel = workspaceRepository.findById(workspace_id);
+        WorkspaceModel updatedWorkspaceModel =  null;
+        boolean success = false;
 
-//    public WorkspaceModel addUser(Integer user_id, WorkspaceModel workspaceModel)
-//    {
-//        boolean success = userService.addWorkspaceToUser(user_id, workspaceModel);
-//
-//        Optional<WorkspaceModel> optionalWorkspaceModel = workspaceRepository.findById(workspaceModel.getId());
-//        try
-//        {
-//            if(success) {
-//                if(optionalWorkspaceModel.isPresent())
-//                {
-//                    workspaceModel = optionalWorkspaceModel.get();
-//                }
-//            }
-//        }
-//        catch(Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return workspaceModel;
-//
-//    }
+        if(optionalWorkspaceModel.isPresent())
+        {
+            updatedWorkspaceModel = optionalWorkspaceModel.get();
+            success = userService.addWorkspaceToUser(user_id, updatedWorkspaceModel);
+        }
+
+        if(success) {
+            return updatedWorkspaceModel;
+        }
+
+        return null;
+
+    }
     public WorkspaceModel updateBoard(Integer workspace_id, Integer board_id)
     {
         WorkspaceModel updatedWorkspace = null;

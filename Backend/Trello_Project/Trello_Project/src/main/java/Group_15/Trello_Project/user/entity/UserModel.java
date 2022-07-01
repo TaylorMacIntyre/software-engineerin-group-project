@@ -1,6 +1,11 @@
 package Group_15.Trello_Project.user.entity;
 
+import Group_15.Trello_Project.board.entity.BoardModel;
+import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
+
 import javax.persistence.*;
+import java.util.List;
+import java.util.List;
 
 @Entity
 public class UserModel {
@@ -14,7 +19,6 @@ public class UserModel {
     private String securityAnswer;
     //UPDATE ME W TASKS INFO
 
-    /* UNCOMMENT WHEN BACKENDS CONNECTED
     @ManyToMany(targetEntity = BoardModel.class)
     @JoinColumn(name = "Board_Users")
     private List<BoardModel> boards;
@@ -22,7 +26,6 @@ public class UserModel {
     @ManyToMany(targetEntity = WorkspaceModel.class)
     @JoinColumn(name = "Workspace_Users")
     private List<WorkspaceModel> workspaces;
-    */
 
     public UserModel(String firstName, String lastName, String email, String password, String securityAnswer) {
         this.firstName = firstName;
@@ -64,6 +67,23 @@ public class UserModel {
         return email;
     }
 
+        //commented out until we connect backends
+    public List<BoardModel> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(List<BoardModel> boards) {
+        this.boards = boards;
+    }
+
+    public List<WorkspaceModel> getWorkspaces() {
+        return workspaces;
+    }
+
+    public void setWorkspaces(List<WorkspaceModel> workspaces) {
+        this.workspaces = workspaces;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -84,22 +104,5 @@ public class UserModel {
         this.securityAnswer = securityQAnswer;
     }
 
-    //commented out until we connect backends
-    /*
-    public List<BoardModel> getBoards() {
-        return boards;
-    }
-
-    public void setBoards(List<BoardModel> boards) {
-        this.boards = boards;
-    }
-
-    public List<WorkspaceModel> getWorkspaces() {
-        return workspaces;
-    }
-
-    public void setWorkspaces(List<WorkspaceModel> workspaces) {
-        this.workspaces = workspaces;
-    }
-    */
 }
+

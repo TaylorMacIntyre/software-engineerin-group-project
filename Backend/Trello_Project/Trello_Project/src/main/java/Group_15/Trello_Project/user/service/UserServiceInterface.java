@@ -1,7 +1,9 @@
 package Group_15.Trello_Project.user.service;
 
 import Group_15.Trello_Project.*;
+import Group_15.Trello_Project.board.entity.BoardModel;
 import Group_15.Trello_Project.user.entity.UserModel;
+import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,14 +18,15 @@ public interface UserServiceInterface {
 
     public UserModel findUserByID(Integer userId);
 
-    /* UNCOMMENT WHEN BACKENDS ARE CONNECTED
     public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel);
 
+    public boolean addBoardToUser(Integer id, BoardModel boardModel);
+
+
+    /* UNCOMMENT WHEN BACKENDS ARE CONNECTED
     public List<WorkspaceModel> getAllWorkspaces(Integer id);
 
     public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel);
-
-    public boolean addBoardToUser(Integer id, BoardModel boardModel);
 
     public List<BoardModel> getAllBoards(Integer id);
 

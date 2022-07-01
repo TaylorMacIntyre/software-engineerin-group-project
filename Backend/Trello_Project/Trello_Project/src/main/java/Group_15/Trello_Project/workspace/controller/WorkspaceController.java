@@ -1,6 +1,8 @@
 package Group_15.Trello_Project.workspace.controller;
 
 import Group_15.Trello_Project.board.entity.BoardModel;
+import Group_15.Trello_Project.user.entity.UserModel;
+import Group_15.Trello_Project.user.service.UserServiceImplementation;
 import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
 import Group_15.Trello_Project.workspace.service.WorkspaceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,30 +19,28 @@ public class WorkspaceController
     @Autowired
     WorkspaceService workspaceService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(path="/saveWorkspace", consumes = "application/json", produces = "application/json")
-    public WorkspaceModel createWorkspace(@RequestBody WorkspaceModel workspaceModel)
-    {
-        return workspaceService.createWorkspace(workspaceModel);
-    }
-
-//
-//    //CONNECTION TO TAYLOR'S BACKEND
+//    @CrossOrigin(origins = "http://localhost:3000")
 //    @PostMapping(path="/saveWorkspace", consumes = "application/json", produces = "application/json")
-//    public WorkspaceModel createWorkspace(@PathVariable Integer user_id, @RequestBody WorkspaceModel workspaceModel)
+//    public WorkspaceModel createWorkspace(@RequestBody WorkspaceModel workspaceModel)
 //    {
-//
-//        return workspaceService.createWorkspace(user_id, workspaceModel);
+//        return workspaceService.createWorkspace(workspaceModel);
 //    }
+
 
     //CONNECTION TO TAYLOR'S BACKEND
-//    @PostMapping(path="/addUser", consumes = "application/json", produces = "application/json")
-//    public WorkspaceModel addUser(@PathVariable Integer user_id, @RequestParam WorkspaceModel workspaceModel)
-//    {
-//
-//        return workspaceService.addUser(user_id, workspace_id);
-//    }
-//
+    @PostMapping(path="/saveWorkspace/{user_id}", consumes = "application/json", produces = "application/json")
+    public WorkspaceModel createWorkspace(@RequestBody WorkspaceModel workspaceModel, @PathVariable Integer user_id)
+    {
+        return workspaceService.createWorkspace(workspaceModel, user_id);
+    }
+
+    //CONNECTION TO TAYLOR'S BACKEND
+    @PutMapping(path="/addUserToWorkspace/{workspace_id}")
+    public WorkspaceModel addUserToWorkspace(@PathVariable Integer workspace_id, @RequestParam Integer user_id)
+    {
+
+        return workspaceService.addUserToWorkspace(workspace_id, user_id);
+    }
 
 
     @CrossOrigin(origins = "http://localhost:3000")

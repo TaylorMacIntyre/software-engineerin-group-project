@@ -2,6 +2,7 @@ package Group_15.Trello_Project.board.service;
 
 import Group_15.Trello_Project.board.entity.BoardModel;
 import Group_15.Trello_Project.board.repository.BoardRepository;
+import Group_15.Trello_Project.user.service.UserServiceImplementation;
 import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,9 @@ public class BoardService {
     @Autowired
     BoardRepository boardRepository;
 
-    public BoardModel createBoard(BoardModel boardModel) {
-        return boardRepository.save(boardModel);
-    }
+//    public BoardModel createBoard(BoardModel boardModel) {
+//        return boardRepository.save(boardModel);
+//    }
 
 
 //    //CONNECTION TO TAYLOR'S BACKEND
@@ -62,6 +63,44 @@ public class BoardService {
 //        return boardModel;
 //
 //    }
+
+    @Autowired
+    UserServiceImplementation userService;
+    public BoardModel createBoard(BoardModel boardModel, Integer user_id)
+    {
+
+        BoardModel board = boardRepository.save(boardModel);
+
+        boolean success = userService.addBoardToUser(user_id, board);
+
+        if(success) {
+            return board;
+        }
+
+        return null;
+    }
+
+    public BoardModel addUserToBoard(Integer board_id, Integer user_id)
+    {
+
+        Optional<BoardModel> optionalBoardModel = boardRepository.findById(board_id);
+        BoardModel updatedBoardModel =  null;
+        boolean success = false;
+
+        if(optionalBoardModel.isPresent())
+        {
+            updatedBoardModel = optionalBoardModel.get();
+            success = userService.addBoardToUser(user_id, updatedBoardModel);
+        }
+
+        if(success) {
+            return updatedBoardModel;
+        }
+
+        return null;
+
+    }
+
 
     public BoardModel findBoardById(Integer board_id)
     {
