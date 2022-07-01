@@ -206,7 +206,7 @@ public class UserServiceImplementation implements UserServiceInterface {
         // then add board to List<BoardModel>
     }
 
-    public List<BoardModel> getAllBoards(Integer id){
+    public List<BoardModel> getAllBoards(Integer id, List<WorkspaceModel> boardsInWorkspace){
         //check if user exists
         UserModel userModel = null;
         Optional<UserModel> user = userRepository.findById(id);
@@ -216,7 +216,18 @@ public class UserServiceImplementation implements UserServiceInterface {
         }else{
             return null;
         }
-        // then return board list
+        //loop through and add boards to a list
+        List<BoardModel> userWorkspaceBoards = new List<BoardModel>(){};
+        int size = boardsInWorkspace.size();
+        int index;
+        for(int i = 0; i < size; i++){
+            index = boards.indexOf(boardsInWorkspace.get(i));
+            if(index != -1){
+                userWorkspaceBoards.add(boards.get(index));
+            }
+        }
+
+        return userWorkspaceBoards;
     }
 
     public boolean deleteUserBoard(Integer id, BoardModel boardModel) {
