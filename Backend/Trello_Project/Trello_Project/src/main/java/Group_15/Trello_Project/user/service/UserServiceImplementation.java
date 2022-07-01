@@ -181,7 +181,7 @@ public class UserServiceImplementation implements UserServiceInterface {
 
 
     //UNCOMMENT WHEN BACKENDS ARE CONNECTED
-/*
+    /*
 
 
     public List<WorkspaceModel> getAllWorkspaces(Integer id) {

@@ -22,14 +22,7 @@ public class WorkspaceService {
 
     @Autowired
     BoardService boardService;
-//
-//    public WorkspaceModel createWorkspace(WorkspaceModel workspaceModel)
-//    {
-//        return workspaceRepository.save(workspaceModel);
-//
-//    }
 
-    //CONNECTION TO TAYLOR'S BACKEND
     @Autowired
     UserServiceImplementation userService;
 

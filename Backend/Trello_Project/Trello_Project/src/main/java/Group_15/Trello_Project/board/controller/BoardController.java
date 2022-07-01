@@ -16,36 +16,12 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @PostMapping(path = "/saveBoard", consumes = "application/json", produces = "application/json")
-//    public BoardModel createBoard(@RequestBody BoardModel boardModel) {
-//        return boardService.createBoard(boardModel);
-//    }
-
-
-//    //CONNECTION TO TAYLOR'S BACKEND
-//    @PostMapping(path = "/saveBoard", consumes = "application/json", produces = "application/json")
-//    public BoardModel createBoard(@PathVariable Integer user_id, @RequestBody BoardModel boardModel) {
-//        return boardService.createBoard(user_id, boardModel);
-//    }
-
-    //CONNECTION TO TAYLOR'S BACKEND
-//    @PostMapping(path="/addUser", consumes = "application/json", produces = "application/json")
-//    public BoardModel addUser(@PathVariable Integer user_id, @RequestParam BoardModel boardModel)
-//    {
-//
-//        return boardService.addUser(user_id, workspace_id);
-//    }
-//
-
-    //CONNECTION TO TAYLOR'S BACKEND
     @PostMapping(path="/saveBoard/{user_id}", consumes = "application/json", produces = "application/json")
     public BoardModel createBoard(@RequestBody BoardModel boardModel, @PathVariable Integer user_id)
     {
         return boardService.createBoard(boardModel, user_id);
     }
 
-    //CONNECTION TO TAYLOR'S BACKEND
     @PutMapping(path="/addUserToBoard/{board_id}")
     public BoardModel addUserToBoard(@PathVariable Integer board_id, @RequestParam Integer user_id)
     {
