@@ -56,8 +56,8 @@ public class WorkspaceController
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/getWorkspaceBoards/{workspace_id}")
-    public List<BoardModel> getWorkspaceBoards(@PathVariable Integer workspace_id, @RequestParam Integer user_id)
+    @GetMapping("/getWorkspaceBoards/{workspace_id}/{user_id}")
+    public List<BoardModel> getWorkspaceBoards(@PathVariable Integer workspace_id, @PathVariable Integer user_id)
     {
         return workspaceService.getWorkspaceBoards(workspace_id, user_id);
     }
