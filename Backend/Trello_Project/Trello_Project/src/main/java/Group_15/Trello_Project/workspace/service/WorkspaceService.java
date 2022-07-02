@@ -33,11 +33,8 @@ public class WorkspaceService {
 
         boolean success = userService.addWorkspaceToUser(user_id, workspace);
 
-        if(success) {
-            return workspace;
-        }
+        return workspace;
 
-        return null;
     }
 
     public WorkspaceModel addUserToWorkspace(Integer workspace_id, Integer user_id)
