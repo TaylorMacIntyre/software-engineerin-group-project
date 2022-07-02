@@ -205,10 +205,6 @@ public class UserServiceImplementation implements UserServiceInterface {
         // then return board list
     }
 
-
-    //UNCOMMENT WHEN BACKENDS ARE CONNECTED
-    /*
-
     public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel) {
         //check if user exists
         UserModel userModel = null;
@@ -220,7 +216,9 @@ public class UserServiceImplementation implements UserServiceInterface {
                 //can't delete a workspace from an empty list
                 return false;
             }
-            return workspaces.remove(workspaceModel);
+            workspaces.remove(workspaceModel);
+            userRepository.save(userModel);
+            return true;
         }
         // then remove workspace from List<WorkspaceModel>
         //user doesn't exist
@@ -238,10 +236,12 @@ public class UserServiceImplementation implements UserServiceInterface {
                 //can't delete a board from an empty list of boards
                 return false;
             }
-            return boards.remove(boardModel);
+            boards.remove(boardModel);
+            userRepository.save(userModel);
+            return true;
         }
         //user isn't present, return false
         return false;
     }
-*/
+
 }

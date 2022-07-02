@@ -51,4 +51,11 @@ public class BoardController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PutMapping("/removeUserFromBoard/{board_id}")
+    public boolean removeUserFromBoard(@PathVariable Integer board_id, @RequestParam Integer user_id)
+    {
+        return boardService.removeUserFromBoard(board_id, user_id);
+
+    }
 }

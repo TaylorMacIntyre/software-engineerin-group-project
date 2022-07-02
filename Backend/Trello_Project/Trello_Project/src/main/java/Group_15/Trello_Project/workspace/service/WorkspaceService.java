@@ -131,6 +131,25 @@ public class WorkspaceService {
         return commonBoards;
     }
 
+    public boolean removeUserFromWorkspace(@PathVariable Integer workspace_id, @RequestParam Integer user_id)
+    {
+        Optional<WorkspaceModel> workspace = null;
+
+        boolean success = false;
+
+        workspace = workspaceRepository.findById(workspace_id);
+
+        if(workspace.isPresent())
+        {
+            WorkspaceModel workspaceModel = workspace.get();
+
+            success = userService.deleteUserWorkspace(user_id, workspaceModel);
+
+        }
+
+        return success;
+    }
+
     public void deleteWorkspace(@PathVariable Integer workspace_id)
     {
         workspaceRepository.deleteById(workspace_id);
@@ -183,7 +202,6 @@ public class WorkspaceService {
 
         return updatedWorkspace;
     }
-
 
 
 }

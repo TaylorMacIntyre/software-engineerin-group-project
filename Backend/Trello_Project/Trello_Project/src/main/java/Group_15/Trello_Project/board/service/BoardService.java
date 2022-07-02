@@ -98,4 +98,23 @@ public class BoardService {
 
     }
 
+    public boolean removeUserFromBoard(@PathVariable Integer board_id, @RequestParam Integer user_id)
+    {
+        Optional<BoardModel> board = null;
+
+        boolean success = false;
+
+        board = boardRepository.findById(board_id);
+
+        if(board.isPresent())
+        {
+            BoardModel boardModel = board.get();
+
+            success = userService.deleteUserBoard(user_id, boardModel);
+
+        }
+
+        return success;
+    }
+
 }
