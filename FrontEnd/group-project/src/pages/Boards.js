@@ -23,6 +23,7 @@ function Boards() {
         .then(boards => {
             setBoardsData(boards);
         });
+
     },[url]);
 
 

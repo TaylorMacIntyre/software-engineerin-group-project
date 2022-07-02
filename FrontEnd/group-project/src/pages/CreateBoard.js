@@ -8,6 +8,16 @@ function CreateBoard() {
     
     const history = useHistory();
 
+    function assign(b){
+        const a = localStorage.getItem("active_workspace")
+
+        fetch(`http://localhost:9000/workspace/assignBoard/${a}?board_id=${b}`,{
+            method: 'PUT',
+            
+        }).then(() => history.replace(`/boards/${a}`));
+    }
+
+
     function createBoardHandler(board) {
         
         fetch('http://localhost:9000/board/saveBoard', {
@@ -16,20 +26,16 @@ function CreateBoard() {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(() => history.replace(`/boards`));
+        }).then(r => r.json()).then((r) => {
+            assign(r.id);
+        });
         
     }
 
-    function assign(a,b){
-        fetch(`http://localhost:9000/workspace/assignBoard/${a}?board_id=${b}`,{
-            method: 'PUT',
-            
-        }).then(() => history.replace(`/boards/${a}`));
-    }
 
 
     return (
-        <CreateBoardForm createBoard={createBoardHandler} assign/>
+        <CreateBoardForm createBoard={createBoardHandler} />
         
     );
 };

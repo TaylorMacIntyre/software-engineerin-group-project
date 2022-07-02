@@ -1,14 +1,12 @@
 
 
 import { Grid, Card, CardContent, Typography, Button } from '@mui/material';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 
-
-let a;
-
 function ViewSpace(props) {
-    
+
     return (
         <section style={{ marginTop: '32px' }}>
             <Typography variant='h2' component='h2'>Workspace</Typography>
@@ -45,8 +43,8 @@ function ViewSpace(props) {
 
                                     
                                     
-                                    <Link to={'/boards/'+ workspace.id} >
-                                        <Button variant='contained' sx={{ marginTop: '200px' }} >
+                                    <Link to={'/boards/'+ workspace.id}>
+                                        <Button variant='contained' sx={{ marginTop: '200px' }} onClick={() => localStorage.setItem("active_workspace", workspace.id)}>
                                             Go to the board
                                             
                                         </Button>
@@ -60,5 +58,5 @@ function ViewSpace(props) {
         </section>
     );
 };
-//onClick = {a = workspace.id}
+//
 export default ViewSpace;

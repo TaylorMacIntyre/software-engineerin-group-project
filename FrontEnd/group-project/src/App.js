@@ -32,6 +32,7 @@ function App() {
             <Navigation />
             <Boards />
           </Route>
+          
           {/* <Route path='/boards' exact>
             <Navigation />
             <Boards />
