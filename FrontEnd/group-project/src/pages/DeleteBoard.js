@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import DeleteBoardForm from '../components/DeleteBoardForm';
 
 function DeleteBoard() {
+    const a = localStorage.getItem("active_workspace")
     const history = useHistory();
     function deleteBoardHandler(ID){
         fetch('http://localhost:9000/board/deleteBoard/'+ ID, {
@@ -11,7 +12,7 @@ function DeleteBoard() {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(() => history.replace('/boards'));
+        }).then(() => history.replace('/boards/'+a));
     }
 
     return(

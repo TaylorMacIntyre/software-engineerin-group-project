@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ViewSpace from '../components/ViewWorkSpace';
-import space from '../data/space';
+
 
 
 function WorkSpace() {
