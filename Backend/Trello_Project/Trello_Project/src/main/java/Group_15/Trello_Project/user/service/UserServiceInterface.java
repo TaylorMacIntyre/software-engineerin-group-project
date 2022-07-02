@@ -31,4 +31,8 @@ public interface UserServiceInterface {
 
     public boolean deleteUserBoard(Integer id, BoardModel boardModel);
 
+    public boolean fullyDeleteBoard(BoardModel boardModel);
+
+    public boolean fullyDeleteWorkspace(WorkspaceModel workspaceModel);
+
 }

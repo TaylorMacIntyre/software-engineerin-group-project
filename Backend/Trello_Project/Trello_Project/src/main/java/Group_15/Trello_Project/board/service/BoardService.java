@@ -72,7 +72,20 @@ public class BoardService {
 
     public void deleteBoard(@PathVariable Integer board_id)
     {
-        boardRepository.deleteById(board_id);
+        BoardModel boardModel = null;
+
+        Optional<BoardModel> optionalBoardModel = boardRepository.findById(board_id);
+
+        boolean success = false;
+
+        if(optionalBoardModel.isPresent()) {
+            boardModel = optionalBoardModel.get();
+            success = userService.fullyDeleteBoard(boardModel);
+
+            if (success) {
+                boardRepository.deleteById(board_id);
+            }
+        }
     }
 
     public List<BoardModel> getAllBoards()

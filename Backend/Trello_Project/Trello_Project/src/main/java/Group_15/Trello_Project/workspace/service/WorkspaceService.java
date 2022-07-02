@@ -171,7 +171,20 @@ public class WorkspaceService {
 
     public void deleteWorkspace(@PathVariable Integer workspace_id)
     {
-        workspaceRepository.deleteById(workspace_id);
+        WorkspaceModel workspaceModel = null;
+
+        Optional<WorkspaceModel> optionalWorkspaceModel = workspaceRepository.findById(workspace_id);
+
+        boolean success = false;
+
+        if(optionalWorkspaceModel.isPresent()) {
+            workspaceModel = optionalWorkspaceModel.get();
+            success = userService.fullyDeleteWorkspace(workspaceModel);
+
+            if (success) {
+                workspaceRepository.deleteById(workspace_id);
+            }
+        }
     }
 
     public WorkspaceModel getWorkspace(@PathVariable Integer workspace_id)
