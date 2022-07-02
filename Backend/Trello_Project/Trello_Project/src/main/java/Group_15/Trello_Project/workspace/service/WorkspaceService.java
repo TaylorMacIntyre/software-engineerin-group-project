@@ -145,6 +145,25 @@ public class WorkspaceService {
 
             success = userService.deleteUserWorkspace(user_id, workspaceModel);
 
+            //remove user from the corresponding workspace boards too
+
+            List<BoardModel> workspaceBoards = workspaceModel.getBoards();
+            List<BoardModel> userBoards = userService.getAllBoards(user_id);
+            ArrayList<BoardModel> commonBoards = new ArrayList<>();
+
+            for(int i = 0 ; i < userBoards.size() ; i++)
+            {
+                if(workspaceBoards.contains(userBoards.get(i)))
+                {
+                    commonBoards.add(userBoards.get(i));
+                }
+            }
+
+            for(int j = 0; j < commonBoards.size(); j++)
+            {
+                success = userService.deleteUserBoard(user_id, commonBoards.get(j));
+            }
+
         }
 
         return success;
