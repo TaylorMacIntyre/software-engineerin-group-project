@@ -11,6 +11,7 @@ function Navigation2() {
                         <Typography variant="h6" component="div" sx={{ padding: '0 8px' }}>
                             WorkSpace
                         </Typography>
+
                     </Link>
                     <Link to='/create-WorkSpace' style={{ textDecoration: 'none', color: 'white' }}>
                         <Typography variant="h6" component="div" sx={{ padding: '0 8px' }}>

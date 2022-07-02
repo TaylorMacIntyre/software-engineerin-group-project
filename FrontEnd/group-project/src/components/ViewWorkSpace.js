@@ -1,27 +1,55 @@
-import React from 'react';
+
+
 import { Grid, Card, CardContent, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
+
+
+let a;
+
 function ViewSpace(props) {
+    
     return (
         <section style={{ marginTop: '32px' }}>
             <Typography variant='h2' component='h2'>Workspace</Typography>
             <Grid container spacing={2}>
-                {props.boards.map((workspace) => {
+                {props.space.map((workspace) => {
+
+
+                    // a => {workspace.id};
+
+
+
                     return (
                         <Grid item xs={12} sm={12} md={4} lg={4} key={workspace.id}>
                             <Card elevation={6}>
                                 <CardContent>
+                                    <Typography component='h5' variant='h5'>
+                                        ID: {workspace.id}
+                                        {/* spaceID = {workspace.id} */}
+                                    </Typography>
+
                                     <Typography component='h4' variant='h4'>
                                         {workspace.workspace_name}
                                     </Typography>
+
+
                                     <Typography component='p' variant='p'>
                                         {workspace.workspace_description}
                                     </Typography>
-                                    <Link to='/boards'>
-                                    <Button variant='contained' sx={{ marginTop: '200px' }}>
-                                        Go to the board
-                                    </Button>
+
+
+                                    {/* <Typography component='p' variant='p'>
+                                        {workspace.boards[0].ID}
+                                    </Typography> */}
+
+                                    
+                                    
+                                    <Link to={'/boards/'+ workspace.id} >
+                                        <Button variant='contained' sx={{ marginTop: '200px' }} >
+                                            Go to the board
+                                            
+                                        </Button>
                                     </Link>
                                 </CardContent>
                             </Card>
@@ -32,5 +60,5 @@ function ViewSpace(props) {
         </section>
     );
 };
-
+//onClick = {a = workspace.id}
 export default ViewSpace;

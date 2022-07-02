@@ -11,35 +11,52 @@ import DeleteBoard from './pages/DeleteBoard';
 function App() {
   return (
     <React.Fragment>
-      
+
       <Container>
         <Switch>
-        <Route path={['/','/WorkSpace']} exact>
-        <Navigation2 />
+          
+
+          <Route path={['/', '/WorkSpace']} exact>
+            <Navigation2 />
             <WorkSpace />
           </Route>
 
+
           <Route path='/create-WorkSpace' exact>
-          <Navigation2 />
+            <Navigation2 />
             <CreateWorkSpace />
           </Route>
-          
-          <Route path='/boards' exact>
-          <Navigation />
+
+
+          <Route path={'/boards/:id'}>
+            <Navigation />
             <Boards />
           </Route>
+          {/* <Route path='/boards' exact>
+            <Navigation />
+            <Boards />
+          </Route> */}
+
+
           <Route path='/create-board' exact>
-          <Navigation />
+            <Navigation />
             <CreateBoard />
           </Route>
+
+
+          
           <Route path='/delete-board' exact>
-          <Navigation />
-            <DeleteBoard/>
+            <Navigation />
+            <DeleteBoard />
           </Route>
         </Switch>
       </Container>
     </React.Fragment>
   );
 };
+
+//  /workspace/:id
+// workspace - const {id} = useParams()
+
 
 export default App;

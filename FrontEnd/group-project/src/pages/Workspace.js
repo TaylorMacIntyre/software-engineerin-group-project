@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import ViewSpace from '../components/ViewWorkSpace';
 import space from '../data/space';
 
+
 function WorkSpace() {
+
+   // useParams();
     const [spacesData, setBoardsData] = useState([]);
 
     function getAllSpace() {
@@ -20,7 +23,7 @@ function WorkSpace() {
 
     return (
         <section>
-            <ViewSpace boards={spacesData} />
+            <ViewSpace space={spacesData} />
         </section>
     );
 };

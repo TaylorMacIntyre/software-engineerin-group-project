@@ -17,7 +17,11 @@ function CreateBoardForm(props) {
 
         props.createBoard(board);
     };
-
+    // function sign(){
+    //         fetch(`http://localhost:9000/workspace/assignBoard/${a}?`,{
+    //             method: 'PUT'
+    //         }).then(() => history.replace(`/boards/${a}`));
+    //     }
     return (
         <section style={{ marginTop: '32px' }}>
             <Typography variant='h2' component='h2'>Create New Board</Typography>

@@ -1,10 +1,10 @@
 
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import CreateSpaceForm from '../components/CreateSpaceForm';
 
 function CreateWorkSpace() {
-
+    // const id = useParams;
     const history = useHistory();
 
     function createSpaceHandler(workspace) {
