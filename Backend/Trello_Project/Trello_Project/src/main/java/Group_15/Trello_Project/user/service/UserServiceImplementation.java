@@ -128,7 +128,7 @@ public class UserServiceImplementation implements UserServiceInterface {
 
 
     //UNCOMMENT WHEN BACKENDS ARE CONNECTED
-/*
+    /*
     public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel) {
         //check if user exists, assume workspace has already been error checked
         UserModel userModel;
@@ -206,7 +206,7 @@ public class UserServiceImplementation implements UserServiceInterface {
         // then add board to List<BoardModel>
     }
 
-    public List<BoardModel> getAllBoards(Integer id, List<WorkspaceModel> boardsInWorkspace){
+    public List<BoardModel> getAllBoards(Integer id, List<BoardModel> boardsInWorkspace){
         //check if user exists
         UserModel userModel = null;
         Optional<UserModel> user = userRepository.findById(id);
@@ -246,5 +246,55 @@ public class UserServiceImplementation implements UserServiceInterface {
         //user isn't present, return false
         return false;
     }
-*/
+
+
+
+    public boolean fullyDeleteWorkspace(WorkspaceModel workspaceModel){
+        //remove workspace from all users
+        List<UserModel> users_list = userRepository.findAll();
+        int numberUsers = users_list.size();
+
+        if( numberUsers < 1){
+            return false;
+        }
+        boolean flag = false;
+        UserModel user;
+        int numberWorkspaces;
+        List<WorkspaceModel> workspace_list;
+        for(int i = 0; i < numberUsers; i++){
+            //get the user at index i
+            user = users_list.get(i);
+            //get the users workspaces
+            workspace_list = user.getWorkspaces();
+            //remove the workspace
+            flag = workspace_list.remove(workspaceModel);
+        }
+        return flag;
+    }
+
+    public boolean fullyDeleteBoard(BoardModel boardModel){
+        // get list of all users
+        List<UserModel> users_list = userRepository.findAll();
+        int numberUsers = users_list.size();
+
+        if( numberUsers < 1){
+            return false;
+        }
+
+        boolean flag = false;
+        UserModel user;
+        int numberBoards;
+        List<BoardModel> board_list;
+        for(int i = 0; i < numberUsers; i++){
+            //get user at index i
+            user = users_list.get(i);
+            // get users boards
+            board_list = user.getBoards();
+            // remove board from list
+            flag = board_list.remove(boardModel);
+        }
+        //will return true if board was removed at least once
+        return flag;
+    }
+    */
 }

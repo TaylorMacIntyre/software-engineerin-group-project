@@ -1,6 +1,9 @@
 package Group_15.Trello_Project.user.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class UserModel {
@@ -83,6 +86,8 @@ public class UserModel {
     public void setSecurityAnswer(String securityQAnswer) {
         this.securityAnswer = securityQAnswer;
     }
+
+
 
     //commented out until we connect backends
     /*
