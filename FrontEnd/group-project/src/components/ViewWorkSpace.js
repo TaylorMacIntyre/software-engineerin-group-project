@@ -15,9 +15,6 @@ function ViewSpace(props) {
 
 
                     // a => {workspace.id};
-
-
-
                     return (
                         <Grid item xs={12} sm={12} md={4} lg={4} key={workspace.id}>
                             <Card elevation={6}>

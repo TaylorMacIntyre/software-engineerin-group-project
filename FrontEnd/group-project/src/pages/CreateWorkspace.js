@@ -15,7 +15,7 @@ function CreateWorkSpace() {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(() => history.replace(`/WorkSpace/${uid}`  ));
+        }).then(() => history.replace(`/WorkSpace/${uid}`));
     }
 
     return (
