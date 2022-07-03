@@ -10,7 +10,7 @@ function LoginPage(){
     const history = useHistory();
 
     function loginUserHandler(user){
-        return fetch("http://localhost:9001/user/login", {
+        return fetch("http://localhost:9000/user/login", {
             method: "POST",
             body: JSON.stringify(user),
             headers: {
