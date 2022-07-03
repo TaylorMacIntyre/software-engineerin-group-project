@@ -15,6 +15,7 @@ import WorkSpace from './pages/Workspace';
 import CreateWorkSpace from './pages/CreateWorkspace';
 import Navigation2 from './components/Navigation2';
 import DeleteBoard from './pages/DeleteBoard';
+import AddingFunction from "./pages/AddingFunction";
 
 function App() {
   return (
@@ -55,6 +56,11 @@ function App() {
           <Route path='/create-board' exact>
             <Navigation1 />
             <CreateBoard />
+          </Route>
+
+          <Route path='/addmembertoworkspace' exact>
+            <Navigation1 />
+            <AddingFunction/>
           </Route>
 
           <Route path='/delete-board' exact>

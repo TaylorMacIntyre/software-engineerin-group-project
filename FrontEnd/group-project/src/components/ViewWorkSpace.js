@@ -46,6 +46,13 @@ function ViewSpace(props) {
                                             
                                         </Button>
                                     </Link>
+
+                                    <Link to={'/addmembertoworkspace'}>
+                                        <Button variant='contained' sx={{ marginTop: '200px' }} onClick={() => localStorage.setItem("workid", workspace.id)}>
+                                            Add member to this workspace
+                                            
+                                        </Button>
+                                    </Link>
                                 </CardContent>
                             </Card>
                         </Grid>
