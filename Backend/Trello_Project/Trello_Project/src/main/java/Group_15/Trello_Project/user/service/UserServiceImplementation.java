@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -43,16 +43,16 @@ public class UserServiceImplementation implements UserServiceInterface {
         try{
             user = userRepository.findByEmail(email);
             if(user.isPresent()){
-               UserModel userModel = user.get();
-               if(password.equals(userModel.getPassword())){
-                   String result = userModel.getId().toString();
-                   HashMap<String, String> map = new HashMap<String, String>();
-                   map.put("result", result);
-                   map.put("status", "successful login");
-                   return map;
-               } else {
-                   throw new IncorrectPasswordException();
-               }
+                UserModel userModel = user.get();
+                if(password.equals(userModel.getPassword())){
+                    String result = userModel.getId().toString();
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    map.put("result", result);
+                    map.put("status", "successful login");
+                    return map;
+                } else {
+                    throw new IncorrectPasswordException();
+                }
             }
             else {
                 throw new EmailNotRegisteredException();
@@ -128,7 +128,6 @@ public class UserServiceImplementation implements UserServiceInterface {
     }
 
 
-
     public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel) {
         //check if user exists, assume workspace has already been error checked
         UserModel userModel;
@@ -155,30 +154,6 @@ public class UserServiceImplementation implements UserServiceInterface {
         //if they do then add workspace to user list
     }
 
-    public boolean addBoardToUser(Integer id, BoardModel boardModel){
-        //check if user exists, assume boardModel has already been error checked
-        UserModel userModel = null;
-        Optional<UserModel> user = userRepository.findById(id);
-        if(user.isPresent()){
-            userModel = user.get();
-            List<BoardModel> boards = userModel.getBoards();
-            if(boards == null){
-                boards = new ArrayList<BoardModel>();
-            }
-            if(!boards.contains(boardModel)) {
-                boards.add(boardModel);
-                userModel.setBoards(boards);
-                userRepository.save(userModel);
-                return true;
-            } else {
-                return false;
-            }
-        }else{
-            return false;
-        }
-        // then add board to List<BoardModel>
-    }
-
     public List<WorkspaceModel> getAllWorkspaces(Integer id) {
         //check if user exists..
         UserModel userModel = null;
@@ -192,19 +167,6 @@ public class UserServiceImplementation implements UserServiceInterface {
         //then send List<WorkspaceModel>
     }
 
-    public List<BoardModel> getAllBoards(Integer id){
-        //check if user exists
-        UserModel userModel = null;
-        Optional<UserModel> user = userRepository.findById(id);
-        if(user.isPresent()){
-            userModel = user.get();
-            return userModel.getBoards();
-        }else{
-            return null;
-        }
-        // then return board list
-    }
-
     public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel) {
         //check if user exists
         UserModel userModel = null;
@@ -216,14 +178,59 @@ public class UserServiceImplementation implements UserServiceInterface {
                 //can't delete a workspace from an empty list
                 return false;
             }
-            workspaces.remove(workspaceModel);
             userRepository.save(userModel);
-            return true;
+            return workspaces.remove(workspaceModel);
         }
         // then remove workspace from List<WorkspaceModel>
         //user doesn't exist
         return false;
     }
+
+    public boolean addBoardToUser(Integer id, BoardModel boardModel){
+        //check if user exists, assume boardModel has already been error checked
+        UserModel userModel = null;
+        Optional<UserModel> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userModel = user.get();
+            List<BoardModel> boards = userModel.getBoards();
+            if(boards == null){
+                boards = new ArrayList<BoardModel>();
+            }
+            boards.add(boardModel);
+            userModel.setBoards(boards);
+            userRepository.save(userModel);
+            return true;
+        }else{
+            return false;
+        }
+        // then add board to List<BoardModel>
+    }
+
+    //DOUBLE CHECK
+//    public List<BoardModel> getAllBoards(Integer id, List<BoardModel> boardsInWorkspace){
+//        //check if user exists
+//        UserModel userModel = null;
+//        Optional<UserModel> user = userRepository.findById(id);
+//        if(user.isPresent()){
+//            userModel = user.get();
+//            //return userModel.getBoards();
+//        }else{
+//            return null;
+//        }
+//        //loop through and add boards to a list
+//        List<BoardModel> userWorkspaceBoards = new ArrayList<BoardModel>(){};
+//        List<BoardModel> boards = userModel.getBoards();
+//        int size = boardsInWorkspace.size();
+//        int index;
+//        for(int i = 0; i < size; i++){
+//            index = boards.indexOf(boardsInWorkspace.get(i));
+//            if(index != -1){
+//                userWorkspaceBoards.add(boards.get(index));
+//            }
+//        }
+//
+//        return userWorkspaceBoards;
+//    }
 
     public boolean deleteUserBoard(Integer id, BoardModel boardModel) {
         //check if user exists
@@ -236,35 +243,49 @@ public class UserServiceImplementation implements UserServiceInterface {
                 //can't delete a board from an empty list of boards
                 return false;
             }
-            boards.remove(boardModel);
             userRepository.save(userModel);
-            return true;
+            return boards.remove(boardModel);
         }
         //user isn't present, return false
         return false;
     }
 
-    public boolean fullyDeleteWorkspace(WorkspaceModel workspaceModel){
+
+
+    public boolean fullyDeleteWorkspace(WorkspaceModel workspaceModel, List<BoardModel> boardsInWorkspace){
         //remove workspace from all users
         List<UserModel> users_list = userRepository.findAll();
         int numberUsers = users_list.size();
+        int numBoards = boardsInWorkspace.size();
 
         if( numberUsers < 1){
             return false;
         }
-        boolean flag = false;
+        boolean flag1 = false;
+        boolean flag2 = false;
         UserModel user;
         int numberWorkspaces;
         List<WorkspaceModel> workspace_list;
+        List<BoardModel> board_list;
         for(int i = 0; i < numberUsers; i++){
             //get the user at index i
             user = users_list.get(i);
+            board_list = user.getBoards();
+            for(int j = 0; j < numBoards; j++){
+                //if one of the boards from the workspace to be deleted is in one of the users list of boards,
+                // delete it too
+                flag1 = board_list.remove(boardsInWorkspace.get(i));
+            }
             //get the users workspaces
             workspace_list = user.getWorkspaces();
             //remove the workspace
-            flag = workspace_list.remove(workspaceModel);
+            flag2 = workspace_list.remove(workspaceModel);
+            if(flag1 || flag2){
+                //if the user's boards or their workspaces were removed, then save
+                userRepository.save(user);
+            }
         }
-        return flag;
+        return true;
     }
 
     public boolean fullyDeleteBoard(BoardModel boardModel){
@@ -287,10 +308,12 @@ public class UserServiceImplementation implements UserServiceInterface {
             board_list = user.getBoards();
             // remove board from list
             flag = board_list.remove(boardModel);
+            if(flag){
+                userRepository.save(user);
+            }
         }
         //will return true if board was removed at least once
         return flag;
     }
-
-
 }
+

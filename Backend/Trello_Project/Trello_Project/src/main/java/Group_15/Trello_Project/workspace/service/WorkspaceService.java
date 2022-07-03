@@ -96,75 +96,75 @@ public class WorkspaceService {
         return userWorkspaces;
     }
 
-    public List<BoardModel> getWorkspaceBoards(Integer workspace_id, Integer user_id) {
+//    public List<BoardModel> getWorkspaceBoards(Integer workspace_id, Integer user_id) {
+//
+//        Optional<WorkspaceModel> workspace = null;
+//        List<BoardModel> workspaceBoards = new ArrayList<BoardModel>();
+//        List<BoardModel> userBoards = userService.getAllBoards(user_id);
+//        ArrayList<BoardModel> commonBoards = new ArrayList<>();
+//
+//        try
+//        {
+//            workspace = workspaceRepository.findById(workspace_id);
+//            if(workspace.isPresent() && userBoards!=null)
+//            {
+//                WorkspaceModel workspaceModel = workspace.get();
+//                workspaceBoards = workspaceModel.getBoards();
+//
+//                for(int i = 0 ; i < userBoards.size() ; i++)
+//                {
+//                    if(workspaceBoards.contains(userBoards.get(i)))
+//                    {
+//                        commonBoards.add(userBoards.get(i));
+//                    }
+//                }
+//            }
+//
+//        }
+//        catch(Exception ex)
+//        {
+//            ex.printStackTrace();
+//        }
+//        return commonBoards;
+//    }
 
-        Optional<WorkspaceModel> workspace = null;
-        List<BoardModel> workspaceBoards = new ArrayList<BoardModel>();
-        List<BoardModel> userBoards = userService.getAllBoards(user_id);
-        ArrayList<BoardModel> commonBoards = new ArrayList<>();
-
-        try
-        {
-            workspace = workspaceRepository.findById(workspace_id);
-            if(workspace.isPresent() && userBoards!=null)
-            {
-                WorkspaceModel workspaceModel = workspace.get();
-                workspaceBoards = workspaceModel.getBoards();
-
-                for(int i = 0 ; i < userBoards.size() ; i++)
-                {
-                    if(workspaceBoards.contains(userBoards.get(i)))
-                    {
-                        commonBoards.add(userBoards.get(i));
-                    }
-                }
-            }
-
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        return commonBoards;
-    }
-
-    public boolean removeUserFromWorkspace(@PathVariable Integer workspace_id, @RequestParam Integer user_id)
-    {
-        Optional<WorkspaceModel> workspace = null;
-
-        boolean success = false;
-
-        workspace = workspaceRepository.findById(workspace_id);
-
-        if(workspace.isPresent())
-        {
-            WorkspaceModel workspaceModel = workspace.get();
-
-            success = userService.deleteUserWorkspace(user_id, workspaceModel);
-
-            //remove user from the corresponding workspace boards too
-
-            List<BoardModel> workspaceBoards = workspaceModel.getBoards();
-            List<BoardModel> userBoards = userService.getAllBoards(user_id);
-            ArrayList<BoardModel> commonBoards = new ArrayList<>();
-
-            for(int i = 0 ; i < userBoards.size() ; i++)
-            {
-                if(workspaceBoards.contains(userBoards.get(i)))
-                {
-                    commonBoards.add(userBoards.get(i));
-                }
-            }
-
-            for(int j = 0; j < commonBoards.size(); j++)
-            {
-                success = userService.deleteUserBoard(user_id, commonBoards.get(j));
-            }
-
-        }
-
-        return success;
-    }
+//    public boolean removeUserFromWorkspace(@PathVariable Integer workspace_id, @RequestParam Integer user_id)
+//    {
+//        Optional<WorkspaceModel> workspace = null;
+//
+//        boolean success = false;
+//
+//        workspace = workspaceRepository.findById(workspace_id);
+//
+//        if(workspace.isPresent())
+//        {
+//            WorkspaceModel workspaceModel = workspace.get();
+//
+//            success = userService.deleteUserWorkspace(user_id, workspaceModel);
+//
+//            //remove user from the corresponding workspace boards too
+//
+//            List<BoardModel> workspaceBoards = workspaceModel.getBoards();
+//            List<BoardModel> userBoards = userService.getAllBoards(user_id);
+//            ArrayList<BoardModel> commonBoards = new ArrayList<>();
+//
+//            for(int i = 0 ; i < userBoards.size() ; i++)
+//            {
+//                if(workspaceBoards.contains(userBoards.get(i)))
+//                {
+//                    commonBoards.add(userBoards.get(i));
+//                }
+//            }
+//
+//            for(int j = 0; j < commonBoards.size(); j++)
+//            {
+//                success = userService.deleteUserBoard(user_id, commonBoards.get(j));
+//            }
+//
+//        }
+//
+//        return success;
+//    }
 
     public boolean deleteWorkspace(@PathVariable Integer workspace_id)
     {
@@ -176,7 +176,7 @@ public class WorkspaceService {
 
         if(optionalWorkspaceModel.isPresent()) {
             workspaceModel = optionalWorkspaceModel.get();
-            success = userService.fullyDeleteWorkspace(workspaceModel);
+            success = userService.fullyDeleteWorkspace(workspaceModel, workspaceModel.getBoards());
 
             if (success) {
                 workspaceRepository.deleteById(workspace_id);

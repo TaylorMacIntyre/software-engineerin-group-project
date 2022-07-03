@@ -138,55 +138,55 @@ public class WorkspaceServiceTests {
        assertNotNull(resultList);
    }
 
-   @Test
-   public void getWorkspaceBoardsTest()
-   {
-       WorkspaceModel workspace = new WorkspaceModel();
-       workspace.setWorkspace_name("Test Workspace Name");
-       workspace.setWorkspace_description("This is Test Workspace Description");
+//   @Test
+//   public void getWorkspaceBoardsTest()
+//   {
+//       WorkspaceModel workspace = new WorkspaceModel();
+//       workspace.setWorkspace_name("Test Workspace Name");
+//       workspace.setWorkspace_description("This is Test Workspace Description");
+//
+//
+//       BoardModel board = new BoardModel();
+//       board.setBoard_name("This is Board Name");
+//       board.setBoard_description("This is Board Description");
+//
+//       List<BoardModel> workspaceBoardModelList = new ArrayList<>();
+//       workspaceBoardModelList.add(board);
+//
+//       int mockUserId = 1;
+//       List<BoardModel> userBoardModelList = new ArrayList<>();
+//       userBoardModelList.add(board);
+//
+//       when(userService.getAllBoards(any())).thenReturn(userBoardModelList);
+//       when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
+//
+//       Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
+//
+//       List<BoardModel> resultList = workspaceService.getWorkspaceBoards(workspace.getId(),mockUserId);
+//
+//       assertNotNull(resultList);
+//   }
 
-
-       BoardModel board = new BoardModel();
-       board.setBoard_name("This is Board Name");
-       board.setBoard_description("This is Board Description");
-
-       List<BoardModel> workspaceBoardModelList = new ArrayList<>();
-       workspaceBoardModelList.add(board);
-
-       int mockUserId = 1;
-       List<BoardModel> userBoardModelList = new ArrayList<>();
-       userBoardModelList.add(board);
-
-       when(userService.getAllBoards(any())).thenReturn(userBoardModelList);
-       when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
-
-       Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
-
-       List<BoardModel> resultList = workspaceService.getWorkspaceBoards(workspace.getId(),mockUserId);
-
-       assertNotNull(resultList);
-   }
-
-    @Test
-    public void removeUserFromWorkspaceTest(){
-
-        WorkspaceModel workspace = new WorkspaceModel();
-
-        workspace.setWorkspace_name("Test Workspace Name");
-        workspace.setWorkspace_description("This is Test Workspace Description");
-
-        int mockUserId = 1;
-
-        when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
-        when(userService.deleteUserWorkspace(any(),any())).thenReturn(true);
-
-        Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
-
-        boolean savedWorkspace = workspaceService.removeUserFromWorkspace(workspace.getId(),mockUserId);
-
-        assertTrue(savedWorkspace);
-
-    }
+//    @Test
+//    public void removeUserFromWorkspaceTest(){
+//
+//        WorkspaceModel workspace = new WorkspaceModel();
+//
+//        workspace.setWorkspace_name("Test Workspace Name");
+//        workspace.setWorkspace_description("This is Test Workspace Description");
+//
+//        int mockUserId = 1;
+//
+//        when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
+//        when(userService.deleteUserWorkspace(any(),any())).thenReturn(true);
+//
+//        Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
+//
+//        boolean savedWorkspace = workspaceService.removeUserFromWorkspace(workspace.getId(),mockUserId);
+//
+//        assertTrue(savedWorkspace);
+//
+//    }
 
 
     @Test
@@ -198,7 +198,7 @@ public class WorkspaceServiceTests {
         workspace.setWorkspace_description("This is Test Workspace Description");
 
         when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
-        when(userService.fullyDeleteWorkspace(any())).thenReturn(true);
+        when(userService.fullyDeleteWorkspace(any(),any())).thenReturn(true);
         workspaceRepository.deleteById(workspace.getId());
 
         boolean savedWorkspace = workspaceService.deleteWorkspace(workspace.getId());
