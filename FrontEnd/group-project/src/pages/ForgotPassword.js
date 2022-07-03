@@ -10,7 +10,7 @@ function PasswordPage(){
 
     const [userData, setLoginData] = useState([]);
     function resetPasswordHandler(user){
-        return fetch("http://localhost:9001/user/updatePW", {
+        return fetch("http://localhost:9000/user/updatePW", {
             method: "PUT",
             body: JSON.stringify(user),
             headers: {
