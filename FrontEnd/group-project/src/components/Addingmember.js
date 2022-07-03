@@ -10,11 +10,11 @@ function AddingForm(props) {
 
     return (
         <section style={{ marginTop: '32px' }}>
-            <Typography variant='h2' component='h2'>Adding other user to this workspace</Typography>
+            <Typography variant='h2' component='h2'>Adding Another User to This Workspace</Typography>
             <form onSubmit={deleteBoard}>
                 <TextField
                     id='boardName'
-                    placeholder='member ID'
+                    placeholder='Member ID'
                     variant='outlined'
                     required
                     fullWidth
@@ -22,7 +22,7 @@ function AddingForm(props) {
                     inputRef={idRef} />
                 
                 <Button type='submit' variant='contained' color='primary' sx={{ marginTop: '16px' }}>
-                    submit
+                    Submit
                 </Button>
             </form>
         </section>

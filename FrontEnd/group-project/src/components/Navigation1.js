@@ -26,7 +26,7 @@ function Navigation1() {
                     </Link>
                     <Link to={'/WorkSpace/' + uid} style={{ textDecoration: 'none', color: 'white' }}>
                         <Typography variant="h6" component="div" sx={{ padding: '0 8px' }}>
-                            Go back to Workspace
+                            Go Back to Workspace
                         </Typography>
                     </Link>
                 </Toolbar>
