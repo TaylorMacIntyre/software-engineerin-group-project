@@ -2,7 +2,6 @@ package Group_15.Trello_Project.board.service;
 
 import Group_15.Trello_Project.board.entity.BoardModel;
 import Group_15.Trello_Project.board.repository.BoardRepository;
-import Group_15.Trello_Project.user.service.UserServiceImplementation;
 import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,43 +17,51 @@ public class BoardService {
     @Autowired
     BoardRepository boardRepository;
 
-    @Autowired
-    UserServiceImplementation userService;
-    public BoardModel createBoard(BoardModel boardModel, Integer user_id)
-    {
-
-        BoardModel board = boardRepository.save(boardModel);
-
-        boolean success = userService.addBoardToUser(user_id, board);
-
-        if(success) {
-            return board;
-        }
-
-        return null;
+    public BoardModel createBoard(BoardModel boardModel) {
+        return boardRepository.save(boardModel);
     }
 
-    public BoardModel addUserToBoard(Integer board_id, Integer user_id)
-    {
 
-        Optional<BoardModel> optionalBoardModel = boardRepository.findById(board_id);
-        BoardModel updatedBoardModel =  null;
-        boolean success = false;
+//    //CONNECTION TO TAYLOR'S BACKEND
+//    @Autowired
+//    UserService userService;
 
-        if(optionalBoardModel.isPresent())
-        {
-            updatedBoardModel = optionalBoardModel.get();
-            success = userService.addBoardToUser(user_id, updatedBoardModel);
-        }
+//    public BoardModel createBoard(Integer user_id, BoardModel boardModel) {
+//
+//        boolean success = userService.addWorkspaceToUser(user_id, boardModel);
+//        BoardModel board = null;
+//        try
+//        {
+//            if(success) {
+//                board = boardRepository.save(boardModel);
+//            }
+//        }
+//        catch(Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return board;
+//    }
 
-        if(success) {
-            return updatedBoardModel;
-        }
-
-        return null;
-
-    }
-
+    //    public BoardModel addUser(Integer user_id, BoardModel boardModel)
+//    {
+//        boolean success = userService.addBoardToUser(user_id, boardModel);
+//
+//        Optional<BoardModel> optionalBoardModel = boardRepository.findById(boardModel.getId());
+//        try
+//        {
+//            if(success) {
+//                if(optionalBoardModel.isPresent())
+//                {
+//                    boardModel = optionalBoardModel.get();
+//                }
+//            }
+//        }
+//        catch(Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return boardModel;
+//
+//    }
 
     public BoardModel findBoardById(Integer board_id)
     {
@@ -72,20 +79,7 @@ public class BoardService {
 
     public void deleteBoard(@PathVariable Integer board_id)
     {
-        BoardModel boardModel = null;
-
-        Optional<BoardModel> optionalBoardModel = boardRepository.findById(board_id);
-
-        boolean success = false;
-
-        if(optionalBoardModel.isPresent()) {
-            boardModel = optionalBoardModel.get();
-            success = userService.fullyDeleteBoard(boardModel);
-
-            if (success) {
-                boardRepository.deleteById(board_id);
-            }
-        }
+        boardRepository.deleteById(board_id);
     }
 
     public List<BoardModel> getAllBoards()
@@ -109,25 +103,6 @@ public class BoardService {
 
         return boardModel;
 
-    }
-
-    public boolean removeUserFromBoard(@PathVariable Integer board_id, @RequestParam Integer user_id)
-    {
-        Optional<BoardModel> board = null;
-
-        boolean success = false;
-
-        board = boardRepository.findById(board_id);
-
-        if(board.isPresent())
-        {
-            BoardModel boardModel = board.get();
-
-            success = userService.deleteUserBoard(user_id, boardModel);
-
-        }
-
-        return success;
     }
 
 }
