@@ -1,5 +1,6 @@
 package Group_15.Trello_Project.WorskpaceTests;
 
+import Group_15.Trello_Project.board.service.BoardService;
 import Group_15.Trello_Project.user.service.UserServiceImplementation;
 import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
 import Group_15.Trello_Project.workspace.repository.WorkspaceRepository;
@@ -30,25 +31,31 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@ExtendWith(MockitoExtension.class)
+@ContextConfiguration(classes = {WorkspaceService.class})
+@ExtendWith(SpringExtension.class)
 public class WorkspaceServiceTests {
 
-    @Mock
-    @Autowired
+    @MockBean
     private WorkspaceRepository workspaceRepository;
 
 
     @Autowired
     private WorkspaceService workspaceService;
 
-    @Autowired
+    @MockBean
     private UserServiceImplementation userService;
+
+    @MockBean
+    private BoardService boardService;
 
     @Test
     public void createWorkspaceTest() {
@@ -59,6 +66,7 @@ public class WorkspaceServiceTests {
         workspace.setWorkspace_name("Test Workspace Name");
         workspace.setWorkspace_description("This is Test Workspace Description");
 
+        when(userService.addWorkspaceToUser(any(),any())).thenReturn(true);
         Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
 
         WorkspaceModel savedWorkspace = workspaceService.createWorkspace(workspace,1);
