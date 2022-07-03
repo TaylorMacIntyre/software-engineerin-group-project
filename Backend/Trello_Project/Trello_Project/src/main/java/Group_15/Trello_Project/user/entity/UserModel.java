@@ -90,7 +90,7 @@ public class UserModel {
 
 
     //commented out until we connect backends
-    /*
+
     public List<BoardModel> getBoards() {
         return boards;
     }
@@ -106,5 +106,5 @@ public class UserModel {
     public void setWorkspaces(List<WorkspaceModel> workspaces) {
         this.workspaces = workspaces;
     }
-    */
+
 }

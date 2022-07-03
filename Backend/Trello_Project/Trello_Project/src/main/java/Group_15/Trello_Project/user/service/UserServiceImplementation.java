@@ -137,7 +137,7 @@ public class UserServiceImplementation implements UserServiceInterface {
             userModel = user.get();
             List<WorkspaceModel> workspaces = userModel.getWorkspaces();
             if(workspaces == null){
-                workspaces = new List<WorkspaceModel>();
+                workspaces = new ArrayList<WorkspaceModel>();
             }
 
             //check to make sure user isn't already in database
@@ -179,6 +179,7 @@ public class UserServiceImplementation implements UserServiceInterface {
                 //can't delete a workspace from an empty list
                 return false;
             }
+            userRepository.save(userModel);
             return workspaces.remove(workspaceModel);
         }
         // then remove workspace from List<WorkspaceModel>
@@ -194,7 +195,7 @@ public class UserServiceImplementation implements UserServiceInterface {
             userModel = user.get();
             List<BoardModel> boards = userModel.getBoards();
             if(boards == null){
-                boards = new List<BoardModel>();
+                boards = new ArrayList<BoardModel>();
             }
             boards.add(boardModel);
             userModel.setBoards(boards);
@@ -212,12 +213,13 @@ public class UserServiceImplementation implements UserServiceInterface {
         Optional<UserModel> user = userRepository.findById(id);
         if(user.isPresent()){
             userModel = user.get();
-            return userModel.getBoards();
+            //return userModel.getBoards();
         }else{
             return null;
         }
         //loop through and add boards to a list
-        List<BoardModel> userWorkspaceBoards = new List<BoardModel>(){};
+        List<BoardModel> userWorkspaceBoards = new ArrayList<BoardModel>(){};
+        List<BoardModel> boards = userModel.getBoards();
         int size = boardsInWorkspace.size();
         int index;
         for(int i = 0; i < size; i++){
@@ -241,6 +243,7 @@ public class UserServiceImplementation implements UserServiceInterface {
                 //can't delete a board from an empty list of boards
                 return false;
             }
+            userRepository.save(userModel);
             return boards.remove(boardModel);
         }
         //user isn't present, return false
@@ -249,27 +252,40 @@ public class UserServiceImplementation implements UserServiceInterface {
 
 
 
-    public boolean fullyDeleteWorkspace(WorkspaceModel workspaceModel){
+    public boolean fullyDeleteWorkspace(WorkspaceModel workspaceModel, List<BoardModel> boardsInWorkspace){
         //remove workspace from all users
         List<UserModel> users_list = userRepository.findAll();
         int numberUsers = users_list.size();
+        int numBoards = boardsInWorkspace.size();
 
         if( numberUsers < 1){
             return false;
         }
-        boolean flag = false;
+        boolean flag1 = false;
+        boolean flag2 = false;
         UserModel user;
         int numberWorkspaces;
         List<WorkspaceModel> workspace_list;
+        List<BoardModel> board_list;
         for(int i = 0; i < numberUsers; i++){
             //get the user at index i
             user = users_list.get(i);
+            board_list = user.getBoards();
+            for(int j = 0; j < numBoards; j++){
+                //if one of the boards from the workspace to be deleted is in one of the users list of boards,
+                // delete it too
+                flag1 = board_list.remove(boardsInWorkspace.get(i));
+            }
             //get the users workspaces
             workspace_list = user.getWorkspaces();
             //remove the workspace
-            flag = workspace_list.remove(workspaceModel);
+            flag2 = workspace_list.remove(workspaceModel);
+            if(flag1 || flag2){
+                //if the user's boards or their workspaces were removed, then save
+                userRepository.save(user);
+            }
         }
-        return flag;
+        return true;
     }
 
     public boolean fullyDeleteBoard(BoardModel boardModel){
@@ -292,9 +308,12 @@ public class UserServiceImplementation implements UserServiceInterface {
             board_list = user.getBoards();
             // remove board from list
             flag = board_list.remove(boardModel);
+            if(flag){
+                userRepository.save(user);
+            }
         }
         //will return true if board was removed at least once
         return flag;
     }
-    */
+*/
 }

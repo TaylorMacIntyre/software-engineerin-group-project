@@ -28,6 +28,10 @@ public interface UserServiceInterface {
     public List<BoardModel> getAllBoards(Integer id);
 
     public boolean deleteUserBoard(Integer id, BoardModel boardModel);
+
+    public boolean fullyDeleteWorkspace(WorkspaceModel workspaceModel, List<BoardModel> boardsInWorkspace);
+
+    public boolean fullyDeleteBoard(BoardModel boardModel);
      */
 
 }
