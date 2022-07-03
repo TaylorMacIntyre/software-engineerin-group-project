@@ -4,60 +4,55 @@ import * as yup from 'yup'
 import YupPassword from 'yup-password'
 YupPassword(yup)
 
-
+//creates password reset form and validates data
 function PasswordForm(props){
-    
-    const history = useHistory();
-    
+
+    //sets variables for form data    
     const emailRef = useRef();
     const securityQuestionRef = useRef();
     const passwordRef = useRef();
 
+    //handles form submission
     function submitHandler(event){
         event.preventDefault();
-        //Read values
+
+        //Read values from form
         const email = emailRef.current.value;
         const securityAnswer = securityQuestionRef.current.value;
         const newPw = passwordRef.current.value;
-        //password validation
+
+        //create user for back end
         const user = {email, securityAnswer, newPw}
-        //change to have return type, call props only if successfull
+        //validate form data
         validation(email, newPw, user);
-        //Send values to server
-        //props.registerUser(user);
     }
 
+    ////validates password using formik, Yup, and Yup-password (adapted from citations included in readme)
     async function validation(email, password, user){
-        //start of formik code
+        //set up validation
         const schema = yup.object().shape({
             username: yup.string().email().required(),
             password: yup.string().password().required(),
         })
 
+        //set up input objects from params
         const input = {
             username: email,
             password: password,
         }
         
+        //perform validation, if successful, call function to send to back end
         try {
-            // validate
             const res = await schema.validate(input, { abortEarly: false })
             var result = props.resetPassword(user);
-            //console.log(result);
-            
-            //return true;
-            //  ...
         } catch (e) {
             alert(e.errors);
             console.log(e.errors);
-            //return false;
         }
-        //end of formik code
-        
-
     }
 
     return (
+        //creates form for reset password
         <form onSubmit={submitHandler}>
             <input type="email" required placeholder="Email" ref={emailRef}/>
             <br/>

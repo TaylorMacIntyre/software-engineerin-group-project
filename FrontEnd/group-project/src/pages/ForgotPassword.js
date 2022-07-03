@@ -2,13 +2,13 @@ import { useHistory } from "react-router-dom";
 import PasswordForm from "../components/PasswordForm";
 import React, {useEffect, useState} from 'react';
 
+//displays page for forgotten pasword
 function PasswordPage(){
 
+    //variable for hisotry for navigation
     const history = useHistory();
 
-  
-
-    const [userData, setLoginData] = useState([]);
+    //send password data to back end
     function resetPasswordHandler(user){
         return fetch("http://localhost:9000/user/updatePW", {
             method: "PUT",
@@ -21,15 +21,19 @@ function PasswordPage(){
             return response.json();
         })
         .then(function(data) {
-        var resetResponse = data;
-        console.log(resetResponse.status);
-        if(resetResponse.status === "successful update Password"){
-            history.replace("/login");
-        }
-        else{
-            alert(resetResponse.status);
-        }
-        return resetResponse.result;
+
+            //gets data from back end
+            var resetResponse = data;
+
+            //if password reset was successful, navigate to login
+            if(resetResponse.status === "successful update Password"){
+                history.replace("/login");
+            }
+            //if password reset fails, alert user
+            else{
+                alert(resetResponse.status);
+            }
+            return resetResponse.result;
         })
     }
 

@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import { useHistory } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
 
+//displays login page
 function LoginPage(){
 
-    //stuff I may need
-    const [data, setLoginData] = useState([]);
-
+    //creates history variable for navigation
     const history = useHistory();
 
+    //sends login data to back end
     function loginUserHandler(user){
         return fetch("http://localhost:9000/user/login", {
             method: "POST",
@@ -16,26 +16,25 @@ function LoginPage(){
             headers: {
                 "Content-Type": "application/json"
             }
-        })//.then(response => console.log(response.json()))
-        /*.then(response => {
-            if(response == -1){
-                alert("errorrrrr");
-            }
-        })*/
+        })
         .then(function(response) {
             return response.json();
         })
         .then(function(data) {
-        var loginResponse = data;
-        console.log(loginResponse.status);
-        if(loginResponse.status === "successful login"){
-            localStorage.setItem('Id', JSON.stringify(loginResponse.result))
-            history.replace("/home");
-        }
-        else{
-            alert(loginResponse.status);
-        }
-        return loginResponse.result;
+
+            //get data from back end
+            var loginResponse = data;
+
+            //if login data was correct, navigate to workspaces
+            if(loginResponse.status === "successful login"){
+                localStorage.setItem('Id', JSON.stringify(loginResponse.result))
+                history.replace("/home");
+            }
+            //if login failed, alert user
+            else{
+                alert(loginResponse.status);
+            }
+            return loginResponse.result;
         })
     }
 
