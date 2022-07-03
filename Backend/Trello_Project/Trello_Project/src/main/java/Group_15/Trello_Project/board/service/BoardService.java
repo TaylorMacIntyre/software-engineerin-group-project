@@ -42,6 +42,27 @@ public class BoardService {
 //        return board;
 //    }
 
+    //    public BoardModel addUser(Integer user_id, BoardModel boardModel)
+//    {
+//        boolean success = userService.addBoardToUser(user_id, boardModel);
+//
+//        Optional<BoardModel> optionalBoardModel = boardRepository.findById(boardModel.getId());
+//        try
+//        {
+//            if(success) {
+//                if(optionalBoardModel.isPresent())
+//                {
+//                    boardModel = optionalBoardModel.get();
+//                }
+//            }
+//        }
+//        catch(Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        return boardModel;
+//
+//    }
+
     public BoardModel findBoardById(Integer board_id)
     {
         BoardModel boardModel = null;
