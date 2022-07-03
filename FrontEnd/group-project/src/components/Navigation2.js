@@ -20,6 +20,13 @@ function Navigation2() {
                             Create WorkSpace
                         </Typography>
                     </Link>
+
+                    <Link to={'/login'} style={{ textDecoration: 'none', color: 'white' }}>
+                        <Typography variant="h6" component="div" sx={{ padding: '0 8px' }}>
+                            Logout
+                        </Typography>
+
+                    </Link>
                 </Toolbar>
             </AppBar>
         </Box>
