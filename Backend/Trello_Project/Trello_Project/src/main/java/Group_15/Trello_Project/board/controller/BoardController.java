@@ -24,9 +24,9 @@ public class BoardController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteBoard/{board_id}")
-    public void deleteBoard(@PathVariable Integer board_id)
+    public boolean deleteBoard(@PathVariable Integer board_id)
     {
-        boardService.deleteBoard(board_id);
+        return boardService.deleteBoard(board_id);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
