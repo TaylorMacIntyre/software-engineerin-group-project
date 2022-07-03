@@ -128,7 +128,7 @@ public class UserServiceImplementation implements UserServiceInterface {
 
 
     //UNCOMMENT WHEN BACKENDS ARE CONNECTED
-    /*
+/*
     public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel) {
         //check if user exists, assume workspace has already been error checked
         UserModel userModel;

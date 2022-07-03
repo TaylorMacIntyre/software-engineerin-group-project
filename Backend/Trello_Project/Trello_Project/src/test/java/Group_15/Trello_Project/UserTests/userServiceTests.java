@@ -414,7 +414,7 @@ public class userServiceTests {
 
     //ensure it returns false when workspace isn't removed, ie it's not in list
     @Test
-    public void testFullyDeleteWorkspace_failure(){
+    public void testFullyDeleteWorkspace_failure() throws EmailAlreadyRegisteredException {
         UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
         userModel.setId(1);
         userService.signUpUser(userModel);
@@ -432,14 +432,31 @@ public class userServiceTests {
         //fullyDeleteBoard
     //ensure it returns true when workspace is removed
     @Test
-    public void testFullyDeleteBoard_success(){
-
+    public void testFullyDeleteBoard_success() throws EmailAlreadyRegisteredException {
+        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
+        userModel.setId(1);
+        userService.signUpUser(userModel);
+        BoardModel board1 = new BoardModel("name1", "description1");
+        BoardModel board2 = new BoardModel("name2", "description2");
+        Optional<UserModel> user = Optional.of(userModel);
+        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
+        userService.addBoardToUser(1, board1);
+        userService.addBoardToUser(1, board2);
+        assertTrue(userService.fullyDeleteBoard(board1));
     }
 
     //ensure it returns false when workspace isn't removed, ie it's not in list
     @Test
-    public void testFullyDeleteBoard_failure(){
-
+    public void testFullyDeleteBoard_failure() throws EmailAlreadyRegisteredException {
+        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
+        userModel.setId(1);
+        userService.signUpUser(userModel);
+        BoardModel board1 = new BoardModel("name1", "description1");
+        BoardModel board2 = new BoardModel("name2", "description2");
+        Optional<UserModel> user = Optional.of(userModel);
+        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
+        userService.addBoardToUser(1, board1);
+        assertFalse(userService.fullyDeleteBoard(board2));
     }
 
 */
