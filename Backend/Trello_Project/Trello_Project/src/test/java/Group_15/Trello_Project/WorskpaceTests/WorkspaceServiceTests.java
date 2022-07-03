@@ -36,6 +36,7 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(MockitoExtension.class)
 public class WorkspaceServiceTests {
 
     @Mock
@@ -43,11 +44,11 @@ public class WorkspaceServiceTests {
     private WorkspaceRepository workspaceRepository;
 
 
-    @InjectMocks
-    private WorkspaceService workspaceService = new WorkspaceService();
+    @Autowired
+    private WorkspaceService workspaceService;
 
-    @InjectMocks
-    private UserServiceImplementation userService = new UserServiceImplementation();
+    @Autowired
+    private UserServiceImplementation userService;
 
     @Test
     public void createWorkspaceTest() {
