@@ -84,7 +84,7 @@ public class WorkspaceService {
 
                 List<BoardModel> boards = workspaceModel.getBoards();
 
-                if(boards!=null)
+                if(boards==null)
                 {
                     boards = new ArrayList<>();
                 }
