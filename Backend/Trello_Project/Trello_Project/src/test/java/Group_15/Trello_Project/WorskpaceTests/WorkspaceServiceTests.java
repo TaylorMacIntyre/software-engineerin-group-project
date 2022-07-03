@@ -1,5 +1,6 @@
 package Group_15.Trello_Project.WorskpaceTests;
 
+import Group_15.Trello_Project.board.entity.BoardModel;
 import Group_15.Trello_Project.board.service.BoardService;
 import Group_15.Trello_Project.user.service.UserServiceImplementation;
 import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
@@ -20,6 +21,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
@@ -61,7 +63,7 @@ public class WorkspaceServiceTests {
     public void createWorkspaceTest() {
 
         WorkspaceModel workspace = new WorkspaceModel();
-        int dummyUserId = 1;
+        int mockUserId = 1;
 
         workspace.setWorkspace_name("Test Workspace Name");
         workspace.setWorkspace_description("This is Test Workspace Description");
@@ -69,10 +71,174 @@ public class WorkspaceServiceTests {
         when(userService.addWorkspaceToUser(any(),any())).thenReturn(true);
         Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
 
-        WorkspaceModel savedWorkspace = workspaceService.createWorkspace(workspace,1);
+        WorkspaceModel savedWorkspace = workspaceService.createWorkspace(workspace,mockUserId);
 
         assertNotNull(savedWorkspace);
     }
+
+    @Test
+    public void addUserToWorkspaceTest(){
+        WorkspaceModel workspace = new WorkspaceModel();
+
+        workspace.setWorkspace_name("Test Workspace Name");
+        workspace.setWorkspace_description("This is Test Workspace Description");
+
+        int mockUserId = 1;
+
+        when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
+        when(userService.addWorkspaceToUser(any(),any())).thenReturn(true);
+
+        Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
+
+        WorkspaceModel savedWorkspace = workspaceService.updateBoard(workspace.getId(),mockUserId);
+
+        assertNotNull(savedWorkspace);
+
+    }
+
+
+
+    @Test
+   public void updateBoardTest() {
+       WorkspaceModel workspace = new WorkspaceModel();
+       BoardModel board = new BoardModel();
+
+       workspace.setWorkspace_name("Test Workspace Name");
+       workspace.setWorkspace_description("This is Test Workspace Description");
+
+       board.setBoard_name("This is Board Name");
+       board.setBoard_description("This is Board Description");
+
+       when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
+
+       when(boardService.findBoardById(any())).thenReturn(board);
+
+       Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
+
+       WorkspaceModel savedWorkspace = workspaceService.updateBoard(workspace.getId(),board.getId());
+
+       assertNotNull(savedWorkspace);
+   }
+
+   @Test
+    public void getAllWorkspacesTest()
+   {
+       WorkspaceModel workspace = new WorkspaceModel();
+       workspace.setWorkspace_name("Test Workspace Name");
+       workspace.setWorkspace_description("This is Test Workspace Description");
+
+       int mockUserId = 1;
+       List<WorkspaceModel> userWorkspaces = new ArrayList<>();
+       userWorkspaces.add(workspace);
+
+       when(userService.getAllWorkspaces(any())).thenReturn(userWorkspaces);
+
+       List<WorkspaceModel> resultList = workspaceService.getAllWorkspaces(mockUserId);
+
+       assertNotNull(resultList);
+   }
+
+   @Test
+   public void getWorkspaceBoardsTest()
+   {
+       WorkspaceModel workspace = new WorkspaceModel();
+       workspace.setWorkspace_name("Test Workspace Name");
+       workspace.setWorkspace_description("This is Test Workspace Description");
+
+
+       BoardModel board = new BoardModel();
+       board.setBoard_name("This is Board Name");
+       board.setBoard_description("This is Board Description");
+
+       List<BoardModel> workspaceBoardModelList = new ArrayList<>();
+       workspaceBoardModelList.add(board);
+
+       int mockUserId = 1;
+       List<BoardModel> userBoardModelList = new ArrayList<>();
+       userBoardModelList.add(board);
+
+       when(userService.getAllBoards(any())).thenReturn(userBoardModelList);
+       when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
+
+       Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
+
+       List<BoardModel> resultList = workspaceService.getWorkspaceBoards(workspace.getId(),mockUserId);
+
+       assertNotNull(resultList);
+   }
+
+    @Test
+    public void removeUserFromWorkspaceTest(){
+
+        WorkspaceModel workspace = new WorkspaceModel();
+
+        workspace.setWorkspace_name("Test Workspace Name");
+        workspace.setWorkspace_description("This is Test Workspace Description");
+
+        int mockUserId = 1;
+
+        when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
+        when(userService.deleteUserWorkspace(any(),any())).thenReturn(true);
+
+        Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
+
+        boolean savedWorkspace = workspaceService.removeUserFromWorkspace(workspace.getId(),mockUserId);
+
+        assertTrue(savedWorkspace);
+
+    }
+
+
+    @Test
+    public void deleteWorkspaceTest()
+    {
+        WorkspaceModel workspace = new WorkspaceModel();
+
+        workspace.setWorkspace_name("Test Workspace Name");
+        workspace.setWorkspace_description("This is Test Workspace Description");
+
+        when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
+        when(userService.fullyDeleteWorkspace(any())).thenReturn(true);
+        workspaceRepository.deleteById(workspace.getId());
+
+        boolean savedWorkspace = workspaceService.deleteWorkspace(workspace.getId());
+
+        assertTrue(savedWorkspace);
+
+    }
+
+    @Test
+    public void getWorkspaceTest()
+    {
+        WorkspaceModel workspace = new WorkspaceModel();
+
+        workspace.setWorkspace_name("Test Workspace Name");
+        workspace.setWorkspace_description("This is Test Workspace Description");
+
+        when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
+
+        WorkspaceModel savedWorkspace = workspaceService.getWorkspace(workspace.getId());
+
+        assertNotNull(savedWorkspace);
+    }
+
+    @Test
+    public void updateWorkspaceDetails()
+    {
+        WorkspaceModel workspace = new WorkspaceModel();
+
+        workspace.setWorkspace_name("Test Workspace Name");
+        workspace.setWorkspace_description("This is Test Workspace Description");
+
+        when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
+
+        Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
+
+        WorkspaceModel savedWorkspace = workspaceService.updateWorkspaceDetails(workspace.getId(), workspace.getWorkspace_name(), workspace.getWorkspace_description());
+
+        assertNotNull(savedWorkspace);
+    }
+
 
 
 }

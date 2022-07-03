@@ -166,7 +166,7 @@ public class WorkspaceService {
         return success;
     }
 
-    public void deleteWorkspace(@PathVariable Integer workspace_id)
+    public boolean deleteWorkspace(@PathVariable Integer workspace_id)
     {
         WorkspaceModel workspaceModel = null;
 
@@ -182,6 +182,8 @@ public class WorkspaceService {
                 workspaceRepository.deleteById(workspace_id);
             }
         }
+
+        return success;
     }
 
     public WorkspaceModel getWorkspace(@PathVariable Integer workspace_id)

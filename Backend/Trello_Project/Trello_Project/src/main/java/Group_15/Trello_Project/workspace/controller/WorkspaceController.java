@@ -72,9 +72,9 @@ public class WorkspaceController
 
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteWorkspace/{workspace_id}")
-    public void deleteWorkspace(@PathVariable Integer workspace_id)
+    public boolean deleteWorkspace(@PathVariable Integer workspace_id)
     {
-        workspaceService.deleteWorkspace(workspace_id);
+        return workspaceService.deleteWorkspace(workspace_id);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
