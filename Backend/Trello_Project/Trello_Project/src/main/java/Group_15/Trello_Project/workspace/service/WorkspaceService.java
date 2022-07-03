@@ -96,28 +96,18 @@ public class WorkspaceService {
         return userWorkspaces;
     }
 
-    public List<BoardModel> getWorkspaceBoards(Integer workspace_id, Integer user_id) {
+    public List<BoardModel> getWorkspaceBoards(Integer workspace_id) {
 
         Optional<WorkspaceModel> workspace = null;
-        List<BoardModel> workspaceBoards = new ArrayList<BoardModel>();
-        List<BoardModel> userBoards = userService.getAllBoards(user_id);
-        ArrayList<BoardModel> commonBoards = new ArrayList<>();
+        List<BoardModel> boards = null;
 
         try
         {
             workspace = workspaceRepository.findById(workspace_id);
-            if(workspace.isPresent() && userBoards!=null)
+            if(workspace.isPresent())
             {
                 WorkspaceModel workspaceModel = workspace.get();
-                workspaceBoards = workspaceModel.getBoards();
-
-                for(int i = 0 ; i < userBoards.size() ; i++)
-                {
-                    if(workspaceBoards.contains(userBoards.get(i)))
-                    {
-                        commonBoards.add(userBoards.get(i));
-                    }
-                }
+                boards = workspaceModel.getBoards();
             }
 
         }
@@ -125,8 +115,10 @@ public class WorkspaceService {
         {
             ex.printStackTrace();
         }
-        return commonBoards;
+        return boards;
     }
+
+
 
     public boolean removeUserFromWorkspace(@PathVariable Integer workspace_id, @RequestParam Integer user_id)
     {
