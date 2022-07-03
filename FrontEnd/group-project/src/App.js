@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Container } from '@mui/material';
 import Boards from './pages/Boards';
 import CreateBoard from './pages/CreateBoard';
-import Navigation from './components/Navigation';
+import Navigation from './components/Navigation1';
 import WorkSpace from './pages/Workspace';
 import CreateWorkSpace from './pages/CreateWorkspace';
 import Navigation2 from './components/Navigation2';
@@ -16,7 +16,7 @@ function App() {
         <Switch>
           
 
-          <Route path={['/', '/WorkSpace']} exact>
+          <Route path={['/WorkSpace']} exact>
             <Navigation2 />
             <WorkSpace />
           </Route>

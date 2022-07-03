@@ -2,7 +2,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import CreateBoardForm from '../components/CreateBoardForm';
-import ViewSpace from '../components/ViewWorkSpace';
+
 
 function CreateBoard() {
     
