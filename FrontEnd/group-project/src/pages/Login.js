@@ -27,8 +27,8 @@ function LoginPage(){
 
             //if login data was correct, navigate to workspaces
             if(loginResponse.status === "successful login"){
-                localStorage.setItem('Id', JSON.stringify(loginResponse.result))
-                history.replace("/home");
+                localStorage.setItem('uid', JSON.stringify(loginResponse.result))
+                history.replace("/WorkSpace/" + loginResponse.result);
             }
             //if login failed, alert user
             else{
