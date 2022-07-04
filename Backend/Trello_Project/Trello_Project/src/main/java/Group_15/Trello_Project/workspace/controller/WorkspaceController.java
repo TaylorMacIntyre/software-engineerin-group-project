@@ -41,27 +41,11 @@ public class WorkspaceController
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PutMapping("/updateWorkspaceDetails/{workspace_id}")
-    public WorkspaceModel updateWorkspaceDetails(@PathVariable Integer workspace_id, @RequestParam String workspace_name, @RequestParam String workspace_description)
-    {
-        return workspaceService.updateWorkspaceDetails(workspace_id, workspace_name, workspace_description);
-
-    }
-
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getAllWorkspaces/{user_id}")
     public List<WorkspaceModel> getAllWorkspaces(@PathVariable Integer user_id)
     {
         return workspaceService.getAllWorkspaces(user_id);
     }
-
-    @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/getWorkspaceBoards/{workspace_id}")
-    public List<BoardModel> getWorkspaceBoards(@PathVariable Integer workspace_id)
-    {
-        return workspaceService.getWorkspaceBoards(workspace_id);
-    }
-
 
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -69,21 +53,6 @@ public class WorkspaceController
     public WorkspaceModel getWorkspace(@PathVariable Integer workspace_id)
     {
         return workspaceService.getWorkspace(workspace_id);
-    }
-
-    @CrossOrigin(origins = "http://localhost:3000")
-    @DeleteMapping("/deleteWorkspace/{workspace_id}")
-    public void deleteWorkspace(@PathVariable Integer workspace_id)
-    {
-        workspaceService.deleteWorkspace(workspace_id);
-    }
-
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PutMapping("/removeUserFromWorkspace/{workspace_id}")
-    public boolean removeUserFromWorkspace(@PathVariable Integer workspace_id, @RequestParam Integer user_id)
-    {
-        return workspaceService.removeUserFromWorkspace(workspace_id, user_id);
-
     }
 
 }

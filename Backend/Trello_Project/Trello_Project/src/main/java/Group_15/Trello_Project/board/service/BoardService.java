@@ -21,48 +21,6 @@ public class BoardService {
         return boardRepository.save(boardModel);
     }
 
-
-//    //CONNECTION TO TAYLOR'S BACKEND
-//    @Autowired
-//    UserService userService;
-
-//    public BoardModel createBoard(Integer user_id, BoardModel boardModel) {
-//
-//        boolean success = userService.addWorkspaceToUser(user_id, boardModel);
-//        BoardModel board = null;
-//        try
-//        {
-//            if(success) {
-//                board = boardRepository.save(boardModel);
-//            }
-//        }
-//        catch(Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return board;
-//    }
-
-    //    public BoardModel addUser(Integer user_id, BoardModel boardModel)
-//    {
-//        boolean success = userService.addBoardToUser(user_id, boardModel);
-//
-//        Optional<BoardModel> optionalBoardModel = boardRepository.findById(boardModel.getId());
-//        try
-//        {
-//            if(success) {
-//                if(optionalBoardModel.isPresent())
-//                {
-//                    boardModel = optionalBoardModel.get();
-//                }
-//            }
-//        }
-//        catch(Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        return boardModel;
-//
-//    }
-
     public BoardModel findBoardById(Integer board_id)
     {
         BoardModel boardModel = null;
@@ -77,9 +35,10 @@ public class BoardService {
         return boardModel;
     }
 
-    public void deleteBoard(@PathVariable Integer board_id)
+    public boolean deleteBoard(@PathVariable Integer board_id)
     {
         boardRepository.deleteById(board_id);
+        return true;
     }
 
     public List<BoardModel> getAllBoards()
@@ -106,3 +65,4 @@ public class BoardService {
     }
 
 }
+

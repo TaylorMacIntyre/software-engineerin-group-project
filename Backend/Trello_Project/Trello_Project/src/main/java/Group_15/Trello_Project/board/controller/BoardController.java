@@ -22,27 +22,11 @@ public class BoardController {
         return boardService.createBoard(boardModel);
     }
 
-
-//    //CONNECTION TO TAYLOR'S BACKEND
-//    @PostMapping(path = "/saveBoard", consumes = "application/json", produces = "application/json")
-//    public BoardModel createBoard(@PathVariable Integer user_id, @RequestBody BoardModel boardModel) {
-//        return boardService.createBoard(user_id, boardModel);
-//    }
-
-    //CONNECTION TO TAYLOR'S BACKEND
-//    @PostMapping(path="/addUser", consumes = "application/json", produces = "application/json")
-//    public BoardModel addUser(@PathVariable Integer user_id, @RequestParam BoardModel boardModel)
-//    {
-//
-//        return boardService.addUser(user_id, workspace_id);
-//    }
-//
-
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteBoard/{board_id}")
-    public void deleteBoard(@PathVariable Integer board_id)
+    public boolean deleteBoard(@PathVariable Integer board_id)
     {
-        boardService.deleteBoard(board_id);
+        return boardService.deleteBoard(board_id);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -61,3 +45,5 @@ public class BoardController {
 
 
 }
+
+
