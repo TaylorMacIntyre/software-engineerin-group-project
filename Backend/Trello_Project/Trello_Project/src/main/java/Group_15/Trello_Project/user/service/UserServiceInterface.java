@@ -19,20 +19,8 @@ public interface UserServiceInterface {
 
     public UserModel findUserByID(Integer userId);
 
+
     public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel);
 
-    public boolean addBoardToUser(Integer id, BoardModel boardModel);
-
     public List<WorkspaceModel> getAllWorkspaces(Integer id);
-
-    public List<BoardModel> getAllBoards(Integer id);
-
-    public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel);
-
-    public boolean deleteUserBoard(Integer id, BoardModel boardModel);
-
-    public boolean fullyDeleteBoard(BoardModel boardModel);
-
-    public boolean fullyDeleteWorkspace(WorkspaceModel workspaceModel);
-
 }
