@@ -19,7 +19,7 @@ URL: https://site.mockito.org/
 
 Dependancies:
     Front End:
-        npm install
+        npm install (cd to FrontEnd/group-project first)
 
 
 Running program:
