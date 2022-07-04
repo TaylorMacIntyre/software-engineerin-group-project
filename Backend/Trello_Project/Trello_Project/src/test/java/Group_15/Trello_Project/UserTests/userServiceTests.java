@@ -4,6 +4,7 @@ import Group_15.Trello_Project.*;
 import Group_15.Trello_Project.user.entity.UserModel;
 import Group_15.Trello_Project.user.repository.UserRepository;
 import Group_15.Trello_Project.user.service.UserServiceImplementation;
+import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -259,10 +261,6 @@ public class userServiceTests {
         //not sure if an empty object is null...
     }
 
-
-
-
-/*
         //addWorkspaceToUser
     // check it is successful
     @Test
@@ -278,33 +276,6 @@ public class userServiceTests {
     }
 
 
-        //deleteUserWorkspace
-    // check it is successful when workspace exists in user list
-    @Test
-    public void testDeleteUserWorkspace_success() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        WorkspaceModel workspace = new WorkspaceModel("test", "test");
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        userService.addWorkspaceToUser(1, workspace);
-        boolean result = userService.deleteUserWorkspace(1, workspace);
-        assertTrue(result);
-    }
-
-    //check it is not successful when workspace doesn't exist in user list
-    @Test
-    public void testDeleteUserWorkspace_failureWorkspaceNotInList() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        WorkspaceModel workspace = new WorkspaceModel("test", "test");
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        boolean result = userService.deleteUserWorkspace(1, workspace);
-        assertFalse(result);
-    }
 
 
         //getAllWorkspaces
@@ -322,142 +293,4 @@ public class userServiceTests {
         assertNotEquals(null, workspaces);
         //not sure why it isn't recognising assertNotNull, only in this test
     }
-
-
-        //addBoardToUser
-    //check it is successful
-    @Test
-    public void testAddBoardToUser_successful(){
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        BoardModel board = new BoardModel("test", "test");
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        boolean result = userService.addBoardToUser(1, board);
-        assertTrue(result);
-    }
-
-
-        //deleteUserBoard
-    //check it is successful when board exists in user list
-    @Test
-    public void testDeleteUserBoard_boardExistsSuccess() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        BoardModel board = new BoardModel("test", "test");
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        userService.addBoardToUser(1, board);
-        boolean result = userService.deleteUserBoard(1, board);
-        assertFalse(result);
-    }
-
-    //check it is not successful when board doesn't exist in user list
-    @Test
-    public void testDeleteUserBoard_boardDoesntExistFailure() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        BoardModel board = new BoardModel("test", "test");
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        boolean result = userService.deleteUserBoard(1, board);
-        assertFalse(result);
-    }
-
-
-        //getAllBoards
-    //check it is successful
-    @Test
-    public void testGetAllBoards_success() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        BoardModel board1 = new BoardModel("name1", "description1");
-        BoardModel board2 = new BoardModel("name2", "description2");
-        BoardModel board3 = new BoardModel("name3", "description3");
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        userService.addBoardToUser(1, board1);
-        List<BoardModel> workspace_board_list = new List<BoardModel>();
-        workspace_board_list.add(board1);
-        workspace_board_list.add(board2);
-        workspace_board_list.add(board3);
-        List<BoardModel> user_board_list = userService.getAllBoards(1, workspace_board_list);
-        assertEquals(1, workspace_board_list.size());
-    }
-
-
-        //fullyDeleteWorkspace
-    //ensure it returns true when workspace is removed
-    @Test
-    public void testFullyDeleteWorkspace_success() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        WorkspaceModel workspace1 = new WorkspaceModel("name1", "description1");
-        WorkspaceModel workspace2 = new WorkspaceModel("name2", "description2");
-        BoardModel board1 = new BoardModel("name1", "description1");
-        List<BoardModel> boards = new List<BoardModel>(){};
-        boards.add(board1);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        userService.addWorkspaceToUser(1, workspace1);
-        userService.addWorkspaceToUser(1, workspace2);
-        userService.addBoardToUser(1, board1);
-        userService.fullyDeleteWorkspace(workspace1, boards);
-        List<WorkspaceModel> user_workspace_list = userService.getAllWorkspaces(1);
-        assertEquals(1, user_workspace_list.size());
-    }
-
-    //ensure it returns false when workspace isn't removed, ie it's not in list
-    @Test
-    public void testFullyDeleteWorkspace_failure() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        WorkspaceModel workspace1 = new WorkspaceModel("name1", "description1");
-        WorkspaceModel workspace2 = new WorkspaceModel("name2", "description2");
-        BoardModel board1 = new BoardModel("name1b", "description1b");
-        List<BoardModel> boards = new List<BoardModel>(){};
-        boards.add(board1);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        userService.addWorkspaceToUser(1, workspace1);
-        assertFalse(userService.fullyDeleteWorkspace(workspace2, boards));
-    }
-
-        //fullyDeleteBoard
-    //ensure it returns true when workspace is removed
-    @Test
-    public void testFullyDeleteBoard_success() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        BoardModel board1 = new BoardModel("name1", "description1");
-        BoardModel board2 = new BoardModel("name2", "description2");
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        userService.addBoardToUser(1, board1);
-        userService.addBoardToUser(1, board2);
-        assertTrue(userService.fullyDeleteBoard(board1));
-    }
-
-    //ensure it returns false when workspace isn't removed, ie it's not in list
-    @Test
-    public void testFullyDeleteBoard_failure() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        BoardModel board1 = new BoardModel("name1", "description1");
-        BoardModel board2 = new BoardModel("name2", "description2");
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        userService.addBoardToUser(1, board1);
-        assertFalse(userService.fullyDeleteBoard(board2));
-    }
-
-*/
 }

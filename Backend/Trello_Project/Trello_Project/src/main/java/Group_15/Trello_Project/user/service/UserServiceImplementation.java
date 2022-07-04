@@ -154,6 +154,7 @@ public class UserServiceImplementation implements UserServiceInterface {
         //if they do then add workspace to user list
     }
 
+
     public List<WorkspaceModel> getAllWorkspaces(Integer id) {
         //check if user exists..
         UserModel userModel = null;
@@ -167,6 +168,7 @@ public class UserServiceImplementation implements UserServiceInterface {
         //then send List<WorkspaceModel>
     }
 
+/*
     public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel) {
         //check if user exists
         UserModel userModel = null;
@@ -315,5 +317,7 @@ public class UserServiceImplementation implements UserServiceInterface {
         //will return true if board was removed at least once
         return flag;
     }
+
+     */
 }
 

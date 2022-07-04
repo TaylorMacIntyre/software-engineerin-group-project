@@ -24,6 +24,7 @@ public interface UserServiceInterface {
 
     public List<WorkspaceModel> getAllWorkspaces(Integer id);
 
+    /*
     public boolean deleteUserWorkspace(Integer id, WorkspaceModel workspaceModel);
 
     public boolean addBoardToUser(Integer id, BoardModel boardModel);
@@ -37,5 +38,5 @@ public interface UserServiceInterface {
 
     public boolean fullyDeleteBoard(BoardModel boardModel);
 
-
+*/
 }
