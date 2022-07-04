@@ -111,4 +111,23 @@ public class WorkspaceService {
 
     }
 
+    public List<BoardModel> getWorkspaceBoards(Integer workspace_id) {
+
+        Optional<WorkspaceModel> workspace = null;
+        List<BoardModel> boards = null;
+
+        try {
+            workspace = workspaceRepository.findById(workspace_id);
+            if (workspace.isPresent()) {
+                WorkspaceModel workspaceModel = workspace.get();
+                boards = workspaceModel.getBoards();
+            }
+
+        } catch (ex Exception) {
+            ex.printStackTrace();
+        }
+
+        return boards;
+    }
+
 }

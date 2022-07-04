@@ -55,4 +55,9 @@ public class WorkspaceController
         return workspaceService.getWorkspace(workspace_id);
     }
 
-}
+    @GetMapping("/getWorkspaceBoards/{workspace_id}")
+    public List<BoardModel> getWorkspaceBoards(@PathVariable Integer workspace_id)
+    {
+        return workspaceService.getWorkspaceBoards(workspace_id);
+
+    }
