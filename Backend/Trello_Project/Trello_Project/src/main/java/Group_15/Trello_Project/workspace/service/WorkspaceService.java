@@ -123,7 +123,7 @@ public class WorkspaceService {
                 boards = workspaceModel.getBoards();
             }
 
-        } catch (ex Exception) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 

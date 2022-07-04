@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3235829-e20c-4233-ab71-8c3edeada370" name="Changes" comment="updated user service implementation, user service interface, and user service tests">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="b3235829-e20c-4233-ab71-8c3edeada370" name="Changes" comment="updated user service implementation, user service interface, and user service tests" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,7 +26,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/fizat/Downloads/group15",
+    "last_opened_file_path": "C:/Users/fizat/Downloads/group15/Backend/Trello_Project/Trello_Project",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
@@ -45,7 +43,7 @@
       <option name="presentableId" value="Default" />
       <updated>1656802182978</updated>
       <workItem from="1656802185580" duration="55000" />
-      <workItem from="1656960800131" duration="1344000" />
+      <workItem from="1656960800131" duration="1631000" />
     </task>
     <task id="LOCAL-00001" summary="updated user service implementation, user service interface, and user service tests">
       <created>1656959910288</created>
