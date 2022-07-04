@@ -1,33 +1,30 @@
 import React, {useRef} from 'react';
+import { useHistory } from "react-router-dom";
 import * as yup from 'yup'
 import YupPassword from 'yup-password'
 YupPassword(yup)
 
-//creates form and handles form data
-function RegisterForm(props){
+//creates password reset form and validates data
+function PasswordForm(props){
 
-    //sets variables for form data
-    const firstNameRef = useRef();
-    const lastNameRef = useRef();
+    //sets variables for form data    
     const emailRef = useRef();
-    const passwordRef = useRef();
     const securityQuestionRef = useRef();
-    
+    const passwordRef = useRef();
+
     //handles form submission
     function submitHandler(event){
         event.preventDefault();
 
-        //Read values
-        const firstName = firstNameRef.current.value;
-        const lastName = lastNameRef.current.value;
+        //Read values from form
         const email = emailRef.current.value;
-        const password = passwordRef.current.value;
         const securityAnswer = securityQuestionRef.current.value;
+        const newPw = passwordRef.current.value;
 
-        //create user object for back end
-        const user = {firstName, lastName, email, password, securityAnswer}
-        //validate password
-        validation(email, password, user)
+        //create user for back end
+        const user = {email, securityAnswer, newPw}
+        //validate form data
+        validation(email, newPw, user);
     }
 
     //validates password using formik, Yup, and Yup-password (adapted from https://www.npmjs.com/package/yup-password)
@@ -47,30 +44,26 @@ function RegisterForm(props){
         //perform validation, if successful, call function to send to back end
         try {
             const res = await schema.validate(input, { abortEarly: false })
-            props.registerUser(user);
+            var result = props.resetPassword(user);
         } catch (e) {
             alert(e.errors);
             console.log(e.errors);
         }
     }
-    
+
     return (
-        //create form to display to user
+        //creates form for reset password
         <form onSubmit={submitHandler}>
-            <input type="text" required placeholder="First Name" ref={firstNameRef}/>
-            <br/>
-            <input type="text" required placeholder="Last Name" ref={lastNameRef}/>
-            <br/>
             <input type="email" required placeholder="Email" ref={emailRef}/>
-            <br/>
-            <input type="password" required placeholder="Password" ref={passwordRef}/>
             <br/>
             <label>Security Question: </label>
             <input type="text" required placeholder="Favorite Color?" ref={securityQuestionRef}/>
+            <br/>
+            <input type="password" required placeholder="New Password" ref={passwordRef}/>
             <br/>
             <button>Submit</button>
         </form>
     );
 }
 
-export default RegisterForm;
+export default PasswordForm;
