@@ -1,296 +1,168 @@
-package Group_15.Trello_Project.UserTests;
+package Group_15.Trello_Project.user.service;
 
 import Group_15.Trello_Project.*;
+import Group_15.Trello_Project.board.entity.BoardModel;
 import Group_15.Trello_Project.user.entity.UserModel;
 import Group_15.Trello_Project.user.repository.UserRepository;
-import Group_15.Trello_Project.user.service.UserServiceImplementation;
 import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+@Component
+public class UserServiceImplementation implements UserServiceInterface {
 
-
-/*
-    CITATION: Mockito.org
-    Date Accessed:June 25th
-    https://site.mockito.org/
- */
-
-@ExtendWith(MockitoExtension.class)
-public class userServiceTests {
-    @Mock
     @Autowired
-    private UserRepository userRepository;
-    @InjectMocks
-    private UserServiceImplementation userService = new UserServiceImplementation();
-    //private UserModel userModel;  DEMO says we don't need it
+    UserRepository userRepository;
 
-    private HashMap<String, String> map = new HashMap<>();
-    @BeforeEach
-    public void setUp() throws EmailAlreadyRegisteredException {
-        //unsure what to put here, or if it's even needed
-        MockitoAnnotations.initMocks(this);
+    public HashMap<String, String> signUpUser(UserModel userModel) throws EmailAlreadyRegisteredException {
+        try {
+            Optional<UserModel> user = userRepository.findByEmail(userModel.getEmail());
+            if (user.isPresent()) {
+                throw new EmailAlreadyRegisteredException();
+            }
+        } catch (EmailAlreadyRegisteredException emailExists) {
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("result", "-1");
+            map.put("status", "Email Already Registered");
+            return map;
+        }
+        userRepository.save(userModel);
+        HashMap<String, String> map = new HashMap<String, String>();
+        String result = userModel.getId().toString();
+        map.put("result", result);
+        map.put("status", "successful signup");
+        return map;
     }
 
-    @AfterEach
-    public void cleanUp(){
-        userRepository.deleteAll();
-        map.clear();
+    public HashMap<String, String> logInUser(String email, String password) throws IncorrectPasswordException, EmailNotRegisteredException {
+        Optional<UserModel> user;
+        try {
+            user = userRepository.findByEmail(email);
+            if (user.isPresent()) {
+                UserModel userModel = user.get();
+                if (password.equals(userModel.getPassword())) {
+                    String result = userModel.getId().toString();
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    map.put("result", result);
+                    map.put("status", "successful login");
+                    return map;
+                } else {
+                    throw new IncorrectPasswordException();
+                }
+            } else {
+                throw new EmailNotRegisteredException();
+            }
+        } catch (EmailNotRegisteredException badEmail) {
+            HashMap<String, String> map = new HashMap<String, String>();
+            Integer error = -1;
+            String result = error.toString();
+            map.put("result", result);
+            map.put("status", "Email Not Registered");
+            return map;
+        } catch (IncorrectPasswordException badPW) {
+            HashMap<String, String> map = new HashMap<String, String>();
+            Integer error = -1;
+            String result = error.toString();
+            map.put("result", result);
+            map.put("status", "Incorrect Password");
+            return map;
+        }
     }
 
+    public HashMap<String, String> updatePassword(String email, String securityAnswer, String newPw) throws EmailNotRegisteredException, IncorrectSecurityAnswerException, NewPasswordSameAsOldPasswordException {
+        Optional<UserModel> user;
+        HashMap<String, String> map = new HashMap<String, String>();
+        try {
+            user = userRepository.findByEmail(email);
+            if (user.isPresent()) {
+                UserModel userModel = user.get();
 
+                if (securityAnswer.equals(userModel.getSecurityAnswer())) {
 
-    //SIGNUP
-    //check saved user is not null after successful signup
-    @Test
-    public void testSignUp_successfulSignUpIDIsCorrect() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("jane", "doe", "email@provider", "secret", "yellow");
-        userModel.setId(1);
-        when(userRepository.save(userModel)).thenReturn(userModel);
-        map = userService.signUpUser(userModel);
-
-        assertEquals(map.get("result"), "1");
+                    if (!newPw.equals(userModel.getPassword())) {
+                        userModel.setPassword(newPw);
+                        userRepository.save(userModel);
+                        map.put("result", userModel.getId().toString());
+                        map.put("status", "successful update Password");
+                        return map;
+                    } else {
+                        throw new NewPasswordSameAsOldPasswordException();
+                    }
+                } else {
+                    throw new IncorrectSecurityAnswerException();
+                }
+            } else {
+                throw new EmailNotRegisteredException();
+            }
+        } catch (EmailNotRegisteredException badEmail) {
+            map.put("result", "false");
+            map.put("status", "Email Not Registered");
+            return map;
+            //Not sure what else to do here
+        } catch (IncorrectSecurityAnswerException badAnswer) {
+            map.put("result", "false");
+            map.put("status", "Incorrect Security Answer");
+            return map;
+            //rlly not sure what else to do
+        } catch (NewPasswordSameAsOldPasswordException oldPwNewPwSame) {
+            map.put("result", "false");
+            map.put("status", "New Password Same As Old Password");
+            return map;
+        }
     }
 
-    //Check EmailAlreadyRegisteredException is thrown when user signs up with email already in db
-    @Test
-    public void testSignUp_throwsEmailAlreadyRegisteredException() throws EmailAlreadyRegisteredException{
-        UserModel userModel = new UserModel("jane", "doe", "email@provider", "secret", "yellow");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findByEmail( anyString() )).thenReturn(user);
-        map = userService.signUpUser(userModel);
-        assertEquals("Email Already Registered", map.get("status"));
-    }
-
-    //check -1 is returned when signup uses email already in DB
-    @Test
-    public void testSignUp_emailAlreadyPresentInDB() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("jane", "doe", "email@provider", "secret", "yellow");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findByEmail( anyString() )).thenReturn(user);
-        map = userService.signUpUser(userModel);
-        assertEquals("-1", map.get("result"));
-    }
-
-
-
-    //LOGIN
-    @Test
-    public void testLogin_successfulLogin() throws EmailAlreadyRegisteredException, IncorrectPasswordException, EmailNotRegisteredException {
-        UserModel userModel = new UserModel("jane", "doe", "email@provider", "secret", "yellow");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.logInUser("email@provider", "secret");
-        assertEquals("1", map.get("result"));
-    }
-
-    //check EmailNotRegisteredException is thrown when logging in user with wrong email
-    @Test
-    public void testLogin_throwsEmailNotRegisteredException() throws EmailNotRegisteredException, IncorrectPasswordException {
-        UserModel userModel = new UserModel("jane", "doe", "email@provider", "secret", "yellow");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.empty();
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.logInUser("student@dal", "yellow");
-        assertEquals("Email Not Registered", map.get("status"));
-        //assertThrows(EmailNotRegisteredException.class, ()->userService.logInUser("student@dal", "password1"));
-    }
-
-    //check -1 is returned when input email is not in database
-    @Test
-    public void testLogin_incorrectEmail() throws IncorrectPasswordException, EmailNotRegisteredException {
-        UserModel userModel = new UserModel("jane", "doe", "email@provider", "secret", "yellow");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.empty();
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.logInUser("student@dal", "yellow");
-        assertEquals("-1", map.get("result"));
-    }
-
-    //check IncorrectPasswordException is thrown when logging in a user with an incorrect pw
-    @Test
-    public void testLogin_throwsIncorrectPasswordException() throws IncorrectPasswordException, EmailNotRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.logInUser("email1", "wrongPassword");
-        assertEquals("Incorrect Password", map.get("status"));
-        //assertThrows(IncorrectPasswordException.class, ()->userService.logInUser("email1", "password2"));
-    }
-
-    //check -1 is returned when user logs in with correct email, but incorrect password
-    @Test
-    public void testLogin_incorrectPassword() throws IncorrectPasswordException, EmailNotRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.logInUser("email1", "wrongPassword");
-        assertEquals("-1", map.get("result"));
+    public UserModel findUserByID(Integer userId) {
+        UserModel userModel = null;
+        Optional<UserModel> optionalUserModel = userRepository.findById(userId);
+        if (optionalUserModel.isPresent()) {
+            userModel = optionalUserModel.get();
+        }
+        return userModel;
     }
 
 
+    public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel) {
+        //check if user exists, assume workspace has already been error checked
+        UserModel userModel;
+        Optional<UserModel> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            userModel = user.get();
+            List<WorkspaceModel> workspaces = userModel.getWorkspaces();
+            if (workspaces == null) {
+                workspaces = new ArrayList<WorkspaceModel>();
+            }
 
-
-    //FORGOT PW
-    //check that userModel.pw == new password after update pw is called
-    @Test
-    public void testForgotPW_successfulPasswordUpdate() throws NewPasswordSameAsOldPasswordException, IncorrectSecurityAnswerException, EmailNotRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.updatePassword("email1", "answer1", "newPassword");
-        assertEquals("newPassword", userModel.getPassword());
-    }
-
-    //check that EmailNotRegisteredException is thrown when user tries to reset pw with an unregistered email
-    @Test
-    public void testForgotPW_throwsEmailNotRegisteredException() throws EmailNotRegisteredException, NewPasswordSameAsOldPasswordException, IncorrectSecurityAnswerException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.empty();
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.updatePassword("email2", "answer1", "password1");
-        assertEquals("Email Not Registered", map.get("status") );
-        //assertThrows(IncorrectSecurityAnswerException.class, ()->userService.updatePassword("email2", "answer1", "password1"));
-    }
-
-    //check that false is returned when user tries to reset pw with an email not registered
-    @Test
-    public void testForgotPW_emailNotInDB() throws NewPasswordSameAsOldPasswordException, IncorrectSecurityAnswerException, EmailNotRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.empty();
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.updatePassword("email2", "answer1", "password1");
-        assertEquals( "Email Not Registered", map.get("status"));
-    }
-
-    //check IncorrectSecurityAnswerException is thrown when user tries to reset pw with wrong security Q answer
-    @Test
-    public void testUpdatePW_throwsIncorrectSecurityAnswerException() throws IncorrectSecurityAnswerException, EmailAlreadyRegisteredException, NewPasswordSameAsOldPasswordException, EmailNotRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.updatePassword("email1", "wrongAnswer", "newPassword");
-        assertEquals("Incorrect Security Answer", map.get("status"));
-        //assertThrows(IncorrectSecurityAnswerException.class, ()->userService.updatePassword("email1", "answer2", "password1"));
-    }
-
-    //check that when user uses incorrect security answer to reset pw it returns false
-    @Test
-    public void testForgotPW_wrongSecurityAnswer() throws NewPasswordSameAsOldPasswordException, IncorrectSecurityAnswerException, EmailNotRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.updatePassword("email1", "wrongAnswer", "newPassword");
-        assertEquals("false", map.get("result"));
-    }
-
-    //check NewPasswordSameAsOldPasswordException is thrown when suer resets pw and new PW is same as old
-    @Test
-    public void testForgotPW_throwsNewPasswordSameAsOldPasswordException() throws NewPasswordSameAsOldPasswordException, EmailAlreadyRegisteredException, IncorrectSecurityAnswerException, EmailNotRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.updatePassword("email1", "answer1", "password1");
-        assertEquals("New Password Same As Old Password", map.get("status"));
-        //assertThrows(NewPasswordSameAsOldPasswordException.class, ()->userService.updatePassword("email1", "answer1", "password1"));
-    }
-
-    //check that false is returned when new pw == old pw
-    @Test
-    public void testForgotPW_newPasswordSameAsOld() throws EmailAlreadyRegisteredException, NewPasswordSameAsOldPasswordException, IncorrectSecurityAnswerException, EmailNotRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
-        map = userService.updatePassword("email1", "answer1", "password1");
-        assertEquals("false", map.get("result"));
-    }
-
-    //find by user ID
-    // 1 - userModel is returned when user is present
-    @Test
-    public void testFindByUserId_userIsPresent() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        UserModel returnedUserModel = userService.findUserByID(1);
-        assertNotNull(returnedUserModel);
-    }
-
-    //2 - null / empty userModel is returned when user isn't present
-    @Test
-    public void testFindById_userNotPresent() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        Optional<UserModel> user = Optional.empty();
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        UserModel returnedUserModel = userService.findUserByID(1);
-        assertNull(returnedUserModel);
-        //not sure if an empty object is null...
-    }
-
-    //addWorkspaceToUser
-    // check it is successful
-    @Test
-    public void testAddUserToWorkspace_successfulAdd() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        WorkspaceModel workspace = new WorkspaceModel("test", "test");
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        boolean result = userService.addWorkspaceToUser(1, workspace);
-        assertTrue(result);
+            //check to make sure user isn't already in database
+            if (!workspaces.contains(workspaceModel)) {
+                workspaces.add(workspaceModel);
+                userModel.setWorkspaces(workspaces);
+                userRepository.save(userModel);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        //if they do then add workspace to user list
     }
 
 
-
-
-    //getAllWorkspaces
-    //check it is successful
-    @Test
-    public void testGetAllWorkspaces_Success() throws EmailAlreadyRegisteredException {
-        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
-        userModel.setId(1);
-        userService.signUpUser(userModel);
-        WorkspaceModel workspace = new WorkspaceModel("name", "description");
-        Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        userService.addWorkspaceToUser(1, workspace);
-        List<WorkspaceModel> workspaces = userService.getAllWorkspaces(1);
-        assertNotEquals(null, workspaces);
-        //not sure why it isn't recognising assertNotNull, only in this test
+    public List<WorkspaceModel> getAllWorkspaces(Integer id) {
+        //check if user exists..
+        UserModel userModel = null;
+        Optional<UserModel> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            userModel = user.get();
+            return userModel.getWorkspaces();
+        } else {
+            return null;
+        }
+        //then send List<WorkspaceModel>
     }
 }
