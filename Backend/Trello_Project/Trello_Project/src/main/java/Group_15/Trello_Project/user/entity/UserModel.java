@@ -19,10 +19,6 @@ public class UserModel {
     private String securityAnswer;
     //UPDATE ME W TASKS INFO
 
-    @ManyToMany(targetEntity = BoardModel.class)
-    @JoinColumn(name = "Board_Users")
-    private List<BoardModel> boards;
-
     @ManyToMany(targetEntity = WorkspaceModel.class)
     @JoinColumn(name = "Workspace_Users")
     private List<WorkspaceModel> workspaces;
@@ -65,14 +61,6 @@ public class UserModel {
 
     public String getEmail() {
         return email;
-    }
-
-    public List<BoardModel> getBoards() {
-        return boards;
-    }
-
-    public void setBoards(List<BoardModel> boards) {
-        this.boards = boards;
     }
 
     public List<WorkspaceModel> getWorkspaces() {
