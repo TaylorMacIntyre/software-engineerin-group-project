@@ -30,7 +30,7 @@ function RegisterForm(props){
         validation(email, password, user)
     }
 
-    //validates password using formik, Yup, and Yup-password (adapted from citations included in readme)
+    //validates password using formik, Yup, and Yup-password (adapted from https://www.npmjs.com/package/yup-password)
     async function validation(email, password, user){
         //set up validation
         const schema = yup.object().shape({

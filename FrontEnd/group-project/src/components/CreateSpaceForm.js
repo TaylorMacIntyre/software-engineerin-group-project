@@ -41,7 +41,7 @@ function CreateSpaceForm(props) {
                     margin='dense'
                     inputRef={spaceDespRef} />
                 <Button type='submit' variant='contained' color='primary' sx={{ marginTop: '16px' }}>
-                    Create Board
+                    Create Workspace
                 </Button>
             </form>
         </section>

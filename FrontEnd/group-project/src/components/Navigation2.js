@@ -11,7 +11,7 @@ function Navigation2() {
                 <Toolbar>
                     <Link to={'/WorkSpace/' + uid} style={{ textDecoration: 'none', color: 'white' }}>
                         <Typography variant="h6" component="div" sx={{ padding: '0 8px' }}>
-                            WorkSpace
+                            WorkSpaces
                         </Typography>
 
                     </Link>
@@ -19,6 +19,13 @@ function Navigation2() {
                         <Typography variant="h6" component="div" sx={{ padding: '0 8px' }}>
                             Create WorkSpace
                         </Typography>
+                    </Link>
+
+                    <Link to={'/login'} style={{ textDecoration: 'none', color: 'white' }}>
+                        <Typography variant="h6" component="div" sx={{ padding: '0 8px' }}>
+                            Logout
+                        </Typography>
+
                     </Link>
                 </Toolbar>
             </AppBar>
