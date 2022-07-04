@@ -24,6 +24,8 @@ Dependancies:
 
 Running program:
     Front end:
+        cd FrontEnd/group-ptoject
+        npm install
         npm run start
     Back End:
         run TrelloProjectApplication.java
