@@ -21,8 +21,15 @@ Dependancies:
     Front End:
         npm install (cd to FrontEnd/group-project first)
 
+Versions:
+    JDK: 17
+    npm: 8.5.5
+    node: 16.15
+    maven: 4.0.0
+
 
 Running program:
+    We reccommend opening the project in VS Code
     Front end:
         cd FrontEnd/group-ptoject
         npm install
