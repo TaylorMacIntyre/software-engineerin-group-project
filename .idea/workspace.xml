@@ -4,18 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e70aeb2-645a-4621-a593-32b887f04c5d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/java/Group_15/Trello_Project/user/service/UserServiceImplementation.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/java/Group_15/Trello_Project/user/service/UserServiceImplementation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/java/Group_15/Trello_Project/user/service/UserServiceInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/main/java/Group_15/Trello_Project/user/service/UserServiceInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/test/java/Group_15/Trello_Project/UserTests/userServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Trello_Project/Trello_Project/src/test/java/Group_15/Trello_Project/UserTests/userServiceTests.java" afterDir="false" />
-    </list>
+    <list default="true" id="2e70aeb2-645a-4621-a593-32b887f04c5d" name="Changes" comment="removed tests, and commented out boards methods, and delete workspace method" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -44,6 +40,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "/Users/taylormacintyre/Desktop/csci3130/group15",
     "node.js.detected.package.eslint": "true",
@@ -125,8 +122,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1656957726794</updated>
-      <workItem from="1656957729407" duration="818000" />
+      <workItem from="1656957729407" duration="1231000" />
     </task>
+    <task id="LOCAL-00001" summary="removed tests, and commented out boards methods, and delete workspace method">
+      <created>1656958943878</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1656958943878</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,8 +148,12 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="removed tests, and commented out boards methods, and delete workspace method" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed tests, and commented out boards methods, and delete workspace method" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/group15$userServiceTests.ic" NAME="userServiceTests Coverage Results" MODIFIED="1656958283116" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/group15$userServiceTests.ic" NAME="userServiceTests Coverage Results" MODIFIED="1656958773435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>Group_15.Trello_Project.UserTests.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/group15$All_in_Trello_Project.ic" NAME="All in Trello_Project Coverage Results" MODIFIED="1656957942362" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
