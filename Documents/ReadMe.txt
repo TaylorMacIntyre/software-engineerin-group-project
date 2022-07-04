@@ -12,7 +12,9 @@ Yup for password validation
 Date accessed: June 24, 2022
 URL: https://formik.org/docs/tutorial 
 
-
+Mockito for mocking the repository
+Date accessed: June 25th
+URL: https://site.mockito.org/
 
 
 Dependancies:
@@ -23,3 +25,5 @@ Dependancies:
 Running program:
     Front end:
         npm run start
+    Back End:
+        run TrelloProjectApplication.java
