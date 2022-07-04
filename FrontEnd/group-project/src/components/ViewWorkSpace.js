@@ -41,14 +41,14 @@ function ViewSpace(props) {
                                     
                                     
                                     <Link to={'/boards/'+ workspace.id}>
-                                        <Button variant='contained' sx={{ marginTop: '200px' }} onClick={() => localStorage.setItem("active_workspace", workspace.id)}>
+                                        <Button variant='contained' sx={{ marginTop: '20px' }} onClick={() => localStorage.setItem("active_workspace", workspace.id)}>
                                             Go to the Boards
                                             
                                         </Button>
                                     </Link>
 
                                     <Link to={'/addmembertoworkspace'}>
-                                        <Button variant='contained' sx={{ marginTop: '200px' }} onClick={() => localStorage.setItem("workid", workspace.id)}>
+                                        <Button variant='contained' sx={{ marginTop: '20px' }} onClick={() => localStorage.setItem("workid", workspace.id)}>
                                             Add Member to this Workspace
                                             
                                         </Button>
