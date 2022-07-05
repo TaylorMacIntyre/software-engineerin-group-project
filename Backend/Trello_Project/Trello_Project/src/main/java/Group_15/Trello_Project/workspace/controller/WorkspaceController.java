@@ -24,9 +24,9 @@ public class WorkspaceController {
     }
 
     @PutMapping(path = "/addUserToWorkspace/{workspace_id}")
-    public WorkspaceModel addUserToWorkspace(@PathVariable Integer workspace_id, @RequestParam Integer user_id) {
+    public WorkspaceModel addUserToWorkspace(@PathVariable Integer workspace_id, @RequestParam String email) {
 
-        return workspaceService.addUserToWorkspace(workspace_id, user_id);
+        return workspaceService.addUserToWorkspace(workspace_id, email);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")

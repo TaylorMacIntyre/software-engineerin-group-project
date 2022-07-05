@@ -31,13 +31,13 @@ public class WorkspaceService {
 
         WorkspaceModel workspace = workspaceRepository.save(workspaceModel);
 
-        boolean success = userService.addWorkspaceToUser(user_id, workspace);
+        boolean success = userService.addWorkspaceToUserById(user_id, workspace);
 
         return workspace;
 
     }
 
-    public WorkspaceModel addUserToWorkspace(Integer workspace_id, Integer user_id)
+    public WorkspaceModel addUserToWorkspace(Integer workspace_id, String email)
     {
 
         Optional<WorkspaceModel> optionalWorkspaceModel = workspaceRepository.findById(workspace_id);
@@ -47,7 +47,7 @@ public class WorkspaceService {
         if(optionalWorkspaceModel.isPresent())
         {
             updatedWorkspaceModel = optionalWorkspaceModel.get();
-            success = userService.addWorkspaceToUser(user_id, updatedWorkspaceModel);
+            success = userService.addWorkspaceToUserByEmail(email, updatedWorkspaceModel);
         }
 
         if(success) {
