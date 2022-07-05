@@ -126,10 +126,36 @@ public class UserServiceImplementation implements UserServiceInterface {
     }
 
 
-    public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel) {
+    public boolean addWorkspaceToUserById(Integer id, WorkspaceModel workspaceModel) {
         //check if user exists, assume workspace has already been error checked
         UserModel userModel;
         Optional<UserModel> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            userModel = user.get();
+            List<WorkspaceModel> workspaces = userModel.getWorkspaces();
+            if (workspaces == null) {
+                workspaces = new ArrayList<WorkspaceModel>();
+            }
+
+            //check to make sure user isn't already in database
+            if (!workspaces.contains(workspaceModel)) {
+                workspaces.add(workspaceModel);
+                userModel.setWorkspaces(workspaces);
+                userRepository.save(userModel);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        //if they do then add workspace to user list
+    }
+
+    public boolean addWorkspaceToUserByEmail(String email, WorkspaceModel workspaceModel) {
+        //check if user exists, assume workspace has already been error checked
+        UserModel userModel;
+        Optional<UserModel> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
             userModel = user.get();
             List<WorkspaceModel> workspaces = userModel.getWorkspaces();

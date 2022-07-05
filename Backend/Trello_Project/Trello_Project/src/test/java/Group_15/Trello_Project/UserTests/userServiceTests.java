@@ -261,17 +261,17 @@ public class userServiceTests {
         //not sure if an empty object is null...
     }
 
-    //addWorkspaceToUser
+    //addWorkspaceToUserByEmail
     // check it is successful
     @Test
-    public void testAddUserToWorkspace_successfulAdd() throws EmailAlreadyRegisteredException {
+    public void testAddUserToWorkspaceByEmail_successfulAdd() throws EmailAlreadyRegisteredException {
         UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
         userModel.setId(1);
         userService.signUpUser(userModel);
         WorkspaceModel workspace = new WorkspaceModel("test", "test");
         Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        boolean result = userService.addWorkspaceToUser(1, workspace);
+        Mockito.when(userRepository.findByEmail( anyString() )).thenReturn(user);
+        boolean result = userService.addWorkspaceToUserByEmail("email1", workspace);
         assertTrue(result);
     }
 
@@ -283,8 +283,8 @@ public class userServiceTests {
         userService.signUpUser(userModel);
         WorkspaceModel workspace = new WorkspaceModel("test", "test");
         Optional<UserModel> user = Optional.empty();
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        boolean result = userService.addWorkspaceToUser(1, workspace);
+        Mockito.when(userRepository.findByEmail( anyString() )).thenReturn(user);
+        boolean result = userService.addWorkspaceToUserByEmail("email1", workspace);
         assertFalse(result);
     }
 
@@ -296,8 +296,8 @@ public class userServiceTests {
         userService.signUpUser(userModel);
         WorkspaceModel workspace = new WorkspaceModel("test", "test");
         Optional<UserModel> user = Optional.of(userModel);
-        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        boolean result = userService.addWorkspaceToUser(1, workspace);
+        Mockito.when(userRepository.findByEmail( anyString() )).thenReturn(user);
+        boolean result = userService.addWorkspaceToUserByEmail("email1", workspace);
         result = userService.addWorkspaceToUser(1, workspace);
         assertFalse(result);
     }
