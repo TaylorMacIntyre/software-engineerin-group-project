@@ -275,7 +275,7 @@ public class userServiceTests {
         assertTrue(result);
     }
 
-    // check addUserToWorkspace fails - user isn't present
+    // check addUserToWorkspaceByEmail fails - user isn't present
     @Test
     public void testAddUserToWorkspace_userNotPresent() throws EmailAlreadyRegisteredException {
         UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
@@ -288,7 +288,7 @@ public class userServiceTests {
         assertFalse(result);
     }
 
-    // check addUserToWorkspace fails - user already has workspace in list, returns false
+    // check addUserToWorkspaceByEmail fails - user already has workspace in list, returns false
     @Test
     public void testAddUserToWorkspace_workspaceIsNull() throws EmailAlreadyRegisteredException {
         UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
@@ -313,7 +313,7 @@ public class userServiceTests {
         WorkspaceModel workspace = new WorkspaceModel("name", "description");
         Optional<UserModel> user = Optional.of(userModel);
         Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        userService.addWorkspaceToUser(1, workspace);
+        userService.addWorkspaceToUserById(1, workspace);
         List<WorkspaceModel> workspaces = userService.getAllWorkspaces(1);
         assertNotEquals(null, workspaces);
     }
@@ -327,7 +327,7 @@ public class userServiceTests {
         WorkspaceModel workspace = new WorkspaceModel("name", "description");
         Optional<UserModel> user = Optional.empty();
         Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
-        userService.addWorkspaceToUser(1, workspace);
+        userService.addWorkspaceToUserById(1, workspace);
         List<WorkspaceModel> workspaces = userService.getAllWorkspaces(1);
         assertEquals(null, workspaces);
     }

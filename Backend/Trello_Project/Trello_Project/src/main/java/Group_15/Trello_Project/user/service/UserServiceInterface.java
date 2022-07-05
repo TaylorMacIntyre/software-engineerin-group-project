@@ -19,8 +19,9 @@ public interface UserServiceInterface {
 
     public UserModel findUserByID(Integer userId);
 
+    public boolean addWorkspaceToUserByEmail(String email, WorkspaceModel workspaceModel);
 
-    public boolean addWorkspaceToUser(Integer id, WorkspaceModel workspaceModel);
+    public boolean addWorkspaceToUserById(Integer id, WorkspaceModel workspaceModel);
 
     public List<WorkspaceModel> getAllWorkspaces(Integer id);
 }
