@@ -298,7 +298,7 @@ public class userServiceTests {
         Optional<UserModel> user = Optional.of(userModel);
         Mockito.when(userRepository.findByEmail( anyString() )).thenReturn(user);
         boolean result = userService.addWorkspaceToUserByEmail("email1", workspace);
-        result = userService.addWorkspaceToUser(1, workspace);
+        result = userService.addWorkspaceToUserById(1, workspace);
         assertFalse(result);
     }
 

@@ -86,7 +86,7 @@ public class WorkspaceServiceTests {
         int mockUserId = 1;
 
         when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
-        when(userService.addWorkspaceToUser(any(),any())).thenReturn(true);
+        when(userService.addWorkspaceToUserByEmail(any(),any())).thenReturn(true);
 
         Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
 
