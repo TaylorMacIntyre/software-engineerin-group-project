@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { Button, TextField, Typography } from '@mui/material';
 function AddingForm(props) {
-    const idRef = useRef();
+    const emailRef = useRef();
     function deleteBoard(e) {
         e.preventDefault();
-        const id = idRef.current.value;
-        props.Addingmember(id);
+        const email = emailRef.current.value;
+        props.Addingmember(email);
     }
 
     return (
@@ -14,12 +14,12 @@ function AddingForm(props) {
             <form onSubmit={deleteBoard}>
                 <TextField
                     id='boardName'
-                    placeholder='Member ID'
+                    placeholder='Member Email'
                     variant='outlined'
                     required
                     fullWidth
                     margin='dense'
-                    inputRef={idRef} />
+                    inputRef={emailRef} />
                 
                 <Button type='submit' variant='contained' color='primary' sx={{ marginTop: '16px' }}>
                     Submit

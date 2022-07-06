@@ -10,14 +10,6 @@ function WorkSpace() {
     const [spacesData, setSpaceData] = useState([]);
     const url1 = `http://localhost:9000/workspace/getAllWorkspaces/${uid}`
 
-    // function getAllSpace() {
-    //     fetch(url1)
-    //         .then(response => response.json())
-    //         .then(spaces => {
-    //             setBoardsData(spaces);
-    //         });
-    // };
-
     useEffect(function () {
         fetch(url1,{method:'GET'})
             .then(response => response.json())

@@ -6,10 +6,10 @@ function AddingFunction() {
     const uid = localStorage.getItem("uid")
     const workid = localStorage.getItem("workid")
     const history = useHistory();
-    function AddingHandler(ID){
-        fetch(`http://localhost:9000/workspace/addUserToWorkspace/${workid}?user_id=` + ID, {
+    function AddingHandler(email){
+        fetch(`http://localhost:9000/workspace/addUserToWorkspace/${workid}?email=` + email, {
             method: 'PUT',
-            body: JSON.stringify(ID),
+            body: JSON.stringify(email),
             headers: {
                 'Content-Type': 'application/json'
             }
