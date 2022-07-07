@@ -99,12 +99,17 @@ public class WorkspaceService {
     public WorkspaceModel getWorkspace(@PathVariable Integer workspace_id)
     {
         WorkspaceModel workspaceModel = null;
+        Optional<WorkspaceModel> optionalWorkspaceModel = null;
 
-        Optional<WorkspaceModel> optionalWorkspaceModel = workspaceRepository.findById(workspace_id);
-
-        if(optionalWorkspaceModel.isPresent())
+        try {
+            optionalWorkspaceModel = workspaceRepository.findById(workspace_id);
+            if (optionalWorkspaceModel.isPresent()) {
+                workspaceModel = optionalWorkspaceModel.get();
+            }
+        }
+        catch(Exception ex)
         {
-            workspaceModel = optionalWorkspaceModel.get();
+            ex.printStackTrace();
         }
 
         return workspaceModel;
