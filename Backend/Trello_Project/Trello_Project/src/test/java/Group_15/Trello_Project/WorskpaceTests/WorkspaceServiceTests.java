@@ -79,13 +79,12 @@ public class WorkspaceServiceTests {
         workspace.setWorkspace_name("Test Workspace Add User Name");
         workspace.setWorkspace_description("This is Test Workspace Add User Description");
 
-        int mockUserId = 1;
+        String mockUserEmail = "testuser@gmail.com";
 
         when(userService.addWorkspaceToUserByEmail(any(),any())).thenReturn(true);
         Mockito.when(workspaceRepository.findById(any())).thenReturn(Optional.of(workspace));
-        Mockito.when(workspaceRepository.save(workspace)).thenReturn(workspace);
 
-        WorkspaceModel savedWorkspace = workspaceService.updateBoard(workspace.getId(),mockUserId);
+        WorkspaceModel savedWorkspace = workspaceService.addUserToWorkspace(workspace.getId(),mockUserEmail);
 
         assertNotNull(savedWorkspace);
 
