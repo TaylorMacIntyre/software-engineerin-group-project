@@ -16,6 +16,10 @@ Mockito for mocking the repository
 Date accessed: June 25th
 URL: https://site.mockito.org/
 
+The start code for board and workspace is from the react tutorial 2 section.
+Date accessed: June 23th
+URL: https://git.cs.dal.ca/dashah/csci3130_s22_reacttutorialdemo.git
+
 
 Dependancies:
     Front End:
