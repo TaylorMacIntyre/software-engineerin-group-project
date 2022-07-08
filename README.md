@@ -61,6 +61,12 @@ Date accessed: June 25th, 2022
 
 URL: [https://site.mockito.org/](https://site.mockito.org/)
 
+Material UI for styling
+
+Date accessed: June 23, 2022
+
+URL: https://mui.com/ 
+
 The start code for board and workspace front end is from the react tutorial 2 section.
 
 Date accessed: June 23th, 2022
