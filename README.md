@@ -67,6 +67,18 @@ Date accessed: June 23, 2022
 
 URL: https://mui.com/ 
 
+React-Dom
+
+Date accessed: June 20, 2022
+
+URL: https://reactjs.org/docs/react-dom.html
+
+React-Router-Dom 
+
+Date accessed: June 20, 2022
+
+URL: https://v5.reactrouter.com/web/guides/quick-start
+
 The start code for board and workspace front end is from the react tutorial 2 section.
 
 Date accessed: June 23th, 2022
