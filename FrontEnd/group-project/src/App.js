@@ -16,11 +16,12 @@ import CreateWorkSpace from './pages/CreateWorkspace';
 import Navigation2 from './components/Navigation2';
 import DeleteBoard from './pages/DeleteBoard';
 import AddingFunction from "./pages/AddingFunction";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <div>
-
+      <ToastContainer/>
       <Switch>
         <Route path="/register" exact>
           <Navigation />
