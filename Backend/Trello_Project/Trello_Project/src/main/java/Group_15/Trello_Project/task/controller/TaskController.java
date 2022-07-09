@@ -2,6 +2,8 @@ package Group_15.Trello_Project.task.controller;
 
 import Group_15.Trello_Project.board.entity.BoardModel;
 import Group_15.Trello_Project.board.service.BoardService;
+import Group_15.Trello_Project.task.entity.TaskModel;
+import Group_15.Trello_Project.task.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +19,8 @@ public class TaskController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(path = "/saveTask", consumes = "application/json", produces = "application/json")
-    public BoardModel createTask(@RequestBody TaskModel taskModel,@RequestParam Integer board_id) {
-        return taskService.createTask(taskModel);
+    public TaskModel createTask(@RequestBody TaskModel taskModel, @RequestParam Integer board_id) {
+        return taskService.createTask(taskModel, board_id);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -28,18 +30,12 @@ public class TaskController {
         return taskService.deleteTask(task_id);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/getAllBoards")
-    public List<BoardModel> getAllBoards()
-    {
-        return boardService.getAllBoards();
-    }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/getBoard/{board_id}")
-    public BoardModel getBoard(@PathVariable Integer board_id)
+    @GetMapping("/getTask/{board_id}")
+    public TaskModel getTask(@PathVariable Integer board_id, @RequestParam String status)
     {
-        return boardService.getBoard(board_id);
+        return taskService.getTask(board_id, status);
     }
 
 

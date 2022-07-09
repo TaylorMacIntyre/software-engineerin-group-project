@@ -1,9 +1,9 @@
 package Group_15.Trello_Project.board.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import Group_15.Trello_Project.task.entity.TaskModel;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class BoardModel
@@ -15,6 +15,10 @@ public class BoardModel
     private String board_name;
 
     private String board_description;
+
+    @OneToMany(targetEntity = TaskModel.class)
+    @JoinColumn(name="task_mapping")
+    private List<TaskModel> tasks;
 
     public BoardModel(String board_name, String board_description) {
         this.board_name = board_name;
@@ -48,5 +52,13 @@ public class BoardModel
 
     public void setBoard_description(String board_description) {
         this.board_description = board_description;
+    }
+
+    public List<TaskModel> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<TaskModel> tasks) {
+        this.tasks = tasks;
     }
 }

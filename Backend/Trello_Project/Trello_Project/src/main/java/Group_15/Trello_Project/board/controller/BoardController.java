@@ -43,7 +43,12 @@ public class BoardController {
         return boardService.getBoard(board_id);
     }
 
-
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/addTask/{board_id}")
+    public BoardModel addTaskToBoard(@PathVariable Integer board_id, @RequestParam Integer task_id)
+    {
+        return boardService.addTaskToBoard(board_id, task_id);
+    }
 }
 
 
