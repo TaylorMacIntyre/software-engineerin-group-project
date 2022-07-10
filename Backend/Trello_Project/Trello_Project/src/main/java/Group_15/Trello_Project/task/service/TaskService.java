@@ -42,10 +42,13 @@ public class TaskService {
 
         Optional<TaskModel> optionalTaskModel = taskRepository.findById(task_id);
 
-        //change to try and catch //error checking
-        if(optionalTaskModel.isPresent())
+        try {
+            if (optionalTaskModel.isPresent()) {
+                taskModel = optionalTaskModel.get();
+            }
+        } catch(Exception ex)
         {
-            taskModel = optionalTaskModel.get();
+            ex.printStackTrace();
         }
 
         return taskModel;
@@ -76,6 +79,26 @@ public class TaskService {
 
         return tasksWithStatus;
 
+    }
+
+    public TaskModel updateStatus(Integer task_id, String status)
+    {
+        TaskModel taskModel = null;
+
+        Optional<TaskModel> optionalTaskModel = taskRepository.findById(task_id);
+
+        try {
+            //change to try and catch //error checking
+            if (optionalTaskModel.isPresent()) {
+                taskModel = optionalTaskModel.get();
+                taskModel.setStatus(status);
+            }
+        } catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return taskModel;
     }
 
 }
