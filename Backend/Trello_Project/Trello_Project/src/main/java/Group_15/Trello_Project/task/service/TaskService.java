@@ -102,7 +102,7 @@ public class TaskService {
             for(int i =0; i < boardTasks.size(); i++)
             {
                 if(date.equals("Today")) {
-                    if (boardTasks.get(i).getStatus().equals(status) && (boardTasks.get(i).getDate().compareTo(currentDateObj) == 0) {
+                    if (boardTasks.get(i).getStatus().equals(status) && (boardTasks.get(i).getDate().compareTo(currentDateObj) == 0)) {
                         tasksWithStatus.add(boardTasks.get(i));
                     }
                 }
