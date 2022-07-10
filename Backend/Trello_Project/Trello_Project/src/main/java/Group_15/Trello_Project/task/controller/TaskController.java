@@ -31,6 +31,13 @@ public class TaskController {
         return taskService.getTaskWithStatus(board_id, status);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/getTaskWithDate/{board_id}")
+    public List<TaskModel> getTaskWithDate(@PathVariable Integer board_id, @RequestParam String status, @RequestParam String date)
+    {
+        return taskService.getTaskWithDate(board_id, status, date);
+    }
+
     @PutMapping(path = "/updateStatus/{task_id}")
     public TaskModel updateStatus(@PathVariable Integer task_id, @RequestParam String status) {
 
