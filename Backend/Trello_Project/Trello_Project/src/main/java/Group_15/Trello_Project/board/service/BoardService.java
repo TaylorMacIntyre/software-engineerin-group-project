@@ -68,7 +68,7 @@ public class BoardService {
 
     }
 
-    public BoardModel addTaskToBoard(Integer board_id, Integer task_id)
+    public boolean addTaskToBoard(Integer board_id, Integer task_id)
     {
         BoardModel updatedBoard = null;
         Optional<BoardModel> board = null;
@@ -91,6 +91,7 @@ public class BoardService {
                 boardModel.setTasks(tasks);
 
                 updatedBoard = boardRepository.save(boardModel);
+                return true;
             }
         }
         catch(Exception ex)
@@ -98,7 +99,7 @@ public class BoardService {
             ex.printStackTrace();
         }
 
-        return updatedBoard;
+        return false;
     }
 
 }

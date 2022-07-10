@@ -24,18 +24,10 @@ public class TaskController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @DeleteMapping("/deleteTask/{task_id}")
-    public boolean deleteTask(@PathVariable Integer task_id)
+    @GetMapping("/getTaskWithStatus/{board_id}")
+    public List<TaskModel> getTaskWithStatus(@PathVariable Integer board_id, @RequestParam String status)
     {
-        return taskService.deleteTask(task_id);
-    }
-
-
-    @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/getTask/{board_id}")
-    public TaskModel getTask(@PathVariable Integer board_id, @RequestParam String status)
-    {
-        return taskService.getTask(board_id, status);
+        return taskService.getTaskWithStatus(board_id, status);
     }
 
 
