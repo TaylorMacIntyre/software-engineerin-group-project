@@ -22,9 +22,6 @@ public class TaskService {
     TaskRepository taskRepository;
 
     @Autowired
-    BoardRepository boardRepository;
-
-    @Autowired
     BoardService boardService;
 
     public TaskModel createTask(TaskModel taskModel, Integer board_id) {
@@ -59,7 +56,7 @@ public class TaskService {
     {
         BoardModel boardModel = null;
 
-        Optional<BoardModel> optionalBoardModel = boardRepository.findById(board_id);
+        Optional<BoardModel> optionalBoardModel = Optional.ofNullable(boardService.findBoardById(board_id));
         List<TaskModel> tasksWithStatus = new ArrayList<>();
 
         if(optionalBoardModel.isPresent()) {
@@ -86,7 +83,7 @@ public class TaskService {
     {
         BoardModel boardModel = null;
 
-        Optional<BoardModel> optionalBoardModel = boardRepository.findById(board_id);
+        Optional<BoardModel> optionalBoardModel = Optional.ofNullable(boardService.findBoardById(board_id));
         List<TaskModel> tasksWithStatus = new ArrayList<>();
 
         //https://beginnersbook.com/2017/10/java-convert-localdate-to-date/
