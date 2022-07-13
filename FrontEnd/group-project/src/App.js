@@ -7,7 +7,7 @@ import LoginPage from "./pages/Login"
 import HomePage from "./pages/Home"
 import PasswordPage from "./pages/ForgotPassword"
 import { Route, Switch } from "react-router-dom";
-import { Container } from '@mui/material';
+
 import Boards from './pages/Boards';
 import CreateBoard from './pages/CreateBoard';
 import Navigation1 from './components/Navigation1';
@@ -72,6 +72,12 @@ function App() {
         <Route path="/forgotpassword" exact>
           <Navigation />
           <PasswordPage />
+
+        </Route>
+        
+        <Route path="/task/:id" exact>
+          <Navigation3 />
+          
 
         </Route>
       </Switch>

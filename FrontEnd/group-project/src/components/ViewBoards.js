@@ -24,10 +24,11 @@ function ViewBoards(props) {
                                     <Typography component='p' variant='p'>
                                     {board.board_description}
                                     </Typography>
-                                    
-                                    <Button variant='contained' sx={{ marginTop: '100px' }}>
+                                    <Link to={'/addmembertoworkspace'}></Link>
+                                    <Button variant='contained' sx={{ marginTop: '100px' }} >
                                         View All Tasks
                                     </Button>
+                                    <Link/>
                                 </CardContent>
                             </Card>
                         </Grid>
