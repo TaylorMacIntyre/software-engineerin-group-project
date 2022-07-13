@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-
 public interface TaskRepository extends JpaRepository<TaskModel, Integer> {
 
 }

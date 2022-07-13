@@ -18,7 +18,6 @@ public class UserModel {
     private String email;
     private String password;
     private String securityAnswer;
-    //UPDATE ME W TASKS INFO
 
     @ManyToMany(targetEntity = WorkspaceModel.class)
     @JoinColumn(name = "Workspace_Users")
@@ -68,16 +67,16 @@ public class UserModel {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public List<WorkspaceModel> getWorkspaces() {
         return workspaces;
     }
 
     public void setWorkspaces(List<WorkspaceModel> workspaces) {
         this.workspaces = workspaces;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
@@ -96,5 +95,12 @@ public class UserModel {
         this.securityAnswer = securityQAnswer;
     }
 
+    public List<TaskModel> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<TaskModel> tasks) {
+        this.tasks = tasks;
+    }
 }
 
