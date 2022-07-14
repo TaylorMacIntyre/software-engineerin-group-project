@@ -21,8 +21,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
@@ -129,18 +128,45 @@ public class TaskServiceTests {
         //getTaskWithDate
     //successful
     @Test
-    public void getTaskWithDate(){
+    public void getTaskWithDate_success(){
         Integer board_id = 2;
-
+        String status = "To-Do";
+        Date date1 = taskModel.getDate();
+        BoardModel tempBoard = new BoardModel();
+        tempBoard.setId(board_id);
+        boardService.addTaskToBoard(2, taskModel.getId());
+        when(boardService.findBoardById(anyInt())).thenReturn(tempBoard);
+        List<TaskModel> returnedTasks = taskService.getTaskWithDate(2, status, "Today");
+        assertNotNull(returnedTasks);
     }
-    //unsuccessful, board id doesn't exist
 
+    //unsuccessful, board id doesn't exist
+    @Test
+    public void getTaskWithDate_failureBoardIdNonExistant(){
+        BoardModel nullBoard = null;
+        when(boardService.findBoardById(anyInt())).thenReturn(nullBoard);
+        List<TaskModel> returnedTasks = taskService.getTaskWithDate(2, "Today", "02/04/2022");
+        assertEquals(0, returnedTasks.size());
+    }
 
         //updateStatus
     //successful, task id is present
+    @Test
+    public void updateStatusWithDate_success(){
+        String newStatus = "Doing";
+        Mockito.when(taskRepository.findById(anyInt())).thenReturn(Optional.ofNullable(taskModel));
+        TaskModel returnedTask = taskService.updateStatus(taskModel.getId(), newStatus);
+        assertEquals(newStatus, returnedTask.getStatus());
+    }
 
     //unsuccessful, task id isn't present
-
+    @Test
+    public void updateStatusWithDate_failureBadTaskId(){
+        TaskModel nullTask = null;
+        Mockito.when(taskRepository.findById(anyInt())).thenReturn(Optional.empty());
+        TaskModel returnedTask = taskService.updateStatus(10, "Doing");
+        assertNull(returnedTask);
+    }
 
 
     //NOT IMPLEMENTED YET
