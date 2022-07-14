@@ -5,7 +5,7 @@ import ViewBoards from '../components/ViewBoards';
 
 function Boards() {
     const {id} = useParams();
-    localStorage.setItem(boardID, id);
+    
     console.log({id})
     const [boardsData, setBoardsData] = useState([]);
     const url = `http://localhost:9000/workspace/getWorkspaceBoards/${id}`

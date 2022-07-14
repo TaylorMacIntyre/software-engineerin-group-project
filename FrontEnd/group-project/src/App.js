@@ -4,7 +4,7 @@ import React from "react";
 import Navigation from "./components/Navigation"
 import RegisterPage from "./pages/Register"
 import LoginPage from "./pages/Login"
-import HomePage from "./pages/Home"
+// import HomePage from "./pages/Home"
 import PasswordPage from "./pages/ForgotPassword"
 import { Route, Switch } from "react-router-dom";
 
@@ -16,7 +16,8 @@ import CreateWorkSpace from './pages/CreateWorkspace';
 import Navigation2 from './components/Navigation2';
 import DeleteBoard from './pages/DeleteBoard';
 import AddingFunction from "./pages/AddingFunction";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import Navigation3 from "./Task/Navigation3";
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
