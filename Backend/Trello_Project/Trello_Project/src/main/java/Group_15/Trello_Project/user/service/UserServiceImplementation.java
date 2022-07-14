@@ -2,6 +2,7 @@ package Group_15.Trello_Project.user.service;
 
 import Group_15.Trello_Project.*;
 import Group_15.Trello_Project.board.entity.BoardModel;
+import Group_15.Trello_Project.task.entity.TaskModel;
 import Group_15.Trello_Project.user.entity.UserModel;
 import Group_15.Trello_Project.user.repository.UserRepository;
 import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
@@ -191,4 +192,27 @@ public class UserServiceImplementation implements UserServiceInterface {
         }
         //then send List<WorkspaceModel>
     }
+
+    public boolean addTaskToUser(TaskModel task, String email){
+        UserModel userModel;
+        Optional<UserModel> user = userRepository.findByEmail(email);
+        boolean success = false;
+        if(user.isPresent()){
+            userModel = user.get();
+            List<TaskModel> tasks = userModel.getTasks();
+
+            if(tasks.isEmpty()){
+                 tasks = new ArrayList<TaskModel>();
+             }
+
+            if(!tasks.contains(task)){
+                tasks.add(task);
+                userModel.setTasks(tasks);
+                userRepository.save(userModel);
+                success = true;
+            }
+        }
+        return success;
+    }
+
 }

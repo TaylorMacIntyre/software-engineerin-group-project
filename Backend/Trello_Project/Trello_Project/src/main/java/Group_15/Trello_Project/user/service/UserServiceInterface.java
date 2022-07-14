@@ -2,6 +2,7 @@ package Group_15.Trello_Project.user.service;
 
 import Group_15.Trello_Project.*;
 import Group_15.Trello_Project.board.entity.BoardModel;
+import Group_15.Trello_Project.task.entity.TaskModel;
 import Group_15.Trello_Project.user.entity.UserModel;
 import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
 import org.springframework.stereotype.Service;
@@ -24,4 +25,6 @@ public interface UserServiceInterface {
     public boolean addWorkspaceToUserById(Integer id, WorkspaceModel workspaceModel);
 
     public List<WorkspaceModel> getAllWorkspaces(Integer id);
+
+    public boolean addTaskToUser(TaskModel task, String email);
 }
