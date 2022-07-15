@@ -46,7 +46,7 @@ public class TaskController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping(path = "/addUserToTask/{user_id}")
+    @GetMapping(path = "/addUserToTask/{task_id}")
     public TaskModel addUserToTask(@PathVariable Integer task_id, @RequestParam String email){
         return taskService.assignUserToTask(task_id, email);
     }
