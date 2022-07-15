@@ -180,4 +180,28 @@ public class TaskService {
 
         return taskModel;
     }
+
+    public List<TaskModel> searchTask(Integer board_id, String searchValue){
+
+        BoardModel boardModel = null;
+
+        Optional<BoardModel> optionalBoardModel = Optional.ofNullable(boardService.findBoardById(board_id));
+        List<TaskModel> tasksWithSearchFilter = new ArrayList<>();
+
+        if(optionalBoardModel.isPresent()) {
+
+            boardModel = optionalBoardModel.get();
+            List<TaskModel> boardTasks = boardModel.getTasks();
+
+            for(int i =0; i < boardTasks.size(); i++) {
+                if (boardTasks.get(i).getName().toUpperCase().equals(searchValue.toUpperCase())) {
+                    tasksWithSearchFilter.add(boardTasks.get(i));
+                }
+            }
+
+        }
+
+        return tasksWithSearchFilter;
+    }
+
 }

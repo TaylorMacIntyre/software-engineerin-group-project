@@ -50,4 +50,10 @@ public class TaskController {
     public TaskModel addUserToTask(@PathVariable Integer task_id, @RequestParam String email){
         return taskService.assignUserToTask(task_id, email);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(path = "/searchTask/{board_id}")
+    public List<TaskModel> searchTask(@PathVariable Integer board_id, @RequestParam String searchValue){
+        return taskService.searchTask(board_id, searchValue);
+    }
 }
