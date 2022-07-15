@@ -31,12 +31,12 @@ public class TaskController {
         return taskService.getTaskWithStatus(board_id, status);
     }
 
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @GetMapping("/getTaskWithDate/{board_id}")
-//    public List<TaskModel> getTaskWithDate(@PathVariable Integer board_id, @RequestParam String status, @RequestParam String date)
-//    {
-//        return taskService.getTaskWithDate(board_id, status, date);
-//    }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/getTaskWithDate/{board_id}")
+    public List<TaskModel> getTaskWithDate(@PathVariable Integer board_id, @RequestParam String status, @RequestParam String dateFilter)
+    {
+        return taskService.getTaskWithDate(board_id, status, dateFilter);
+    }
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping(path = "/updateStatus/{task_id}")
