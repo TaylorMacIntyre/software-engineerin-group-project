@@ -33,6 +33,11 @@ function ViewTask(props) {
                                             Update Status
                                         </Button>
                                     </Link>
+                                    <Link to={'/assign-task'}>
+                                        <Button variant='contained' sx={{ marginTop: '100px' }} onClick={() => localStorage.setItem("taskID", task.id)}>
+                                            Assign user
+                                        </Button>
+                                    </Link>
                                 </CardContent>
                             </Card>
                         </Grid>

@@ -23,6 +23,7 @@ import Task from "./Task/Task";
 import CreateTask from "./Task/Createtask";
 import Navigation4 from "./Task/Navigation4";
 import UpdateTask from "./Task/Updatetask";
+import AssignTask from "./Task/Assignuser";
 
 function App() {
   return (
@@ -96,6 +97,13 @@ function App() {
         <Route path="/update-task" exact>
           <Navigation4 />
           <UpdateTask/>
+
+        </Route>
+
+
+        <Route path="/assign-task" exact>
+          <Navigation4 />
+          <AssignTask/>
 
         </Route>
 
