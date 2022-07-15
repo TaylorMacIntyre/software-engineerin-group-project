@@ -20,6 +20,8 @@ import { ToastContainer } from 'react-toastify';
 import Navigation3 from "./Task/Navigation3";
 import 'react-toastify/dist/ReactToastify.css';
 import Task from "./Task/Task";
+import CreateTask from "./Task/Createtask";
+import Navigation4 from "./Task/Navigation4";
 
 function App() {
   return (
@@ -83,6 +85,19 @@ function App() {
           <Task/>
 
         </Route>
+
+        <Route path="/create-task" exact>
+          <Navigation4 />
+          <CreateTask/>
+
+        </Route>
+
+        {/* <Route path="/create-task" exact>
+          <Navigation4 />
+          <CreateTask/>
+
+        </Route> */}
+
       </Switch>
     </div>
 

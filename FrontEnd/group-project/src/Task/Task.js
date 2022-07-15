@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ViewTask from './Viewtask';
-
+import { Typography, Stack} from '@mui/material';
 function Task(){
     const {id} = useParams();
     const url1 = `http://localhost:9000/task/getTaskWithStatus/${id}?status=TODO`
@@ -41,13 +41,17 @@ function Task(){
 
     return(
     <section>
+        
         <div>
+            <Typography variant='h2' component='h2'>TODO</Typography>
             <ViewTask task={taskData1}/>
         </div>    
         <div>
+            <Typography variant='h2' component='h2'>DOING</Typography>   
             <ViewTask task={taskData2}/>
         </div>   
         <div>
+            <Typography variant='h2' component='h2'>DONE</Typography>
             <ViewTask task={taskData3}/>
         </div>   
     </section>
