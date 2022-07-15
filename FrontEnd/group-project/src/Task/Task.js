@@ -19,7 +19,7 @@ function Task(){
             setTask1(task);
         });
 
-    },[url]);
+    },[url1]);
 
     useEffect(function () {
         fetch(url2,{method:'GET'})
@@ -28,7 +28,7 @@ function Task(){
             setTask2(task);
         });
 
-    },[url]);
+    },[url2]);
 
     useEffect(function () {
         fetch(url3,{method:'GET'})
@@ -37,20 +37,21 @@ function Task(){
             setTask3(task);
         });
 
-    },[url]);
+    },[url3]);
 
-    return 
+    return(
     <section>
         <div>
-            <ViewTask >
+            <ViewTask task={taskData1}/>
         </div>    
         <div>
-            
+            <ViewTask task={taskData2}/>
         </div>   
         <div>
-            
+            <ViewTask task={taskData3}/>
         </div>   
     </section>
+    )
 }
 
 export default Task;

@@ -12,7 +12,7 @@ function ViewTask(props) {
             <Grid container spacing={2}>
                 {props.task.map((task) => {
                     return (
-                        <Grid item xs={12} sm={12} md={4} lg={4} key={Task.id}>
+                        <Grid item xs={12} sm={12} md={4} lg={4} key={task.id}>
                             <Card elevation={6}>
                                 <CardContent>
                                     <Typography component='h5' variant='h5'>
