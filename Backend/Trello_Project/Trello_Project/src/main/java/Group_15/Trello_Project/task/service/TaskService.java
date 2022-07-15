@@ -110,6 +110,7 @@ public class TaskService {
                         tasksWithStatus.add(boardTasks.get(i));
                     }
                 } else if (dateFilter.equals("Week")) {
+                    //Citation: https://stackoverflow.com/questions/26012434/get-week-number-of-localdate-java-8
                     //compare if week numbers same
                     WeekFields weekFields = WeekFields.of(Locale.getDefault());
                     int currentWeekNumber = localCurrentDate.get(weekFields.weekOfWeekBasedYear());
@@ -149,7 +150,6 @@ public class TaskService {
         Optional<TaskModel> optionalTaskModel = taskRepository.findById(task_id);
 
         try {
-            //change to try and catch //error checking
             if (optionalTaskModel.isPresent()) {
                 taskModel = optionalTaskModel.get();
                 taskModel.setStatus(status);
