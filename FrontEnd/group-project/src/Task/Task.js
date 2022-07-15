@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ViewTask from './Viewtask';
-import { Typography, Stack} from '@mui/material';
+import { Typography} from '@mui/material';
 function Task(){
     const {id} = useParams();
     const url1 = `http://localhost:9000/task/getTaskWithStatus/${id}?status=TODO`

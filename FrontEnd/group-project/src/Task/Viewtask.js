@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Card, CardContent, Typography, Button, Stack } from '@mui/material';
 
-
+import { Link } from 'react-router-dom';
 function ViewTask(props) {
 
     
@@ -28,6 +28,11 @@ function ViewTask(props) {
                                     <Typography component='p' variant='p'>
                                     {task.status}
                                     </Typography>
+                                    <Link to={'/update-task'}>
+                                        <Button variant='contained' sx={{ marginTop: '100px' }} onClick={() => localStorage.setItem("taskID", task.id)}>
+                                            Update Status
+                                        </Button>
+                                    </Link>
                                 </CardContent>
                             </Card>
                         </Grid>

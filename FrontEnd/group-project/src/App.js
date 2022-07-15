@@ -22,6 +22,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Task from "./Task/Task";
 import CreateTask from "./Task/Createtask";
 import Navigation4 from "./Task/Navigation4";
+import UpdateTask from "./Task/Updatetask";
 
 function App() {
   return (
@@ -92,11 +93,11 @@ function App() {
 
         </Route>
 
-        {/* <Route path="/create-task" exact>
+        <Route path="/update-task" exact>
           <Navigation4 />
-          <CreateTask/>
+          <UpdateTask/>
 
-        </Route> */}
+        </Route>
 
       </Switch>
     </div>
