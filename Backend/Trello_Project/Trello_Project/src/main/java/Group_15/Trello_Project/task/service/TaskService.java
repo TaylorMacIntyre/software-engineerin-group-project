@@ -5,6 +5,7 @@ import Group_15.Trello_Project.board.repository.BoardRepository;
 import Group_15.Trello_Project.board.service.BoardService;
 import Group_15.Trello_Project.task.entity.TaskModel;
 import Group_15.Trello_Project.task.repository.TaskRepository;
+import Group_15.Trello_Project.user.service.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,8 @@ public class TaskService {
     @Autowired
     BoardService boardService;
 
+    @Autowired
+    UserServiceImplementation userService;
     public TaskModel createTask(TaskModel taskModel, Integer board_id) {
 
         TaskModel task = taskRepository.save(taskModel);
@@ -136,4 +139,20 @@ public class TaskService {
         return taskModel;
     }
 
+
+    public TaskModel assignUserToTask(Integer task_id, String email){
+        TaskModel taskModel = null;
+        Optional<TaskModel> task = taskRepository.findById(task_id);
+
+        try {
+            if(task.isPresent()){
+                taskModel = task.get();
+                userService.addTaskToUser(taskModel, email);
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return taskModel;
+    }
 }

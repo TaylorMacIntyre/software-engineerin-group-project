@@ -45,4 +45,9 @@ public class TaskController {
         return taskService.updateStatus(task_id, status);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(path = "/addUserToTask/{user_id}")
+    public TaskModel addUserToTask(@PathVariable Integer task_id, @RequestParam String email){
+        return taskService.assignUserToTask(task_id, email);
+    }
 }
