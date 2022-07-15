@@ -19,6 +19,8 @@ import AddingFunction from "./pages/AddingFunction";
 import { ToastContainer } from 'react-toastify';
 import Navigation3 from "./Task/Navigation3";
 import 'react-toastify/dist/ReactToastify.css';
+import Task from "./Task/Task";
+
 function App() {
   return (
     <div>
@@ -78,7 +80,7 @@ function App() {
         
         <Route path="/task/:id" exact>
           <Navigation3 />
-          
+          <Task/>
 
         </Route>
       </Switch>
