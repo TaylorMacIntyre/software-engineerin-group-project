@@ -79,38 +79,38 @@ public class TaskService {
 
     }
 
-    public List<TaskModel> getTaskWithDate(Integer board_id, String status, String date)
-    {
-        BoardModel boardModel = null;
-
-        Optional<BoardModel> optionalBoardModel = Optional.ofNullable(boardService.findBoardById(board_id));
-        List<TaskModel> tasksWithStatus = new ArrayList<>();
-
-        //https://beginnersbook.com/2017/10/java-convert-localdate-to-date/
-        ZoneId defaultZoneId = ZoneId.systemDefault();
-        LocalDate localCurrentDate = LocalDate.now();
-        Date currentDateObj = Date.from(localCurrentDate.atStartOfDay(defaultZoneId).toInstant());
-
-        if(optionalBoardModel.isPresent()) {
-
-            boardModel = optionalBoardModel.get();
-            List<TaskModel> boardTasks = boardModel.getTasks();
-
-            for(int i =0; i < boardTasks.size(); i++)
-            {
-                if(date.equals("Today")) {
-                    if (boardTasks.get(i).getStatus().equals(status) && (boardTasks.get(i).getDate().compareTo(currentDateObj) == 0)) {
-                        tasksWithStatus.add(boardTasks.get(i));
-                    }
-                }
-            }
-
-
-        }
-
-        return tasksWithStatus;
-
-    }
+//    public List<TaskModel> getTaskWithDate(Integer board_id, String status, String date)
+//    {
+//        BoardModel boardModel = null;
+//
+//        Optional<BoardModel> optionalBoardModel = Optional.ofNullable(boardService.findBoardById(board_id));
+//        List<TaskModel> tasksWithStatus = new ArrayList<>();
+//
+//        //https://beginnersbook.com/2017/10/java-convert-localdate-to-date/
+//        ZoneId defaultZoneId = ZoneId.systemDefault();
+//        LocalDate localCurrentDate = LocalDate.now();
+//        LocalDate currentDateObj = Date.from(localCurrentDate.atStartOfDay(defaultZoneId).toInstant());
+//
+//        if(optionalBoardModel.isPresent()) {
+//
+//            boardModel = optionalBoardModel.get();
+//            List<TaskModel> boardTasks = boardModel.getTasks();
+//
+//            for(int i =0; i < boardTasks.size(); i++)
+//            {
+//                if(date.equals("Today")) {
+//                    if (boardTasks.get(i).getStatus().equals(status) && (boardTasks.get(i).getDate().compareTo(currentDateObj) == 0)) {
+//                        tasksWithStatus.add(boardTasks.get(i));
+//                    }
+//                }
+//            }
+//
+//
+//        }
+//
+//        return tasksWithStatus;
+//
+//    }
 
 
 
@@ -125,6 +125,8 @@ public class TaskService {
             if (optionalTaskModel.isPresent()) {
                 taskModel = optionalTaskModel.get();
                 taskModel.setStatus(status);
+                taskRepository.save(taskModel);
+
             }
         } catch(Exception ex)
         {

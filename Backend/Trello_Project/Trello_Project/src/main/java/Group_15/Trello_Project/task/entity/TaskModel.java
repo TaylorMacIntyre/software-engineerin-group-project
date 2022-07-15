@@ -1,5 +1,9 @@
 package Group_15.Trello_Project.task.entity;
 
+import com.sun.istack.NotNull;
+import org.apache.tomcat.jni.Local;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -16,10 +20,11 @@ public class TaskModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private Date date;
+    private LocalDate date;
+    @NotNull
     private String status;
-
-    public TaskModel(String name, Date date, String status){
+    
+    public TaskModel(String name, LocalDate date, String status){
         this.name = name;
         this.date = date;
         this.status = status;
@@ -45,11 +50,11 @@ public class TaskModel {
         this.name = name;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -19,8 +19,8 @@ public class TaskController {
     TaskService taskService;
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(path = "/saveTask", consumes = "application/json", produces = "application/json")
-    public TaskModel createTask(@RequestBody TaskModel taskModel, @RequestParam Integer board_id) {
+    @PostMapping(path = "/saveTask/{board_id}", consumes = "application/json", produces = "application/json")
+    public TaskModel createTask(@RequestBody TaskModel taskModel, @PathVariable Integer board_id) {
         return taskService.createTask(taskModel, board_id);
     }
 
@@ -31,13 +31,14 @@ public class TaskController {
         return taskService.getTaskWithStatus(board_id, status);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/getTaskWithDate/{board_id}")
-    public List<TaskModel> getTaskWithDate(@PathVariable Integer board_id, @RequestParam String status, @RequestParam String date)
-    {
-        return taskService.getTaskWithDate(board_id, status, date);
-    }
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @GetMapping("/getTaskWithDate/{board_id}")
+//    public List<TaskModel> getTaskWithDate(@PathVariable Integer board_id, @RequestParam String status, @RequestParam String date)
+//    {
+//        return taskService.getTaskWithDate(board_id, status, date);
+//    }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping(path = "/updateStatus/{task_id}")
     public TaskModel updateStatus(@PathVariable Integer task_id, @RequestParam String status) {
 
