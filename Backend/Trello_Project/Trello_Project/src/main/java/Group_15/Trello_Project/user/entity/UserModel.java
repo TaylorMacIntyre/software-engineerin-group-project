@@ -23,7 +23,7 @@ public class UserModel {
     @JoinColumn(name = "Workspace_Users")
     private List<WorkspaceModel> workspaces;
 
-    @OneToMany(targetEntity = TaskModel.class)
+    @ManyToMany(targetEntity = TaskModel.class)
     @JoinColumn(name = "user_tasks")
     private List<TaskModel> tasks;    
 
