@@ -20,6 +20,10 @@ function Navigation3() {
                             Create Task
                         </Typography>
                     </Link>
+                    <form>
+                        <input type="text" id="header-search" placeholder="Search tasks" name="search"/>
+                        <button type="submit">Search</button>
+                    </form>
                 </Toolbar>
             </AppBar>
         </Box>
