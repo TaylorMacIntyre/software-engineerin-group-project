@@ -7,7 +7,7 @@ function CreateTask() {
     const history = useHistory();
     const BoardID = localStorage.getItem("boardID");
     function createTaskHandler(task) {
-        fetch(`http://localhost:9000/task/saveTask?board_id=${BoardID}`, {
+        fetch(`http://localhost:9000/task/saveTask/${BoardID}`, {
             method: 'POST',
             body: JSON.stringify(task),
             headers: {
