@@ -88,7 +88,6 @@ public class TaskService {
         BoardModel boardModel = null;
         Optional<BoardModel> optionalBoardModel = Optional.ofNullable(boardService.findBoardById(board_id));
         List<TaskModel> tasksWithStatus = new ArrayList<>();
-        Calendar calender = Calendar.getInstance();
         LocalDate localCurrentDate = LocalDate.now();
 
         if(optionalBoardModel.isPresent()) {
@@ -181,7 +180,7 @@ public class TaskService {
         return taskModel;
     }
 
-    public List<TaskModel> searchTask(Integer board_id, String searchValue){
+    public List<TaskModel> searchTask(Integer board_id, String searchValue, String status){
 
         BoardModel boardModel = null;
 
@@ -194,7 +193,7 @@ public class TaskService {
             List<TaskModel> boardTasks = boardModel.getTasks();
 
             for(int i =0; i < boardTasks.size(); i++) {
-                if (boardTasks.get(i).getName().toUpperCase().equals(searchValue.toUpperCase())) {
+                if ((boardTasks.get(i).getStatus().equals(status)) && (boardTasks.get(i).getName().toUpperCase().equals(searchValue.toUpperCase()))) {
                     tasksWithSearchFilter.add(boardTasks.get(i));
                 }
             }
