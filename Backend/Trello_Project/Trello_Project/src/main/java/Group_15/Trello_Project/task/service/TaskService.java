@@ -1,7 +1,6 @@
 package Group_15.Trello_Project.task.service;
 
 import Group_15.Trello_Project.board.entity.BoardModel;
-import Group_15.Trello_Project.board.repository.BoardRepository;
 import Group_15.Trello_Project.board.service.BoardService;
 import Group_15.Trello_Project.task.entity.TaskModel;
 import Group_15.Trello_Project.task.repository.TaskRepository;
@@ -203,4 +202,18 @@ public class TaskService {
         return tasksWithSearchFilter;
     }
 
+    public String retrieveTaskAssignee(Integer task_id){
+        Optional<Integer> id = taskRepository.findUserByTask(task_id);
+        String userFullName = "";
+        try {
+            if (id.isPresent()) {
+                Integer user_id = id.get();
+                userFullName = userService.getFullName(user_id);
+                return userFullName;
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return userFullName;
+    }
 }

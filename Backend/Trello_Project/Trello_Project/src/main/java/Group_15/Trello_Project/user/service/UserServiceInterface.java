@@ -27,4 +27,6 @@ public interface UserServiceInterface {
     public List<WorkspaceModel> getAllWorkspaces(Integer id);
 
     public boolean addTaskToUser(TaskModel task, String email);
+
+    public String getFullName(Integer user_id);
 }

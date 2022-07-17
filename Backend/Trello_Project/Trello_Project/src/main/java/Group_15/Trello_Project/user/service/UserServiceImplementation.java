@@ -215,4 +215,13 @@ public class UserServiceImplementation implements UserServiceInterface {
         return success;
     }
 
+    public String getFullName(Integer user_id){
+        Optional<UserModel> user = userRepository.findById(user_id);
+        if(user.isPresent()){
+            UserModel userModel = user.get();
+            return ""+userModel.getFirstName()+" "+userModel.getLastName();
+        }
+        return "";
+    }
+
 }
