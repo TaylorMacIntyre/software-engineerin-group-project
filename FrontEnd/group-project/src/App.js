@@ -24,6 +24,8 @@ import CreateTask from "./Task/Createtask";
 import Navigation4 from "./Task/Navigation4";
 import UpdateTask from "./Task/Updatetask";
 import AssignTask from "./Task/Assignuser";
+import Search from "./Task/Search";
+import Filter from "./Task/Filter";
 
 function App() {
   return (
@@ -104,6 +106,18 @@ function App() {
         <Route path="/assign-task" exact>
           <Navigation4 />
           <AssignTask/>
+
+        </Route>
+
+        <Route path="/search/:id/:result" exact>
+          <Navigation3 />
+          <Search/>
+
+        </Route>
+
+        <Route path="/filter/:id/:filter" exact>
+          <Navigation3 />
+          <Filter/>
 
         </Route>
 
