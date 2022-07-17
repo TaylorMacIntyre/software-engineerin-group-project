@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public interface UserServiceInterface {
-    public HashMap<String, String> signUpUser(UserModel userModel) throws EmailAlreadyRegisteredException;
+    public HashMap<String, String> signUpUser(UserModel userModel) throws EmailAlreadyRegisteredException, EmailAlreadyRegisteredException;
 
     public HashMap<String, String> updatePassword(String email, String securityAnswer, String newPw) throws EmailNotRegisteredException, IncorrectSecurityAnswerException, NewPasswordSameAsOldPasswordException;
 
@@ -29,4 +29,6 @@ public interface UserServiceInterface {
     public boolean addTaskToUser(TaskModel task, String email);
 
     public String getFullName(Integer user_id);
+
+    public boolean isUserInWorkspace(String email, Integer workspace_id);
 }
