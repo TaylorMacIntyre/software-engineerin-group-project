@@ -1,7 +1,6 @@
 package Group_15.Trello_Project.task.service;
 
 import Group_15.Trello_Project.board.entity.BoardModel;
-import Group_15.Trello_Project.board.repository.BoardRepository;
 import Group_15.Trello_Project.board.service.BoardService;
 import Group_15.Trello_Project.task.entity.TaskModel;
 import Group_15.Trello_Project.task.repository.TaskRepository;
@@ -164,10 +163,18 @@ public class TaskService {
     }
 
 
-    public TaskModel assignUserToTask(Integer task_id, String email){
+    public TaskModel assignUserToTask(Integer task_id, String email, Integer workspace_id){
         TaskModel taskModel = null;
+        boolean userInWorkspace = userService.isUserInWorkspace(email, workspace_id);
         Optional<TaskModel> task = taskRepository.findById(task_id);
 
+        if(!userInWorkspace){
+            return null;
+            //ie user isn't in workspace.. don't add the task to their list
+            //could also mean email isn't connected to a valid user
+        }
+
+        //else the user is present, and in the current workspace
         try {
             if(task.isPresent()){
                 taskModel = task.get();
@@ -203,4 +210,18 @@ public class TaskService {
         return tasksWithSearchFilter;
     }
 
+    public String retrieveTaskAssignee(Integer task_id){
+        Optional<Integer> id = taskRepository.findUserByTask(task_id);
+        String userFullName = "";
+        try {
+            if (id.isPresent()) {
+                Integer user_id = id.get();
+                userFullName = userService.getFullName(user_id);
+                return userFullName;
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return userFullName;
+    }
 }

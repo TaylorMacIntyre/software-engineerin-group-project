@@ -215,4 +215,33 @@ public class UserServiceImplementation implements UserServiceInterface {
         return success;
     }
 
+    public String getFullName(Integer user_id){
+        Optional<UserModel> user = userRepository.findById(user_id);
+        if(user.isPresent()){
+            UserModel userModel = user.get();
+            return ""+userModel.getFirstName()+" "+userModel.getLastName();
+        }
+        return "";
+    }
+
+    public boolean isUserInWorkspace(String email, Integer workspace_id){
+        Optional<UserModel> user = userRepository.findByEmail(email);
+        Integer id = -1;
+        if(user.isPresent()){
+            UserModel userModel = user.get();
+            List<WorkspaceModel> workspaces = userModel.getWorkspaces();
+            if( workspaces == null){
+                return false;
+            }else{
+                for(int i = 0; i <workspaces.size(); i++){
+                    id = workspaces.get(i).getId();
+                    if(id == workspace_id){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 }
