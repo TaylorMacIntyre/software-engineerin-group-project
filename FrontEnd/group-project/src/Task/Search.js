@@ -4,10 +4,11 @@ import ViewTask from './Viewtask';
 import { Typography} from '@mui/material';
 function Search(){
     const {id, result} = useParams();
+    (console.log(result))
     //CHANGE URL TO SEND TO SEARCH FUNCTION ONCE PARAMS CONFIRMED
-    const url1 = `http://localhost:9000/task/getTaskWithStatus/${id}?status=TODO`
-    const url2 = `http://localhost:9000/task/getTaskWithStatus/${id}?status=DOING`
-    const url3 = `http://localhost:9000/task/getTaskWithStatus/${id}?status=DONE`
+    const url1 = `http://localhost:9000/task/searchTask/${id}?status=TODO&searchValue=` + result
+    const url2 = `http://localhost:9000/task/searchTask/${id}?status=DOING&searchValue=` + result
+    const url3 = `http://localhost:9000/task/searchTask/${id}?status=DONE&searchValue=` + result
 
     const [taskData1, setTask1] = useState([]);
     const [taskData2, setTask2] = useState([]);
@@ -27,6 +28,7 @@ function Search(){
         .then(response => response.json())
         .then(task => {
             setTask2(task);
+            console.log(task)
         });
 
     },[url2]);

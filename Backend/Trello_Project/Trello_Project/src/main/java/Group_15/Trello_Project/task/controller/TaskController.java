@@ -53,7 +53,8 @@ public class TaskController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/searchTask/{board_id}")
-    public List<TaskModel> searchTask(@PathVariable Integer board_id, @RequestParam String searchValue){
-        return taskService.searchTask(board_id, searchValue);
+    public List<TaskModel> searchTask(@PathVariable Integer board_id, @RequestParam String searchValue, @RequestParam String status){
+        return taskService.searchTask(board_id, searchValue, status);
+
     }
 }
