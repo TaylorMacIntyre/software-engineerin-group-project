@@ -46,7 +46,7 @@ function Navigation3() {
                     <form onSubmit={filterTask}>
                     <label for="cars">Filter Tasks By: </label>
                         <select name="filters" id="filters" ref={FilterRef}>
-                            <option disabled selected value> -- select an option -- </option>
+                        <option disabled selected value> -- select an option -- </option>
                             <option value="Today">Due Today</option>
                             <option value="Week">Due This Week</option>
                             <option value="Overdue">Overdue</option>
