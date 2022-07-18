@@ -171,6 +171,10 @@ public class TaskServiceTests {
 
 
     //NOT IMPLEMENTED YET
-    //add member to task
+    //assignUserToTask
+
+    //SearchTask
+
+    //retrieveTaskAsignee
 
 }
