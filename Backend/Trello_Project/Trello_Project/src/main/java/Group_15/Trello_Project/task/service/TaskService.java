@@ -200,7 +200,7 @@ public class TaskService {
             List<TaskModel> boardTasks = boardModel.getTasks();
 
             for(int i =0; i < boardTasks.size(); i++) {
-                if ((boardTasks.get(i).getStatus().equals(status)) && (boardTasks.get(i).getName().toUpperCase().equals(searchValue.toUpperCase()))) {
+                if ((boardTasks.get(i).getStatus().equals(status)) && (boardTasks.get(i).getName().toUpperCase().contains(searchValue.toUpperCase()))) {
                     tasksWithSearchFilter.add(boardTasks.get(i));
                 }
             }
