@@ -44,7 +44,8 @@ function Search(){
 
     return(
     <section>
-        
+        <Typography variant='h2' component='h2'>Tasks filtered by: {filter}</Typography>
+        <br></br>
         <div>
             <Typography variant='h2' component='h2'>TODO</Typography>
             <ViewTask task={taskData1}/>

@@ -46,7 +46,8 @@ function Search(){
 
     return(
     <section>
-        
+        <Typography variant='h2' component='h2'>Search Results for the keyword: {result}</Typography>
+        <br></br>
         <div>
             <Typography variant='h2' component='h2'>TODO</Typography>
             <ViewTask task={taskData1}/>
