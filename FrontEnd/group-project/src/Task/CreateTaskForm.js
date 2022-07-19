@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import React, { useRef } from 'react';
 
 function CreateTaskForm(props) {
@@ -33,26 +33,15 @@ function CreateTaskForm(props) {
                     fullWidth
                     margin='dense'
                     inputRef={TaskNameRef} />
-                <TextField
-                    id='taskDate'
-                    placeholder='Task Date'
-                    variant='outlined'
-                    multiline
-                    rows={4}
-                    required
-                    fullWidth
-                    margin='dense'
-                    inputRef={TaskDateRef} />
-                <TextField
-                    id='taskStatus'
-                    placeholder='Task Status'
-                    variant='outlined'
-                    multiline
-                    rows={4}
-                    required
-                    fullWidth
-                    margin='dense'
-                    inputRef={TaskStatusRef} />
+                <Typography variant='h4' component='h4'>Select Task Date:</Typography>
+                <input type="date" id="task-date" name="task-date" ref={TaskDateRef}></input>
+                <Typography variant='h4' component='h4'>Select Task Status:</Typography>
+                        <select name="filters" id="filters" ref={TaskStatusRef}>
+                            <option value="TODO">To Do</option>
+                            <option value="DOING">Doing</option>
+                            <option value="DONE">Done</option>
+                        </select>
+                <br></br>
                 <Button type='submit' variant='contained' color='primary' sx={{ marginTop: '16px' }}>
                     Create Task
                 </Button>

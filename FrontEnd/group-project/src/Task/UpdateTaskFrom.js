@@ -11,16 +11,15 @@ function UpdateTaskForm(props) {
     return (
         <section style={{ marginTop: '32px' }}>
             <Typography variant='h2' component='h2'>Update Task</Typography>
+            <br></br>
+            <Typography variant='h4' component='h4'>Select Task Status:</Typography>
             <form onSubmit={updateTask}>
-                <TextField
-                    id='Status'
-                    placeholder='Status'
-                    variant='outlined'
-                    required
-                    fullWidth
-                    margin='dense'
-                    inputRef={StatusRef} />
-                
+                        <select name="filters" id="filters" ref={StatusRef}>
+                            <option value="TODO">To Do</option>
+                            <option value="DOING">Doing</option>
+                            <option value="DONE">Done</option>
+                        </select>
+                <br></br>
                 <Button type='submit' variant='contained' color='primary' sx={{ marginTop: '16px' }}>
                     Update Task
                 </Button>
