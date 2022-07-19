@@ -18,30 +18,31 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-
-@ExtendWith(MockitoExtension.class)
+@ContextConfiguration(classes = {TaskService.class})
+@ExtendWith(SpringExtension.class)
 public class TaskServiceTests {
 
-    @Mock
-    @Autowired
+    @MockBean
     private TaskRepository taskRepository;
 
-    @InjectMocks
+    @Autowired
     private TaskService taskService = new TaskService();
 
     @MockBean
-    @Autowired
-    BoardService boardService;
+    private BoardService boardService;
 
     @MockBean
-    UserServiceImplementation userService;
+    private UserServiceImplementation userService;
 
     private TaskModel taskModel;
     private Calendar cal;
@@ -56,6 +57,7 @@ public class TaskServiceTests {
 //        date1 = cal.getTime();
         //create task model
         taskModel = new TaskModel("name1", date1, "To-Do");
+        taskModel.setId(2);
     }
 
     @AfterEach
@@ -103,9 +105,7 @@ public class TaskServiceTests {
     public void getTaskWithStatus_successful(){
         Integer board_id = 2;
         String status = "To-Do";
-        BoardModel boardModel = new BoardModel();
-        //Optional<BoardModel> board = Optional.of(boardModel);
-        when(boardService.findBoardById(anyInt())).thenReturn(boardModel);
+        BoardModel boardModel = new BoardModel("testBoard", "board for tests");
         List<TaskModel> tasks = new ArrayList<>();
         tasks.add(taskModel);
         boardModel.setTasks(tasks);
@@ -120,35 +120,36 @@ public class TaskServiceTests {
         String status = "To-Do";
         BoardModel boardModel = null;
         //Optional<BoardModel> board = Optional.of(boardModel);
-        when(boardService.findBoardById(anyInt())).thenReturn(boardModel);
-        boardModel.setTasks(null);
+        //when(boardService.findBoardById(anyInt())).thenReturn(boardModel);
+        //boardModel.setTasks(null);
         List<TaskModel> returnedTasks = new ArrayList<>();
-        assertNull(returnedTasks);
+        taskService.getTaskWithStatus(2, status);
+        assertEquals(0, returnedTasks.size());
     }
 
         //getTaskWithDate
     //successful
-//    @Test
-//    public void getTaskWithDate_success(){
-//        Integer board_id = 2;
-//        String status = "To-Do";
-//        LocalDate date1 = taskModel.getDate();
-//        BoardModel tempBoard = new BoardModel();
-//        tempBoard.setId(board_id);
-//        boardService.addTaskToBoard(2, taskModel.getId());
-//        when(boardService.findBoardById(anyInt())).thenReturn(tempBoard);
-//        List<TaskModel> returnedTasks = taskService.getTaskWithDate(2, status, "Today");
-//        assertNotNull(returnedTasks);
-//    }
+    @Test
+    public void getTaskWithDate_success(){
+      Integer board_id = 2;
+      String status = "To-Do";
+      LocalDate date1 = taskModel.getDate();
+      BoardModel tempBoard = new BoardModel();
+      tempBoard.setId(board_id);
+      //boardService.addTaskToBoard(2, taskModel.getId());
+      //when(boardService.findBoardById(anyInt())).thenReturn(tempBoard);
+      List<TaskModel> returnedTasks = taskService.getTaskWithDate(2, status, "Today");
+      assertNotNull(returnedTasks);
+  }
 
     //unsuccessful, board id doesn't exist
-//    @Test
-//    public void getTaskWithDate_failureBoardIdNonExistant(){
-//        BoardModel nullBoard = null;
-//        when(boardService.findBoardById(anyInt())).thenReturn(nullBoard);
-//        List<TaskModel> returnedTasks = taskService.getTaskWithDate(2, "Today", "02/04/2022");
-//        assertEquals(0, returnedTasks.size());
-//    }
+    @Test
+    public void getTaskWithDate_failureBoardIdNonExistant(){
+        BoardModel nullBoard = null;
+        //when(boardService.findBoardById(anyInt())).thenReturn(nullBoard);
+        List<TaskModel> returnedTasks = taskService.getTaskWithDate(2, "Today", "02/04/2022");
+        assertEquals(0, returnedTasks.size());
+    }
 
         //updateStatus
     //successful, task id is present
@@ -171,10 +172,53 @@ public class TaskServiceTests {
 
 
     //NOT IMPLEMENTED YET
-    //assignUserToTask
+        //assignUserToTask
+    //assignUserToTask_Successful
+    @Test
+    public void assignUserToTask_successful(){
+        UserModel user = new UserModel("jane", "doe", "email", "password", "sec ans");
+        user.setId(1);
+        when(userService.isUserInWorkspace(anyString(), anyInt())).thenReturn(true);
+        Mockito.when(taskRepository.findById(anyInt())).thenReturn(Optional.of(taskModel));
+        TaskModel returnedTask = taskService.assignUserToTask(taskModel.getId(), "email", 2);
+        assertNotNull(returnedTask);
+    }
+
+    //assignUserToTask_failUserNotInWorkspace
+    @Test
+    public void assignUserToTask_failUserNotInWorkspace(){
+        UserModel user = new UserModel("jane", "doe", "email", "password", "sec ans");
+        user.setId(1);
+        Mockito.when(taskRepository.findById(anyInt())).thenReturn(Optional.of(taskModel));
+        TaskModel returnedTask = taskService.assignUserToTask(taskModel.getId(), "email", 2);
+        assertNull(returnedTask);
+    }
+
+
+
+        //retrieveTaskAssignee
+    //retrieveTaskAssignee_success
+    @Test
+    public void retrieveTaskAssignee_success(){
+        UserModel user = new UserModel("jane", "doe", "email", "password", "sec ans");
+        user.setId(1);
+        Mockito.when(taskRepository.findUserByTask(anyInt())).thenReturn(Optional.of(1));
+        when(userService.getFullName(anyInt())).thenReturn("jane doe");
+        String name = taskService.retrieveTaskAssignee(2);
+        assertEquals("jane doe", name);
+    }
+
+    //retrieveTaskAssignee_failureUserNotPresent
+    @Test
+    public void retrieveTaskAssignee_failureUserNotPresent(){
+        Mockito.when(taskRepository.findUserByTask(anyInt())).thenReturn(Optional.empty());
+        //when(userService.getFullName(anyInt())).thenReturn("jane doe");
+        String name = taskService.retrieveTaskAssignee(2);
+        assertEquals("", name);
+    }
 
     //SearchTask
 
-    //retrieveTaskAsignee
+
 
 }
