@@ -26,7 +26,10 @@ function ViewTask(props) {
                                     {task.date}
                                     </Typography>
                                     <Typography component='p' variant='p'>
-                                    {task.status}
+                                    Assigned to: {task.userFullName}
+                                    </Typography>
+                                    <Typography component='p' variant='p'>
+                                    Status: {task.status}
                                     </Typography>
                                     <Link to={'/update-task'}>
                                         <Button variant='contained' sx={{ marginTop: '100px' }} onClick={() => localStorage.setItem("taskID", task.id)}>
