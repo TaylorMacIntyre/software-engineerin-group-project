@@ -1,17 +1,13 @@
 package Group_15.Trello_Project.task.entity;
 
 import com.sun.istack.NotNull;
-import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class TaskModel {
@@ -23,11 +19,12 @@ public class TaskModel {
     private LocalDate date;
     @NotNull
     private String status;
-    
+    private String userFullName;
     public TaskModel(String name, LocalDate date, String status){
         this.name = name;
         this.date = date;
         this.status = status;
+        this.userFullName = "";
     }
 
     public TaskModel(){
@@ -64,5 +61,13 @@ public class TaskModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getUserFullName() {
+        return userFullName;
+    }
+
+    public void setUserFullName(String fullName) {
+        this.userFullName = fullName;
     }
 }

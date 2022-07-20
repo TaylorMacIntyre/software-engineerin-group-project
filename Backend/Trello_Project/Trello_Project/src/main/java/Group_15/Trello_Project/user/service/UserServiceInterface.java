@@ -31,4 +31,6 @@ public interface UserServiceInterface {
     public String getFullName(Integer user_id);
 
     public boolean isUserInWorkspace(String email, Integer workspace_id);
+
+    public String getFullNameByEmail(String email);
 }

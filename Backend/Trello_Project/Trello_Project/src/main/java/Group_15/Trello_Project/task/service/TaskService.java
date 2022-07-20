@@ -7,12 +7,8 @@ import Group_15.Trello_Project.task.repository.TaskRepository;
 import Group_15.Trello_Project.user.service.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.ZoneId;
 import java.time.temporal.WeekFields;
 import java.util.*;
 
@@ -167,6 +163,7 @@ public class TaskService {
         TaskModel taskModel = null;
         boolean userInWorkspace = userService.isUserInWorkspace(email, workspace_id);
         Optional<TaskModel> task = taskRepository.findById(task_id);
+        
 
         if(!userInWorkspace){
             return null;
@@ -179,6 +176,8 @@ public class TaskService {
             if(task.isPresent()){
                 taskModel = task.get();
                 userService.addTaskToUser(taskModel, email);
+                taskModel.setUserFullName(userService.getFullNameByEmail(email));
+                taskRepository.save(taskModel);
             }
         } catch(Exception ex) {
             ex.printStackTrace();

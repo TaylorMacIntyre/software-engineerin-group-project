@@ -244,4 +244,14 @@ public class UserServiceImplementation implements UserServiceInterface {
         return false;
     }
 
+
+    public String getFullNameByEmail(String email){
+        Optional<UserModel> user = userRepository.findByEmail(email);
+        if(user.isPresent()){
+            UserModel userModel = user.get();
+            return ""+userModel.getFirstName()+" "+userModel.getLastName();
+        }
+        return "";
+    }
+
 }
