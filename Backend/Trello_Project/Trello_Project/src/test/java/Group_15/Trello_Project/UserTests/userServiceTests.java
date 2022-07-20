@@ -1,6 +1,7 @@
 package Group_15.Trello_Project.UserTests;
 
 import Group_15.Trello_Project.*;
+import Group_15.Trello_Project.task.entity.TaskModel;
 import Group_15.Trello_Project.user.entity.UserModel;
 import Group_15.Trello_Project.user.repository.UserRepository;
 import Group_15.Trello_Project.user.service.UserServiceImplementation;
@@ -16,6 +17,9 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -40,12 +44,15 @@ public class userServiceTests {
     @InjectMocks
     private UserServiceImplementation userService = new UserServiceImplementation();
     //private UserModel userModel;  DEMO says we don't need it
-
+    private Calendar cal;
+    private LocalDate date1;
     private HashMap<String, String> map = new HashMap<>();
     @BeforeEach
     public void setUp() throws EmailAlreadyRegisteredException {
         //unsure what to put here, or if it's even needed
         MockitoAnnotations.initMocks(this);
+        cal = Calendar.getInstance();
+        cal.set(2022, 07, 20);
     }
 
     @AfterEach
@@ -56,7 +63,7 @@ public class userServiceTests {
 
 
 
-    //SIGNUP
+        //SIGNUP
     //check saved user is not null after successful signup
     @Test
     public void testSignUp_successfulSignUpIDIsCorrect() throws EmailAlreadyRegisteredException {
@@ -92,7 +99,8 @@ public class userServiceTests {
 
 
 
-    //LOGIN
+        //LOGIN
+    //successful
     @Test
     public void testLogin_successfulLogin() throws EmailAlreadyRegisteredException, IncorrectPasswordException, EmailNotRegisteredException {
         UserModel userModel = new UserModel("jane", "doe", "email@provider", "secret", "yellow");
@@ -152,7 +160,7 @@ public class userServiceTests {
 
 
 
-    //FORGOT PW
+        //FORGOT PW
     //check that userModel.pw == new password after update pw is called
     @Test
     public void testForgotPW_successfulPasswordUpdate() throws NewPasswordSameAsOldPasswordException, IncorrectSecurityAnswerException, EmailNotRegisteredException {
@@ -235,7 +243,8 @@ public class userServiceTests {
         assertEquals("false", map.get("result"));
     }
 
-    //find by user ID
+
+        //find by user ID
     // 1 - userModel is returned when user is present
     @Test
     public void testFindByUserId_userIsPresent() throws EmailAlreadyRegisteredException {
@@ -261,7 +270,50 @@ public class userServiceTests {
         //not sure if an empty object is null...
     }
 
-    //addWorkspaceToUserByEmail
+
+        //addWorkspaceToUserById
+    //successful
+    @Test
+    public void testAddUserToWorkspaceById_successful() throws EmailAlreadyRegisteredException {
+        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
+        userModel.setId(1);
+        userService.signUpUser(userModel);
+        WorkspaceModel workspace = new WorkspaceModel("test", "test");
+        Optional<UserModel> user = Optional.of(userModel);
+        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
+        boolean result = userService.addWorkspaceToUserById(1, workspace);
+        assertTrue(result);
+    }
+
+    //fails-user not in database
+    @Test
+    public void testAddUserToWorkspaceById_userNotPresent() throws EmailAlreadyRegisteredException {
+        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
+        userModel.setId(1);
+        userService.signUpUser(userModel);
+        WorkspaceModel workspace = new WorkspaceModel("test", "test");
+        Optional<UserModel> user = Optional.empty();
+        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
+        boolean result = userService.addWorkspaceToUserById(1, workspace);
+        assertFalse(result);
+    }
+
+    //fails-user already in workspace
+    @Test
+    public void testAddUserToWorkspaceById_workspaceIsNull() throws EmailAlreadyRegisteredException {
+        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
+        userModel.setId(1);
+        userService.signUpUser(userModel);
+        WorkspaceModel workspace = new WorkspaceModel("test", "test");
+        Optional<UserModel> user = Optional.of(userModel);
+        Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
+        boolean result = userService.addWorkspaceToUserById(1, workspace);
+        result = userService.addWorkspaceToUserById(1, workspace);
+        assertFalse(result);
+    }
+
+
+        //addWorkspaceToUserByEmail
     // check it is successful
     @Test
     public void testAddUserToWorkspaceByEmail_successfulAdd() throws EmailAlreadyRegisteredException {
@@ -277,7 +329,7 @@ public class userServiceTests {
 
     // check addUserToWorkspaceByEmail fails - user isn't present
     @Test
-    public void testAddUserToWorkspace_userNotPresent() throws EmailAlreadyRegisteredException {
+    public void testAddUserToWorkspaceByEmail_userNotPresent() throws EmailAlreadyRegisteredException {
         UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
         userModel.setId(1);
         userService.signUpUser(userModel);
@@ -290,7 +342,7 @@ public class userServiceTests {
 
     // check addUserToWorkspaceByEmail fails - user already has workspace in list, returns false
     @Test
-    public void testAddUserToWorkspace_workspaceIsNull() throws EmailAlreadyRegisteredException {
+    public void testAddUserToWorkspaceByEmail_workspaceIsNull() throws EmailAlreadyRegisteredException {
         UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
         userModel.setId(1);
         userService.signUpUser(userModel);
@@ -298,12 +350,12 @@ public class userServiceTests {
         Optional<UserModel> user = Optional.of(userModel);
         Mockito.when(userRepository.findByEmail( anyString() )).thenReturn(user);
         boolean result = userService.addWorkspaceToUserByEmail("email1", workspace);
-        result = userService.addWorkspaceToUserById(1, workspace);
+        result = userService.addWorkspaceToUserByEmail("email1", workspace);
         assertFalse(result);
     }
 
 
-    //getAllWorkspaces
+        //getAllWorkspaces
     //check it is successful
     @Test
     public void testGetAllWorkspaces_Success() throws EmailAlreadyRegisteredException {
@@ -342,5 +394,112 @@ public class userServiceTests {
         Mockito.when(userRepository.findById( anyInt() )).thenReturn(user);
         List<WorkspaceModel> workspaces = userService.getAllWorkspaces(1);
         assertEquals(null, workspaces);
+    }
+
+
+        //addTaskToUser
+    //addTaskToUser_Successful
+    @Test
+    public void addTaskToUser_Successful() throws EmailAlreadyRegisteredException{
+        TaskModel taskModel = new TaskModel("name1", date1, "To-Do");
+        taskModel.setId(2);
+        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
+        userModel.setId(1);
+        List<TaskModel> tasks = new ArrayList<>();
+        userModel.setTasks(tasks);
+        userService.signUpUser(userModel);
+        Optional<UserModel> user = Optional.of(userModel);
+        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
+        boolean outcome = userService.addTaskToUser(taskModel, "email1");
+        assertTrue(outcome);
+    }
+    
+    //addTaskToUser_fail-userNotPresent
+    @Test
+    public void addTaskToUser_fail_UserNotPresent() throws EmailAlreadyRegisteredException{
+        TaskModel taskModel = new TaskModel("name1", date1, "To-Do");
+        taskModel.setId(2);
+        Optional<UserModel> user = Optional.empty();
+        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
+        boolean outcome = userService.addTaskToUser(taskModel, "email1");
+        assertFalse(outcome);
+    }
+
+
+        //getFullName
+    //getFullName_success
+    @Test
+    public void getFullName_success() throws EmailAlreadyRegisteredException{
+        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
+        userModel.setId(1);
+        userService.signUpUser(userModel);
+        Optional<UserModel> user = Optional.of(userModel);
+        Mockito.when(userRepository.findById(anyInt())).thenReturn(user);
+        String returnedFullName = userService.getFullName(1);
+        assertEquals("fName1 lName", returnedFullName);
+        
+    }
+
+    //getFullName_fail_UserNotPresent
+    @Test
+    public void getFullName_fail_UserNotPresent() throws EmailAlreadyRegisteredException{
+        Optional<UserModel> user = Optional.empty();
+        Mockito.when(userRepository.findById(anyInt())).thenReturn(user);
+        String returnedFullName = userService.getFullName(1);
+        assertEquals("", returnedFullName);
+        
+    }
+
+
+        //isUserInWorkspace
+    //isUserInWorkspace_success
+    @Test
+    public void isUserInWorkspace_success() throws EmailAlreadyRegisteredException{
+        WorkspaceModel workspaceModel = new WorkspaceModel("testWorkspaceName", "testWorkspaceDesc");
+        workspaceModel.setId(1);
+        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
+        userModel.setId(1);
+        List<WorkspaceModel> workspaces = new ArrayList<>();
+        workspaces.add(workspaceModel);
+        userModel.setWorkspaces(workspaces);
+        userService.signUpUser(userModel);
+        Optional<UserModel> user = Optional.of(userModel);
+        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
+        boolean result = userService.isUserInWorkspace("email1", 1);
+        assertTrue(result);
+    }
+    
+    //isUserInWorkspace_fail_userNotPresent
+    @Test
+    public void isUserInWorkspace_fail_userNotPresent() throws EmailAlreadyRegisteredException{
+        Optional<UserModel> user = Optional.empty();
+        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
+        boolean result = userService.isUserInWorkspace("email1", 1);
+        assertFalse(result);
+    }
+
+    
+        //getFullNameByEmail
+    //getFullNameByEmail_success
+    @Test
+    public void getFullNameByEmail_success() throws EmailAlreadyRegisteredException{
+        UserModel userModel = new UserModel("fName1", "lName", "email1", "password1", "answer1");
+        userModel.setId(1);
+        userService.signUpUser(userModel);
+        Optional<UserModel> user = Optional.of(userModel);
+        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
+        String returnedFullName = userService.getFullNameByEmail("email1");
+        assertEquals("fName1 lName", returnedFullName);
+        
+    }
+
+    //getFullNameByEmail_fail_userNotPresent
+    @Test
+    public void getFullNameByEmail_fail_userNotPresent() throws EmailAlreadyRegisteredException{
+        Optional<UserModel> user = Optional.empty();
+        Mockito.when(userRepository.findByEmail(anyString())).thenReturn(user);
+        String returnedFullName = userService.getFullNameByEmail("email1");
+        assertEquals("", returnedFullName);
+        
     }
 }
