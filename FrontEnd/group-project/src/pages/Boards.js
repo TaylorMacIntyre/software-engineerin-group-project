@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import ViewBoards from '../components/ViewBoards';
 
 
 function Boards() {
     const {id} = useParams();
+    const history = useHistory();
     
     console.log({id})
     const [boardsData, setBoardsData] = useState([]);
     const url = `http://localhost:9000/workspace/getWorkspaceBoards/${id}`
 
-    // function getAllBoards() {
-    //     fetch(`http://localhost:9000/board/getAllBoards`,{method:'GET'})
-    //         .then(response => response.json())
-    //         .then(boards => {
-    //             setBoardsData(boards);
-    //         });
-    // };
 
     useEffect(function () {
         fetch(url,{method:'GET'})
@@ -27,12 +21,18 @@ function Boards() {
 
     },[url]);
 
-
-    return (
-        <section>
-            <ViewBoards boards={boardsData} />
-        </section>
-    );
+    if(localStorage.getItem("loggedin") === "true"){
+        return (
+            <section>
+                <ViewBoards boards={boardsData} />
+            </section>
+        );
+    }
+    else{
+        alert("Cannot access this page without logging in!")
+        history.replace("/login");
+    }
+    
 };
 
 export default Boards;

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import ViewTask from './Viewtask';
 import { Typography} from '@mui/material';
+
 function Task(){
+    const history = useHistory();
     const {id} = useParams();
     const url1 = `http://localhost:9000/task/getTaskWithStatus/${id}?status=TODO`
     const url2 = `http://localhost:9000/task/getTaskWithStatus/${id}?status=DOING`
@@ -39,23 +41,31 @@ function Task(){
 
     },[url3]);
 
-    return(
-    <section>
-        
-        <div>
-            <Typography variant='h2' component='h2'>TODO</Typography>
-            <ViewTask task={taskData1}/>
-        </div>    
-        <div>
-            <Typography variant='h2' component='h2'>DOING</Typography>   
-            <ViewTask task={taskData2}/>
-        </div>   
-        <div>
-            <Typography variant='h2' component='h2'>DONE</Typography>
-            <ViewTask task={taskData3}/>
-        </div>   
-    </section>
-    )
+    if(localStorage.getItem("loggedin") === "true"){
+        return(
+            <section>
+                
+                <div>
+                    <Typography variant='h2' component='h2'>TODO</Typography>
+                    <ViewTask task={taskData1}/>
+                </div>    
+                <div>
+                    <Typography variant='h2' component='h2'>DOING</Typography>   
+                    <ViewTask task={taskData2}/>
+                </div>   
+                <div>
+                    <Typography variant='h2' component='h2'>DONE</Typography>
+                    <ViewTask task={taskData3}/>
+                </div>   
+            </section>
+            )
+    }
+    else{
+        alert("Cannot access this page without logging in!")
+        history.replace("/login");
+    }
+
+    
 }
 
 export default Task;

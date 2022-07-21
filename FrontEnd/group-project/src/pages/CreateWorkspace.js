@@ -18,9 +18,16 @@ function CreateWorkSpace() {
         }).then(() => history.replace(`/WorkSpace/${uid}`));
     }
 
-    return (
-        <CreateSpaceForm createSpace={createSpaceHandler} />
-    );
+    if(localStorage.getItem("loggedin") === "true"){
+        return (
+            <CreateSpaceForm createSpace={createSpaceHandler} />
+        );
+    }
+    else{
+        alert("Cannot access this page without logging in!")
+        history.replace("/login");
+    }
+    
 };
 
 export default CreateWorkSpace;

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import ViewTask from './Viewtask';
 import { Typography} from '@mui/material';
+
 function Search(){
+    const history = useHistory();
     const {id, filter} = useParams();
-    //filter gets to back end, so something to do with back end??????
+
     const url1 = `http://localhost:9000/task/getTaskWithDate/${id}?status=TODO&dateFilter=` + filter
     const url2 = `http://localhost:9000/task/getTaskWithDate/${id}?status=DOING&dateFilter=` + filter
     const url3 = `http://localhost:9000/task/getTaskWithDate/${id}?status=DONE&dateFilter=` + filter
@@ -40,26 +42,31 @@ function Search(){
 
     },[url3]);
 
-    //Add way for user to clear filter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    if(localStorage.getItem("loggedin") === "true"){
+        return(
+            <section>
+                <Typography variant='h2' component='h2'>Tasks filtered by: {filter}</Typography>
+                <br></br>
+                <div>
+                    <Typography variant='h2' component='h2'>TODO</Typography>
+                    <ViewTask task={taskData1}/>
+                </div>    
+                <div>
+                    <Typography variant='h2' component='h2'>DOING</Typography>   
+                    <ViewTask task={taskData2}/>
+                </div>   
+                <div>
+                    <Typography variant='h2' component='h2'>DONE</Typography>
+                    <ViewTask task={taskData3}/>
+                </div>   
+            </section>
+            )
+    }
+    else{
+        alert("Cannot access this page without logging in!")
+        history.replace("/login");
+    }
 
-    return(
-    <section>
-        <Typography variant='h2' component='h2'>Tasks filtered by: {filter}</Typography>
-        <br></br>
-        <div>
-            <Typography variant='h2' component='h2'>TODO</Typography>
-            <ViewTask task={taskData1}/>
-        </div>    
-        <div>
-            <Typography variant='h2' component='h2'>DOING</Typography>   
-            <ViewTask task={taskData2}/>
-        </div>   
-        <div>
-            <Typography variant='h2' component='h2'>DONE</Typography>
-            <ViewTask task={taskData3}/>
-        </div>   
-    </section>
-    )
 }
 
 export default Search;

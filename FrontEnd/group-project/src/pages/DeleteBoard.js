@@ -15,9 +15,16 @@ function DeleteBoard() {
         }).then(() => history.replace('/boards/'+a));
     }
 
-    return(
-        <DeleteBoardForm deleteBoard ={deleteBoardHandler}/>
-    );
+    if(localStorage.getItem("loggedin") === "true"){
+        return(
+            <DeleteBoardForm deleteBoard ={deleteBoardHandler}/>
+        );
+    }
+    else{
+        alert("Cannot access this page without logging in!")
+        history.replace("/login");
+    }
+    
 }
 
 export default DeleteBoard;
