@@ -16,9 +16,16 @@ function AddingFunction() {
         }).then(() => history.replace('/WorkSpace/'+ uid));
     }
 
-    return(
-        <AddingForm Addingmember ={AddingHandler}/>
-    );
+    if(localStorage.getItem("loggedin") === "true"){
+        return(
+            <AddingForm Addingmember ={AddingHandler}/>
+        );
+    }
+    else{
+        alert("Cannot access this page without logging in!")
+        history.replace("/login");
+    }
+
 }
 
 export default AddingFunction;

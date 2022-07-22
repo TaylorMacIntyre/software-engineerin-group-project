@@ -2,6 +2,7 @@ package Group_15.Trello_Project.user.service;
 
 import Group_15.Trello_Project.*;
 import Group_15.Trello_Project.board.entity.BoardModel;
+import Group_15.Trello_Project.task.entity.TaskModel;
 import Group_15.Trello_Project.user.entity.UserModel;
 import Group_15.Trello_Project.user.repository.UserRepository;
 import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
@@ -191,4 +192,66 @@ public class UserServiceImplementation implements UserServiceInterface {
         }
         //then send List<WorkspaceModel>
     }
+
+    public boolean addTaskToUser(TaskModel task, String email){
+        UserModel userModel;
+        Optional<UserModel> user = userRepository.findByEmail(email);
+        boolean success = false;
+        if(user.isPresent()){
+            userModel = user.get();
+            List<TaskModel> tasks = userModel.getTasks();
+
+            if(tasks.isEmpty()){
+                 tasks = new ArrayList<TaskModel>();
+             }
+
+            if(!tasks.contains(task)){
+                tasks.add(task);
+                userModel.setTasks(tasks);
+                userRepository.save(userModel);
+                success = true;
+            }
+        }
+        return success;
+    }
+
+    public String getFullName(Integer user_id){
+        Optional<UserModel> user = userRepository.findById(user_id);
+        if(user.isPresent()){
+            UserModel userModel = user.get();
+            return ""+userModel.getFirstName()+" "+userModel.getLastName();
+        }
+        return "";
+    }
+
+    public boolean isUserInWorkspace(String email, Integer workspace_id){
+        Optional<UserModel> user = userRepository.findByEmail(email);
+        Integer id = -1;
+        if(user.isPresent()){
+            UserModel userModel = user.get();
+            List<WorkspaceModel> workspaces = userModel.getWorkspaces();
+            if( workspaces == null){
+                return false;
+            }else{
+                for(int i = 0; i <workspaces.size(); i++){
+                    id = workspaces.get(i).getId();
+                    if(id == workspace_id){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public String getFullNameByEmail(String email){
+        Optional<UserModel> user = userRepository.findByEmail(email);
+        if(user.isPresent()){
+            UserModel userModel = user.get();
+            return ""+userModel.getFirstName()+" "+userModel.getLastName();
+        }
+        return "";
+    }
+
 }

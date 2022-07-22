@@ -5,6 +5,8 @@ import LoginForm from "../components/LoginForm";
 //displays login page
 function LoginPage(){
 
+    localStorage.setItem("loggedin", false)
+
     //creates history variable for navigation
     const history = useHistory();
 
@@ -28,6 +30,7 @@ function LoginPage(){
             //if login data was correct, navigate to workspaces
             if(loginResponse.status === "successful login"){
                 localStorage.setItem("uid", loginResponse.result)
+                localStorage.setItem("loggedin", true)
                 history.replace("/WorkSpace/" + loginResponse.result);
             }
             //if login failed, alert user
