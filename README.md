@@ -55,17 +55,29 @@ Date accessed: June 24, 2022
 
 URL: [https://formik.org/docs/tutorial](https://formik.org/docs/tutorial) 
 
+Mockito for mocking the repository
+
+Date accessed: June 25th, 2022
+
+URL: [https://site.mockito.org/](https://site.mockito.org/)
+
 Material UI for styling
 
 Date accessed: June 23, 2022
 
 URL: https://mui.com/ 
 
-Mockito for mocking the repository
+React-Dom
 
-Date accessed: June 25th, 2022
+Date accessed: June 20, 2022
 
-URL: [https://site.mockito.org/](https://site.mockito.org/)
+URL: https://reactjs.org/docs/react-dom.html
+
+React-Router-Dom 
+
+Date accessed: June 20, 2022
+
+URL: https://v5.reactrouter.com/web/guides/quick-start
 
 The start code for board and workspace front end is from the react tutorial 2 section.
 
