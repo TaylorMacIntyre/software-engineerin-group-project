@@ -92,44 +92,38 @@ public class TaskService {
 
             for(int i =0; i < boardTasks.size(); i++)
             {
+                boolean getBoardTaskStatus = boardTasks.get(i).getStatus().equals(status);
+                boolean excludeDoneColumn = !boardTasks.get(i).getStatus().equals("Done");
+
+                //compare the day, month and year
+                int year = localCurrentDate.getYear();
+                int month = localCurrentDate.getMonthValue();
+                int day = localCurrentDate.getDayOfMonth();
+                LocalDate boardTasksDate = boardTasks.get(i).getDate();
+
+                boolean compareDayMonthYear = (( boardTasksDate.getYear() == year ) && ( boardTasksDate.getMonthValue() == month ) && ( boardTasksDate.getDayOfMonth() == day ));
+                boolean compareOverdueDates = (( boardTasksDate.getYear() <= year ) && (boardTasksDate.getMonthValue() <= month) && (boardTasksDate.getDayOfMonth() < day));
+
                 if (dateFilter.equals("Today")) {
-                    //compare the day, month and year
-                    int year = localCurrentDate.getYear();
-                    int month = localCurrentDate.getMonthValue();
-                    int day = localCurrentDate.getDayOfMonth();
                     
-                    LocalDate boardTasksDate = boardTasks.get(i).getDate();
-                    
-                    if (boardTasks.get(i).getStatus().equals(status) && (( boardTasksDate.getYear() == year ) && ( boardTasksDate.getMonthValue() == month ) && ( boardTasksDate.getDayOfMonth() == day ))) {
+                    if (getBoardTaskStatus && compareDayMonthYear) {
                         tasksWithStatus.add(boardTasks.get(i));
                     }
                 } else if (dateFilter.equals("Week")) {
-                    //Citation: https://stackoverflow.com/questions/26012434/get-week-number-of-localdate-java-8
                     //compare if week numbers same
                     WeekFields weekFields = WeekFields.of(Locale.getDefault());
                     int currentWeekNumber = localCurrentDate.get(weekFields.weekOfWeekBasedYear());
-
-                    LocalDate boardTasksDate = boardTasks.get(i).getDate();
                     int boardTaskWeekNumber = boardTasksDate.get(weekFields.weekOfWeekBasedYear());
 
-                    if (boardTasks.get(i).getStatus().equals(status) && (currentWeekNumber == boardTaskWeekNumber)){
+                    if (getBoardTaskStatus && (currentWeekNumber == boardTaskWeekNumber)){
                         tasksWithStatus.add(boardTasks.get(i));
                     }
                 } else if(dateFilter.equals("Overdue")) {
-                    //compare the day, month and year
-                    int year = localCurrentDate.getYear();
-                    int month = localCurrentDate.getMonthValue();
-                    int day = localCurrentDate.getDayOfMonth();
-
-                    LocalDate boardTasksDate = boardTasks.get(i).getDate();
-
-                    if ((boardTasks.get(i).getStatus().equals(status) && !boardTasks.get(i).getStatus().equals("Done")) && (( boardTasksDate.getYear() <= year ) && ( boardTasksDate.getMonthValue() <= month ) && ( boardTasksDate.getDayOfMonth() < day ))) {
+                    if (getBoardTaskStatus && excludeDoneColumn && compareOverdueDates) {
                         tasksWithStatus.add(boardTasks.get(i));
                     }
                 }
             }
-
-
         }
 
         return tasksWithStatus;
