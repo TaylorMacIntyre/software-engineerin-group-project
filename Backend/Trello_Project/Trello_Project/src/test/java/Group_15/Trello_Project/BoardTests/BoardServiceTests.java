@@ -3,6 +3,7 @@ package Group_15.Trello_Project.BoardTests;
 import Group_15.Trello_Project.board.entity.BoardModel;
 import Group_15.Trello_Project.board.repository.BoardRepository;
 import Group_15.Trello_Project.board.service.BoardService;
+import Group_15.Trello_Project.task.entity.TaskModel;
 import Group_15.Trello_Project.task.service.TaskService;
 import Group_15.Trello_Project.user.service.UserServiceImplementation;
 import org.junit.jupiter.api.Test;
@@ -14,12 +15,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -115,6 +116,26 @@ public class BoardServiceTests {
 
         assertNotNull(savedBoard);
 
+    }
+
+    @Test
+    public void addTaskToBoardTest()
+    {
+
+        BoardModel boardModel = new BoardModel("Test Board","Test Board Description");
+
+        TaskModel taskModel = new TaskModel("Test Task Name", LocalDate.now(),"Done");
+
+        List<TaskModel> tasks = new ArrayList<>();
+        tasks.add(taskModel);
+        boardModel.setTasks(tasks);
+
+        Mockito.when(boardRepository.findById(any())).thenReturn(Optional.of(boardModel));
+        when(taskService.findTaskById(any())).thenReturn(taskModel);
+
+        boolean addTaskToBoard = boardService.addTaskToBoard(boardModel.getId(), taskModel.getId());
+
+        assertTrue(addTaskToBoard);
     }
 }
 
