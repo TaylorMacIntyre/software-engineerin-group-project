@@ -30,103 +30,100 @@ import Navigation5 from "./Task/Navigation5";
 import Navigation6 from "./Task/Navigation6";
 
 function App() {
-  return (
-    <div>
-      <ToastContainer/>
-      <Switch>
-        <Route path="/register" exact>
-          <Navigation />
-          <RegisterPage />
-        </Route>
 
-        <Route path={["/", "/login"]} exact>
-          <Navigation />
-          <LoginPage />
-
-        </Route>
-
-        <Route path={['/WorkSpace/:uid']}>
-            <Navigation2 />
-            <WorkSpace />
-        </Route>
-
-        {/* <Route path={['/WorkSpace']} exact>
-            <Navigation2 />
-            <WorkSpace />
-        </Route> */}
-
-        <Route path='/create-WorkSpace' exact>
-            <Navigation2 />
-            <CreateWorkSpace />
+    return (
+      <div>
+        <ToastContainer/>
+        <Switch>
+          <Route path="/register" exact>
+            <Navigation />
+            <RegisterPage />
           </Route>
-
-          <Route path={'/boards/:id'}>
-            <Navigation1 />
-            <Boards />
+  
+          <Route path={["/", "/login"]} exact>
+            <Navigation />
+            <LoginPage />
+  
           </Route>
-
-          <Route path='/create-board' exact>
-            <Navigation1 />
-            <CreateBoard />
+  
+          <Route path={['/WorkSpace/:uid']}>
+              <Navigation2 />
+              <WorkSpace />
           </Route>
-
-          <Route path='/addmembertoworkspace' exact>
-            <Navigation1 />
-            <AddingFunction/>
+  
+          <Route path='/create-WorkSpace' exact>
+              <Navigation2 />
+              <CreateWorkSpace />
+            </Route>
+  
+            <Route path={'/boards/:id'}>
+              <Navigation1 />
+              <Boards />
+            </Route>
+  
+            <Route path='/create-board' exact>
+              <Navigation1 />
+              <CreateBoard />
+            </Route>
+  
+            <Route path='/addmembertoworkspace' exact>
+              <Navigation1 />
+              <AddingFunction/>
+            </Route>
+  
+            <Route path='/delete-board' exact>
+              <Navigation1 />
+              <DeleteBoard />
+            </Route>
+  
+          <Route path="/forgotpassword" exact>
+            <Navigation />
+            <PasswordPage />
+  
           </Route>
-
-          <Route path='/delete-board' exact>
-            <Navigation1 />
-            <DeleteBoard />
+          
+          <Route path="/task/:id" exact>
+            <Navigation3 />
+            <Task/>
+  
           </Route>
-
-        <Route path="/forgotpassword" exact>
-          <Navigation />
-          <PasswordPage />
-
-        </Route>
-        
-        <Route path="/task/:id" exact>
-          <Navigation3 />
-          <Task/>
-
-        </Route>
-
-        <Route path="/create-task" exact>
-          <Navigation4 />
-          <CreateTask/>
-
-        </Route>
-
-        <Route path="/update-task" exact>
-          <Navigation4 />
-          <UpdateTask/>
-
-        </Route>
-
-
-        <Route path="/assign-task" exact>
-          <Navigation4 />
-          <AssignTask/>
-
-        </Route>
-
-        <Route path="/search/:id/:result" exact>
-          <Navigation5 />
-          <Search/>
-
-        </Route>
-
-        <Route path="/filter/:id/:filter" exact>
-          <Navigation6 />
-          <Filter/>
-
-        </Route>
-
-      </Switch>
-    </div>
-
-  );
+  
+          <Route path="/create-task" exact>
+            <Navigation4 />
+            <CreateTask/>
+  
+          </Route>
+  
+          <Route path="/update-task" exact>
+            <Navigation4 />
+            <UpdateTask/>
+  
+          </Route>
+  
+  
+          <Route path="/assign-task" exact>
+            <Navigation4 />
+            <AssignTask/>
+  
+          </Route>
+  
+          <Route path="/search/:id/:result" exact>
+            <Navigation5 />
+            <Search/>
+  
+          </Route>
+  
+          <Route path="/filter/:id/:filter" exact>
+            <Navigation6 />
+            <Filter/>
+  
+          </Route>
+  
+        </Switch>
+      </div>
+  
+    );
+  
 }
 
 export default App;

@@ -17,9 +17,16 @@ function AssignTask() {
         }).then(() => history.replace(`/task/${BoardID}`));
     }
 
-    return(
-        <AssignTaskForm AssignTask ={assignTaskHandler}/>
-    );
+    if(localStorage.getItem("loggedin") === "true"){
+        return(
+            <AssignTaskForm AssignTask ={assignTaskHandler}/>
+        );
+    }
+    else{
+        alert("Cannot access this page without logging in!")
+        history.replace("/login");
+    }
+    
 }
 
 export default AssignTask;

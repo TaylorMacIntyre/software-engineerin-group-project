@@ -3,6 +3,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import CreateTaskForm from './CreateTaskForm';
 
+
 function CreateTask() {
     const history = useHistory();
     const BoardID = localStorage.getItem("boardID");
@@ -16,9 +17,15 @@ function CreateTask() {
         }).then(() => history.replace(`/task/${BoardID}`));
     }
     
-    return (
-        <CreateTaskForm createTask={createTaskHandler} />
-    );
+    if(localStorage.getItem("loggedin") === "true"){
+        return (
+            <CreateTaskForm createTask={createTaskHandler} />
+        );
+    }
+    else{
+        alert("Cannot access this page without logging in!")
+        history.replace("/login");
+    }
 }
 
 export default CreateTask;

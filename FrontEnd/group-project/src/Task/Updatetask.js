@@ -16,9 +16,16 @@ function UpdateTask() {
         }).then(() => history.replace(`/task/${BoardID}`));
     }
 
-    return(
-        <UpdateTaskForm UpdateTask ={updateTaskHandler}/>
-    );
+    if(localStorage.getItem("loggedin") === "true"){
+        return(
+            <UpdateTaskForm UpdateTask ={updateTaskHandler}/>
+        );
+    }
+    else{
+        alert("Cannot access this page without logging in!")
+        history.replace("/login");
+    }
+    
 }
 
 export default UpdateTask;

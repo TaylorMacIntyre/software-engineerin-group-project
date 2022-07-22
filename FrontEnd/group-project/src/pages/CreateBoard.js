@@ -33,11 +33,17 @@ function CreateBoard() {
     }
 
 
-
-    return (
-        <CreateBoardForm createBoard={createBoardHandler} />
-        
-    );
+    if(localStorage.getItem("loggedin") === "true"){
+        return (
+            <CreateBoardForm createBoard={createBoardHandler} />
+            
+        );
+    }
+    else{
+        alert("Cannot access this page without logging in!")
+        history.replace("/login");
+    }
+    
 };
 
 export default CreateBoard;
