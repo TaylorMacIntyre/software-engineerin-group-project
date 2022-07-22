@@ -92,15 +92,14 @@ public class TaskService {
 
             for(int i =0; i < boardTasks.size(); i++)
             {
-                boolean getBoardTaskStatus = boardTasks.get(i).getStatus().equals(status);
-                boolean excludeDoneColumn = !boardTasks.get(i).getStatus().equals("Done");
-
                 //compare the day, month and year
                 int year = localCurrentDate.getYear();
                 int month = localCurrentDate.getMonthValue();
                 int day = localCurrentDate.getDayOfMonth();
                 LocalDate boardTasksDate = boardTasks.get(i).getDate();
 
+                boolean getBoardTaskStatus = boardTasks.get(i).getStatus().equals(status);
+                boolean excludeDoneColumn = !boardTasks.get(i).getStatus().equals("Done");
                 boolean compareDayMonthYear = (( boardTasksDate.getYear() == year ) && ( boardTasksDate.getMonthValue() == month ) && ( boardTasksDate.getDayOfMonth() == day ));
                 boolean compareOverdueDates = (( boardTasksDate.getYear() <= year ) && (boardTasksDate.getMonthValue() <= month) && (boardTasksDate.getDayOfMonth() < day));
 
@@ -193,7 +192,10 @@ public class TaskService {
             List<TaskModel> boardTasks = boardModel.getTasks();
 
             for(int i =0; i < boardTasks.size(); i++) {
-                if ((boardTasks.get(i).getStatus().equals(status)) && (boardTasks.get(i).getName().toUpperCase().contains(searchValue.toUpperCase()))) {
+                boolean compareStatus = (boardTasks.get(i).getStatus().equals(status));
+                boolean findKeyword = (boardTasks.get(i).getName().toUpperCase().contains(searchValue.toUpperCase()));
+
+                if (compareStatus && findKeyword) {
                     tasksWithSearchFilter.add(boardTasks.get(i));
                 }
             }
