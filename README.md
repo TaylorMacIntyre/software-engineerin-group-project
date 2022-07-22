@@ -100,7 +100,11 @@ Date accessed: 15th July 2022
 
 URL: [https://stackoverflow.com/questions/26012434/get-week-number-of-localdate-java-8](https://stackoverflow.com/questions/26012434/get-week-number-of-localdate-java-8)
 
+The syntax to write the native query in the TaskRepository class came from following website:
 
+Date Accessed: July 17th 2022
+
+URL: [https://www.baeldung.com/spring-data-jpa-query](https://www.baeldung.com/spring-data-jpa-query)
 
 # Frontend
 
