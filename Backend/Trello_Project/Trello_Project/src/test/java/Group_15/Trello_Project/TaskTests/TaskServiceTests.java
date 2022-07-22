@@ -217,49 +217,80 @@ public class TaskServiceTests {
     }
 
     //SearchTask
-//    @Test
-//    public void searchTaskTest()
-//    {
-//
-//        BoardModel boardModel = new BoardModel("Test Board","Test Board Description");
-//
-//        TaskModel taskModel = new TaskModel("Test Task Name",LocalDate.now(),"Done");
-//
-//        List<TaskModel> tasks = new ArrayList<>();
-//        tasks.add(taskModel);
-//        boardModel.setTasks(tasks);
-//
-//        when(boardService.findBoardById(1)).thenReturn(boardModel);
-//
-//        List<TaskModel> savedTaskList = taskService.searchTask(boardModel.getId(), "Task","Done");
-//
-//        assertEquals(1,savedTaskList.size());
-//    }
+    @Test
+    public void searchTaskTest()
+    {
 
-//    @Test
-//    public void getTaskWithDateTest()
-//    {
-//        BoardModel boardModel = new BoardModel();
-//
-//        boardModel.setBoard_name("This is Test Board Name");
-//        boardModel.setBoard_description("This is Test Board Description");
-//
-//        TaskModel taskModel = new TaskModel();
-//
-//        taskModel.setName("Task");
-//        taskModel.setStatus("Done");
-//        taskModel.setDate(LocalDate.now());
-//
-//        List<TaskModel> tasks = new ArrayList<>();
-//        tasks.add(taskModel);
-//        boardModel.setTasks(tasks);
-//
-//
-//        when(boardService.findBoardById(anyInt())).thenReturn(boardModel);
-//
-//        List<TaskModel> taskModelList = taskService.getTaskWithDate(boardModel.getId(), "Done", "Today");
-//
-//        assertEquals(1, taskModelList.size());
-//    }
+        BoardModel boardModel = new BoardModel("Test Board","Test Board Description");
+
+        TaskModel taskModel = new TaskModel("Test Task Name",LocalDate.now(),"Done");
+
+        List<TaskModel> tasks = new ArrayList<>();
+        tasks.add(taskModel);
+        boardModel.setTasks(tasks);
+
+        when(boardService.findBoardById(any())).thenReturn(boardModel);
+
+        List<TaskModel> savedTaskList = taskService.searchTask(boardModel.getId(), "Test Task Name","Done");
+
+        assertEquals(1,savedTaskList.size());
+    }
+
+    @Test
+    public void getTaskWithTodayFilterTest()
+    {
+
+        BoardModel boardModel = new BoardModel("Test Board","Test Board Description");
+
+        TaskModel taskModel = new TaskModel("Test Task Name",LocalDate.now(),"Done");
+
+        List<TaskModel> tasks = new ArrayList<>();
+        tasks.add(taskModel);
+        boardModel.setTasks(tasks);
+
+        when(boardService.findBoardById(any())).thenReturn(boardModel);
+
+        List<TaskModel> savedTaskList = taskService.getTaskWithDate(boardModel.getId(), "Done","Today");
+
+        assertEquals(1,savedTaskList.size());
+    }
+
+    @Test
+    public void getTaskWithWeekFilterTest()
+    {
+
+        BoardModel boardModel = new BoardModel("Test Board","Test Board Description");
+
+        TaskModel taskModel = new TaskModel("Test Task Name",LocalDate.now(),"Done");
+
+        List<TaskModel> tasks = new ArrayList<>();
+        tasks.add(taskModel);
+        boardModel.setTasks(tasks);
+
+        when(boardService.findBoardById(any())).thenReturn(boardModel);
+
+        List<TaskModel> savedTaskList = taskService.getTaskWithDate(boardModel.getId(), "Done","Week");
+
+        assertEquals(1,savedTaskList.size());
+    }
+
+    @Test
+    public void getTaskWithOverdueFilterTest()
+    {
+
+        BoardModel boardModel = new BoardModel("Test Board","Test Board Description");
+
+        TaskModel taskModel = new TaskModel("Test Task Name",LocalDate.now(),"Done");
+
+        List<TaskModel> tasks = new ArrayList<>();
+        tasks.add(taskModel);
+        boardModel.setTasks(tasks);
+
+        when(boardService.findBoardById(any())).thenReturn(boardModel);
+
+        List<TaskModel> savedTaskList = taskService.getTaskWithDate(boardModel.getId(), "Done","Overdue");
+
+        assertEquals(0,savedTaskList.size());
+    }
 
 }
