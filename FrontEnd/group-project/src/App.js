@@ -16,9 +16,9 @@ import CreateWorkSpace from './pages/CreateWorkspace';
 import Navigation2 from './components/Navigation2';
 import DeleteBoard from './pages/DeleteBoard';
 import AddingFunction from "./pages/AddingFunction";
-import { ToastContainer } from 'react-toastify';
+//import { ToastContainer } from 'react-toastify';
 import Navigation3 from "./Task/Navigation3";
-import 'react-toastify/dist/ReactToastify.css';
+//import 'react-toastify/dist/ReactToastify.css';
 import Task from "./Task/Task";
 import CreateTask from "./Task/Createtask";
 import Navigation4 from "./Task/Navigation4";
@@ -33,7 +33,6 @@ function App() {
 
     return (
       <div>
-        <ToastContainer/>
         <Switch>
           <Route path="/register" exact>
             <Navigation />
