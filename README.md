@@ -94,6 +94,14 @@ URL-1: [https://dal.brightspace.com/d2l/le/content/221735/viewContent/3045067/Vi
 URL-2: [https://dal.brightspace.com/d2l/le/content/221735/viewContent/3046718/View](https://dal.brightspace.com/d2l/le/content/221735/viewContent/3046718/View)
 
 
+The week code section of the getTaskWithDate function in TaskService was referenced from the link below
+
+Date accessed: 15th July 2022 
+
+URL: [https://stackoverflow.com/questions/26012434/get-week-number-of-localdate-java-8](https://stackoverflow.com/questions/26012434/get-week-number-of-localdate-java-8)
+
+
+
 # Frontend
 
 
