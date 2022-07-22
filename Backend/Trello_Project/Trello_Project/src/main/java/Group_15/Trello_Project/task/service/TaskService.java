@@ -100,8 +100,16 @@ public class TaskService {
 
                 boolean getBoardTaskStatus = boardTasks.get(i).getStatus().equals(status);
                 boolean excludeDoneColumn = !boardTasks.get(i).getStatus().equals("Done");
-                boolean compareDayMonthYear = (( boardTasksDate.getYear() == year ) && ( boardTasksDate.getMonthValue() == month ) && ( boardTasksDate.getDayOfMonth() == day ));
-                boolean compareOverdueDates = (( boardTasksDate.getYear() <= year ) && (boardTasksDate.getMonthValue() <= month) && (boardTasksDate.getDayOfMonth() < day));
+
+                boolean compareYear = (boardTasksDate.getYear() == year);
+                boolean compareMonth = (boardTasksDate.getMonthValue() == month);
+                boolean compareDay = (boardTasksDate.getDayOfMonth() == day);
+                boolean compareDayMonthYear = (compareYear && compareMonth && compareDay);
+
+                boolean compareOverdueYear = (boardTasksDate.getYear() <= year);
+                boolean compareOverdueMonth = (boardTasksDate.getMonthValue() <= month);
+                boolean compareOverdueDay = (boardTasksDate.getDayOfMonth() < day);
+                boolean compareOverdueDates = (compareOverdueYear && compareOverdueMonth && compareOverdueDay);
 
                 if (dateFilter.equals("Today")) {
                     
@@ -118,7 +126,8 @@ public class TaskService {
                         tasksWithStatus.add(boardTasks.get(i));
                     }
                 } else if(dateFilter.equals("Overdue")) {
-                    if (getBoardTaskStatus && excludeDoneColumn && compareOverdueDates) {
+                    boolean isOverdue = (getBoardTaskStatus && excludeDoneColumn && compareOverdueDates);
+                    if (isOverdue) {
                         tasksWithStatus.add(boardTasks.get(i));
                     }
                 }
