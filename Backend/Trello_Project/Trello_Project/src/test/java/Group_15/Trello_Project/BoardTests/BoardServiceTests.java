@@ -3,6 +3,8 @@ package Group_15.Trello_Project.BoardTests;
 import Group_15.Trello_Project.board.entity.BoardModel;
 import Group_15.Trello_Project.board.repository.BoardRepository;
 import Group_15.Trello_Project.board.service.BoardService;
+import Group_15.Trello_Project.task.service.TaskService;
+import Group_15.Trello_Project.user.service.UserServiceImplementation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -30,6 +32,9 @@ public class BoardServiceTests {
 
     @Autowired
     private BoardService boardService;
+
+    @MockBean
+    private TaskService taskService;
 
 
     @Test
