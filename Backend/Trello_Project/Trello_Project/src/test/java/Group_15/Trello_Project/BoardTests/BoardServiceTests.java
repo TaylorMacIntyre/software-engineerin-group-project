@@ -3,15 +3,15 @@ package Group_15.Trello_Project.BoardTests;
 import Group_15.Trello_Project.board.entity.BoardModel;
 import Group_15.Trello_Project.board.repository.BoardRepository;
 import Group_15.Trello_Project.board.service.BoardService;
-import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
-import Group_15.Trello_Project.workspace.service.WorkspaceService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ public class BoardServiceTests {
         boardModel.setBoard_name("This is Test Board Name");
         boardModel.setBoard_description("This is Test Board Description");
 
-        Mockito.when(boardRepository.save(boardModel)).thenReturn(boardModel);
+        when(boardRepository.save(boardModel)).thenReturn(boardModel);
 
         BoardModel savedBoard = boardService.createBoard(boardModel);
 
@@ -93,7 +93,6 @@ public class BoardServiceTests {
         List<BoardModel> resultList = boardService.getAllBoards();
 
         assertNotNull(resultList);
-
 
     }
 

@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.scheduling.config.Task;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -25,8 +26,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 @ContextConfiguration(classes = {TaskService.class})
 @ExtendWith(SpringExtension.class)
@@ -36,7 +36,7 @@ public class TaskServiceTests {
     private TaskRepository taskRepository;
 
     @Autowired
-    private TaskService taskService = new TaskService();
+    private TaskService taskService;
 
     @MockBean
     private BoardService boardService;
@@ -195,7 +195,6 @@ public class TaskServiceTests {
     }
 
 
-
         //retrieveTaskAssignee
     //retrieveTaskAssignee_success
     @Test
@@ -218,7 +217,49 @@ public class TaskServiceTests {
     }
 
     //SearchTask
+//    @Test
+//    public void searchTaskTest()
+//    {
+//
+//        BoardModel boardModel = new BoardModel("Test Board","Test Board Description");
+//
+//        TaskModel taskModel = new TaskModel("Test Task Name",LocalDate.now(),"Done");
+//
+//        List<TaskModel> tasks = new ArrayList<>();
+//        tasks.add(taskModel);
+//        boardModel.setTasks(tasks);
+//
+//        when(boardService.findBoardById(1)).thenReturn(boardModel);
+//
+//        List<TaskModel> savedTaskList = taskService.searchTask(boardModel.getId(), "Task","Done");
+//
+//        assertEquals(1,savedTaskList.size());
+//    }
 
-
+//    @Test
+//    public void getTaskWithDateTest()
+//    {
+//        BoardModel boardModel = new BoardModel();
+//
+//        boardModel.setBoard_name("This is Test Board Name");
+//        boardModel.setBoard_description("This is Test Board Description");
+//
+//        TaskModel taskModel = new TaskModel();
+//
+//        taskModel.setName("Task");
+//        taskModel.setStatus("Done");
+//        taskModel.setDate(LocalDate.now());
+//
+//        List<TaskModel> tasks = new ArrayList<>();
+//        tasks.add(taskModel);
+//        boardModel.setTasks(tasks);
+//
+//
+//        when(boardService.findBoardById(anyInt())).thenReturn(boardModel);
+//
+//        List<TaskModel> taskModelList = taskService.getTaskWithDate(boardModel.getId(), "Done", "Today");
+//
+//        assertEquals(1, taskModelList.size());
+//    }
 
 }
