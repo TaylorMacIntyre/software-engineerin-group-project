@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import ViewSpace from '../components/ViewWorkSpace';
 
 
 
 function WorkSpace() {
-    
+    const history = useHistory();
     const {uid} = useParams();
     const [spacesData, setSpaceData] = useState([]);
     const url1 = `http://localhost:9000/workspace/getAllWorkspaces/${uid}`
@@ -18,12 +18,18 @@ function WorkSpace() {
             });
     }, [url1]);
 
-
-    return (
-        <section>
-            <ViewSpace space={spacesData} />
-        </section>
-    );
+    if(localStorage.getItem("loggedin") === "true"){
+        return (
+            <section>
+                <ViewSpace space={spacesData} />
+            </section>
+        );
+    }
+    else{
+        alert("Cannot access this page without logging in!")
+        history.replace("/login");
+    }
+    
 };
 
 export default WorkSpace;

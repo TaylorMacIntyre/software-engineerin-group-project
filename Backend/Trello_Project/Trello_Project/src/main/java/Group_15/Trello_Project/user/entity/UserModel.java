@@ -1,6 +1,7 @@
 package Group_15.Trello_Project.user.entity;
 
 import Group_15.Trello_Project.board.entity.BoardModel;
+import Group_15.Trello_Project.task.entity.TaskModel;
 import Group_15.Trello_Project.workspace.entity.WorkspaceModel;
 
 import javax.persistence.*;
@@ -17,11 +18,14 @@ public class UserModel {
     private String email;
     private String password;
     private String securityAnswer;
-    //UPDATE ME W TASKS INFO
 
     @ManyToMany(targetEntity = WorkspaceModel.class)
     @JoinColumn(name = "Workspace_Users")
     private List<WorkspaceModel> workspaces;
+
+    @OneToMany(targetEntity = TaskModel.class)
+    @JoinColumn(name = "user_tasks")
+    private List<TaskModel> tasks;    
 
     public UserModel(String firstName, String lastName, String email, String password, String securityAnswer) {
         this.firstName = firstName;
@@ -63,16 +67,16 @@ public class UserModel {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public List<WorkspaceModel> getWorkspaces() {
         return workspaces;
     }
 
     public void setWorkspaces(List<WorkspaceModel> workspaces) {
         this.workspaces = workspaces;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
@@ -91,5 +95,12 @@ public class UserModel {
         this.securityAnswer = securityQAnswer;
     }
 
+    public List<TaskModel> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<TaskModel> tasks) {
+        this.tasks = tasks;
+    }
 }
 
