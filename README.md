@@ -1,6 +1,8 @@
 # CSCI 3130 - Software Engineering (Summer 2022)
 
 
+# NOTE: DAL SERVERS WENT DOWN as we were doing our last few tests, so we are unable to confirm that our last commit removing the .iml file works as flawlessly as last night's demonstration... 
+
 
 * Date Created: 2022 07 07
 * Date Modified: 2022 07 22
@@ -172,7 +174,8 @@ URL: [https://www.baeldung.com/spring-data-jpa-query](https://www.baeldung.com/s
 
 * Connect to remote database using
     * username: csci3130_group15
-    * password:EeSo5eiyoh
+    * password: EeSo5eiyoh
+* IF USING INTELLIJ: Remove the .iml file before opening the project in IntelliJ, if a Load Maven pop-up comes up, click load
 * Locate and run the TrelloProjectApplication.java file
 
 
