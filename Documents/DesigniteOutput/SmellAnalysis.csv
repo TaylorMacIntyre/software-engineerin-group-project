@@ -1,10 +1,10 @@
 Implementation Smells,,,,,
 Method Name,Implementation Smell,Cause of the Smell,Method start line no,Justification,
 UserModel,Long Parameter List,The method has 5 parameters.,30,It is a constructor.. it requires all of that information to populate an object,
-getTaskWithDate,Complex Conditional,The conditional expression getBoardTaskStatus && excludeDoneColumn && compareOverdueDates is complex.,81,Boolean added to remove long expression from conditional,
+getTaskWithDate,Complex Conditional,The conditional expression getBoardTaskStatus && excludeDoneColumn && compareOverdueDates is complex.,81,,
 getTaskWithDate,Complex Method,Cyclomatic complexity of the method is 9,81,"Ideally this method should be broken up into smaller methods to reduce complexity, however there is not enough time before the release is due, so it will not be refactored.",
-getTaskWithDate,Long Statement,"The length of the statement ""boolean compareDayMonthYear=((boardTasksDate.getYear() == year) && (boardTasksDate.getMonthValue() == month) && (boardTasksDate.getDayOfMonth() == day));"" is 153.",81,Booleans were added to break the statement down,
-getTaskWithDate,Long Statement,"The length of the statement ""boolean compareOverdueDates=((boardTasksDate.getYear() <= year) && (boardTasksDate.getMonthValue() <= month) && (boardTasksDate.getDayOfMonth() < day));"" is 152.",81,Booleans were added to break the statement down,
+getTaskWithDate,Long Statement,"The length of the statement ""boolean compareDayMonthYear=((boardTasksDate.getYear() == year) && (boardTasksDate.getMonthValue() == month) && (boardTasksDate.getDayOfMonth() == day));"" is 153.",81,"^Same justification, not refactored",
+getTaskWithDate,Long Statement,"The length of the statement ""boolean compareOverdueDates=((boardTasksDate.getYear() <= year) && (boardTasksDate.getMonthValue() <= month) && (boardTasksDate.getDayOfMonth() < day));"" is 152.",81,"^Same justification, not refactored",
 ,,,,,
 Design Smells,,,,,
 Project Name,Package Name,Type Name,Design Smell,Cause of the Smell,Justification
